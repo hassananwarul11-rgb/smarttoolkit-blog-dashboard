@@ -8,3 +8,15 @@
 /blog /index.html 200
 /blog/* /index.html 200
 /page-* /index.html 200
+# Direct post slugs (no /posts/ prefix) — SEO-friendly URLs
+/resize-signature-to-20kb-ssc-bank-forms /index.html 200
+/compress-image-to-50kb-ssc-upsc-forms /index.html 200
+/marla-to-kanal-converter-plot-sizes /index.html 200
+/bijli-bill-calculator-how-bill-calculated /index.html 200
+/salary-tax-slabs-2025-26-salaried-guide /index.html 200
+/income-tax-new-regime-fy-2025-26-rebate-explained /index.html 200
+/how-to-calculate-zakat-gold-silver-cash /index.html 200
+/gst-calculator-add-remove-gst-guide /index.html 200
+/cgpa-to-percentage-converter-guide /index.html 200
+/emi-calculator-extra-principal-payments-guide /index.html 200
+/sip-calculator-monthly-investment-guide /index.html 200
