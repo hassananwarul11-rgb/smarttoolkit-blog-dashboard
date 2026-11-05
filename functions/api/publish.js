@@ -9,9 +9,10 @@
 //                    Contents: Read and write. No other repo, no other permission.
 // Flow: admin sends {password, post} -> this Function checks the password
 // against env.ADMIN_PASSWORD -> it updates posts.json in the GitHub repo
-// via the GitHub Contents API using env.GITHUB_TOKEN -> Cloudflare Pages
-// (connected to GitHub) redeploys, and index.html merges posts.json on load,
-// so the post appears in Blog, Latest Guides and the sidebar automatically.
+// via the GitHub Contents API using env.GITHUB_TOKEN -> the website fetches
+// that posts.json DYNAMICALLY from GitHub on every load, so the post appears
+// in Blog, Latest Guides and the sidebar on the next page refresh, WITHOUT
+// waiting for a Pages redeploy.
 // No password or token is ever logged, returned, or stored in the repo.
 
 const OWNER = "hassananwarul11-rgb";
@@ -119,7 +120,8 @@ export async function onRequestPost(context) {
     list.unshift({ ...clean, date: clean.date || new Date().toISOString().slice(0, 10) });
   }
 
-  // 4. Commit posts.json back to GitHub. Pages redeploys from this commit.
+  // 4. Commit posts.json back to GitHub. The site reads it dynamically, so
+  // no Pages redeploy wait is needed for the content to appear.
   const putBody = {
     message: `Publish post: ${p.slug} via admin`,
     content: b64encode(JSON.stringify(list, null, 2)),
@@ -140,7 +142,7 @@ export async function onRequestPost(context) {
     slug: p.slug,
     published: isPublished,
     message: isPublished
-      ? "Saved to GitHub. Cloudflare Pages will redeploy in a minute or two, then the post appears in Blog and sidebar."
+      ? "Saved to GitHub. The site loads posts.json dynamically, so refresh the website and the post appears in Blog and sidebar (GitHub may take under a minute to serve the new file)."
       : "Draft removed from live posts.json (not published).",
   });
 }

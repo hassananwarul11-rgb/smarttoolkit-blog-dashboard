@@ -186,9 +186,12 @@ function dl(name,text,type){const a=document.createElement('a');a.href=URL.creat
 function exportJSON(){dl('smarttoolkit-posts.json',JSON.stringify(POSTS,null,2),'application/json')}
 function exportCurrentHTML(){const p=POSTS.find(x=>x.id===$('f-id').value)||POSTS[0];dl(p.slug+'.html',`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>${p.seo}</title><meta name="description" content="${p.meta}"><link rel="canonical" href="https://smarttoolkit.space/posts/${p.slug}.html"></head><body><h1>${p.title}</h1>${p.body}</body></html>`,'text/html')}
 renderTools();renderPosts();
-// Live admin posts: posts.json is updated by the Cloudflare Pages Function
-// (/api/publish) when the admin publishes. Merge it here so an admin update
-// appears in Blog, Latest Guides and the sidebar as a static update after
-// the Pages redeploy — without editing this file for every post.
-fetch('posts.json').then(r=>r.ok?r.json():[]).then(list=>{if(!Array.isArray(list)||!list.length)return;let changed=false;list.forEach(p=>{if(p.status&&p.status!=='published')return;const i=POSTS.findIndex(x=>x.slug===p.slug);if(i>=0){const old=POSTS[i];const m={...old};for(const[k,v]of Object.entries(p)){if(v!==''&&v!==undefined&&v!==null)m[k]=v}if(!p.body)m.body=old.body;POSTS[i]=m}else{POSTS.unshift(p);changed=true}});if(changed)renderPosts()}).catch(()=>{});
+// DYNAMIC admin posts: posts.json is updated by the Cloudflare Pages Function
+// (/api/publish) when the admin publishes. This page fetches the LATEST
+// posts.json straight from GitHub on every load (with a cache-buster), so
+// an admin update appears in Blog, Latest Guides and the sidebar WITHOUT
+// waiting for a Pages redeploy and without editing this file for every post.
+// If GitHub raw fails, it falls back to the local posts.json served by Pages.
+function mergeLivePosts(list){if(!Array.isArray(list)||!list.length)return;let changed=false;list.forEach(p=>{if(p.status&&p.status!=='published')return;const i=POSTS.findIndex(x=>x.slug===p.slug);if(i>=0){const old=POSTS[i];const m={...old};for(const[k,v]of Object.entries(p)){if(v!==''&&v!==undefined&&v!==null)m[k]=v}if(!p.body)m.body=old.body;if(JSON.stringify(m)!==JSON.stringify(old)){POSTS[i]=m;changed=true}}else{POSTS.unshift(p);changed=true}});if(changed)renderPosts()}
+fetch('https://raw.githubusercontent.com/hassananwarul11-rgb/smarttoolkit-blog-dashboard/main/posts.json?t='+Date.now()).then(r=>r.ok?r.json():Promise.reject()).then(mergeLivePosts).catch(()=>fetch('posts.json').then(r=>r.ok?r.json():[]).then(mergeLivePosts).catch(()=>{}));
 </script></body></html>
