@@ -28,7 +28,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:image-kb",
       "displayName": "Image Compressor to Exact KB",
-      "description": "image-kb",
+      "description": "Compress photo/signature to 50KB, 20KB, 100KB for SSC, UPSC, IBPS & online forms. No upload.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/image-kb",
@@ -44,7 +44,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:marla",
       "displayName": "Marla to Kanal Converter",
-      "description": "marla",
+      "description": "Convert Marla, Kanal, square feet, square yards & acres — with both 225 and 272.25 sq ft standards.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/marla",
@@ -59,7 +59,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:bijli",
       "displayName": "Bijli Bill Calculator",
-      "description": "bijli",
+      "description": "Estimate your LESCO, IESCO, MEPCO, FESCO electricity bill from units — protected & non-protected slabs.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/bijli",
@@ -74,7 +74,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:paktax",
       "displayName": "Salary Tax Calculator 2025–26",
-      "description": "paktax",
+      "description": "Monthly salary tax under FBR Tax Year 2026 slabs, with take-home pay breakdown.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/paktax",
@@ -90,7 +90,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:indiatax",
       "displayName": "Income Tax Calculator — New Regime FY 2025–26",
-      "description": "indiatax",
+      "description": "New-regime tax with ₹75,000 standard deduction and Section 87A rebate up to ₹12 lakh.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/indiatax",
@@ -106,7 +106,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:gst",
       "displayName": "GST Calculator (Add / Remove GST)",
-      "description": "gst",
+      "description": "Add GST to a price or remove GST from a total at 5%, 12%, 18% or 28%, with CGST/SGST split.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/gst",
@@ -122,7 +122,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:zakat",
       "displayName": "Zakat Calculator — Gold, Silver & Cash",
-      "description": "zakat",
+      "description": "Calculate 2.5% Zakat on cash, gold, silver and business assets against the Nisab.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/zakat",
@@ -138,7 +138,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:emi",
       "displayName": "EMI Calculator with Extra Payments",
-      "description": "emi",
+      "description": "Loan EMI, total interest, and how extra monthly principal payments shorten your loan.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/emi",
@@ -154,7 +154,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:sip",
       "displayName": "SIP Calculator",
-      "description": "sip",
+      "description": "Monthly SIP growth projection with invested amount, estimated gains and maturity value.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/sip",
@@ -169,7 +169,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:cgpa",
       "displayName": "CGPA to Percentage Converter",
-      "description": "cgpa",
+      "description": "Convert CGPA to percentage (×9.5 CBSE method) and percentage back to CGPA.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/cgpa",
@@ -185,7 +185,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:age",
       "displayName": "Age Calculator",
-      "description": "age",
+      "description": "Exact age in years, months and days — for job forms, exams and ID applications.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/age",
@@ -200,7 +200,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:word",
       "displayName": "Word & Character Counter",
-      "description": "word",
+      "description": "Words, characters, sentences and reading time — for captions and essays.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/word",
@@ -216,7 +216,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:percent",
       "displayName": "Percentage Calculator",
-      "description": "percent",
+      "description": "Work out any percentage — what is X% of Y, percentage increase, decrease and change, with the formula shown.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/percent",
@@ -231,7 +231,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:bmi",
       "displayName": "BMI Calculator",
-      "description": "bmi",
+      "description": "Body Mass Index from height and weight, with the healthy range and what your result means.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/bmi",
@@ -246,7 +246,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:ci",
       "displayName": "Compound Interest Calculator",
-      "description": "ci",
+      "description": "How your money grows with compounding — maturity value, interest earned and yearly growth on savings and investments.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/ci",
@@ -261,7 +261,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:fd",
       "displayName": "Fixed Deposit Calculator",
-      "description": "fd",
+      "description": "FD maturity value and interest for any deposit, rate and tenure — monthly, quarterly or yearly compounding.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/fd",
@@ -276,7 +276,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:si",
       "displayName": "Simple Interest Calculator",
-      "description": "si",
+      "description": "Simple interest and total amount on any principal, rate and time — with the formula shown.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/si",
@@ -291,7 +291,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:discount",
       "displayName": "Discount Calculator",
-      "description": "discount",
+      "description": "Sale price after discount, amount saved and discount percentage — for shopping and billing.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/discount",
@@ -306,7 +306,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:tip",
       "displayName": "Tip Calculator",
-      "description": "tip",
+      "description": "How much to tip, total bill and split per person — for restaurants, delivery and services.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/tip",
@@ -321,7 +321,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:unit",
       "displayName": "Unit Converter",
-      "description": "unit",
+      "description": "Convert length, weight, volume and temperature — metres, feet, kg, pounds, litres, gallons, °C and °F.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/unit",
@@ -336,7 +336,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:datediff",
       "displayName": "Days Between Two Dates Calculator",
-      "description": "datediff",
+      "description": "How many days, weeks and months between any two dates — for deadlines, leave and planning.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/datediff",
@@ -351,7 +351,7 @@
     {
       "identifier": "urn:air:smarttoolkit.space:tool:gpa",
       "displayName": "GPA Calculator",
-      "description": "gpa",
+      "description": "Convert marks to GPA and GPA to marks — with percentage and grade alongside.",
       "type": "text/html",
       "mediaType": "text/html",
       "url": "https://smarttoolkit.space/tools/gpa",
