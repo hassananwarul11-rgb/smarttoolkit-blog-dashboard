@@ -58,6 +58,7 @@ const SEED_SLUGS = [
   'how-to-calculate-exact-age-in-excel','retirement-calculator-in-excel-how-much-you-need',
   'how-to-read-a-digital-water-meter','signature-resize-to-20kb-ssc-ibps-gds-exams',
   'income-tax-new-regime-vs-old-regime-which-is-better','how-to-calculate-zakat-on-business-stocks-property','sip-calculator-vs-lumpsum-which-grows-more','passport-size-photo-maker-visa-sizes','resize-image-for-whatsapp-dp-without-cropping','how-to-file-late-income-tax-return-belated-revised','credit-card-interest-free-period-explained','fixed-deposit-tax-tds-rates-explained','house-construction-cost-breakdown-material-labour','what-internet-speed-mbps-means-measured','days-between-two-dates-in-excel-formula','how-to-calculate-percentage-increase-and-decrease','bmi-for-kids-and-teens-healthy-ranges','how-much-tip-for-delivery-uber-eats-doordash',
+  'sip-calculator-swp-withdrawal-plan-explained',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
