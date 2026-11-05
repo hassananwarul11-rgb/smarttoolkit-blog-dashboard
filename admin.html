@@ -74,7 +74,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px;bord
 <div id="composer" contenteditable="true" oninput="seoCheck()"></div>
 <textarea id="htmlview" style="display:none;min-height:320px" oninput="syncHtmlBack()"></textarea>
 <p class="mut"><span id="wc">0 words</span> · <span id="rt">0 min read</span> · <span id="hc">0 headings</span></p>
-<button class="btn grey" onclick="preview()">👁 Preview</button> <button class="btn grey" onclick="exportOne()">⬇ Export This Post (HTML)</button>
+<button class="btn grey" onclick="preview()">👁 Preview</button>
 <div id="preview" style="display:none"></div>
 </div>
 <div class="card"><h2>🎯 SEO — live score</h2><div class="bar"><i id="scorebar" style="width:0%"></i></div><p><b id="score">0 / 100</b></p><ul id="checks"></ul>
@@ -88,17 +88,13 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px;bord
 <h3>JSON-LD Preview (Article schema)</h3><pre id="ld" style="white-space:pre-wrap;font-size:12px;background:#f6f7f7;padding:10px"></pre>
 </div>
 </div><div class="right">
-<div class="card"><h2>Publish</h2><label>Status</label><select id="status"><option>draft</option><option>published</option></select>
+<div class="card"><h2>Publish</h2>
 <label>Category</label><select id="cat"><option>India Tools</option><option>Pakistan Tools</option><option>Finance</option><option>Guides</option><option>General</option></select>
 <label>Tags (comma separated)</label><input id="tags" placeholder="ssc, photo, nadra">
 <label>Linked Tool</label><select id="tool"><option value="">— None —</option><option value="image-kb">Image Compressor to Exact KB</option><option value="marla">Marla–Kanal Converter</option><option value="bijli">Bijli Bill Estimator</option><option value="tax-pk">Pakistan Salary Tax</option><option value="tax-in">India New Regime Tax</option><option value="gst">GST Calculator</option><option value="zakat">Zakat Calculator</option><option value="emi">EMI Calculator</option><option value="sip">SIP Calculator</option><option value="cgpa">CGPA Converter</option><option value="age">Age Calculator</option></select>
-<button class="btn green" onclick="savePost()">💾 Save Post</button> <button class="btn" onclick="exportAll()">⬇ Export All (JSON)</button>
-<p class="mut">Save sirf is device par hota hai. Live publish ke liye Export JSON mujhe bhej do.</p>
-<h3>🚀 Publish Live (Dynamic Update)</h3>
-<p class="mut">Ye button post ko Cloudflare Pages Function (<b>/api/publish</b>) se GitHub ke <b>posts.json</b> me daalta hai. Website har load par latest posts.json GitHub se dynamic fetch karti hai, is liye post Blog + sidebar me next refresh par aa jati hai — Pages redeploy ka wait nahi karna parta. Is ke liye Cloudflare me <b>ADMIN_PASSWORD</b> aur <b>GITHUB_TOKEN</b> variables set hone chahiye — password aur token kabhi is file ya repo me nahi hote.</p>
-<label>Admin Password (Cloudflare variable wala)</label><input type="password" id="livepass" placeholder="Enter admin password for this publish only">
-<button class="btn green" onclick="publishLive()">🚀 Publish Live to Website</button><p class="mut" id="liveMsg"></p>
-<p class="mut">Note: Featured image data URL (upload ki hui file) live publish me nahi jayegi — live ke liye image URL use karo. Purani seed post ki SEO edit bina body ke bhi ho sakti hai, us ka poora article index.html me mehfooz rahega.</p></div>
+<label>Admin Password</label><input type="password" id="livepass" placeholder="Admin password">
+<button class="btn green" style="width:100%;padding:14px;font-size:17px" onclick="publishLive()">🚀 Publish</button><p class="mut" id="liveMsg"></p>
+<p class="mut">Publish dabate hi post website par aa jayegi — refresh karo to Blog aur sidebar me dikhegi. Image ke liye image URL use karo, uploaded file live nahi jayegi.</p></div>
 <div class="card"><h2>Featured Image</h2>
 <img id="featImg" class="feat" style="display:none"><input type="file" id="featFile" accept="image/*" onchange="featUpload(this)">
 <label>…or Image URL</label><input id="featUrl" placeholder="https://…/image.jpg" oninput="featUrlSet()">
@@ -147,9 +143,9 @@ $('recent').innerHTML=POSTS.slice(0,5).map(p=>`<p><b>${esc(p.title)}</b> <span c
 function renderPosts(){const q=($('search').value||'').toLowerCase(),fs=$('fstatus').value;const list=POSTS.filter(p=>(!q||p.title.toLowerCase().includes(q))&&(!fs||p.status===fs));
 $('plist').innerHTML=`<table><tr><th>Title</th><th>Category</th><th>Status</th><th>Date</th><th></th></tr>${list.map(p=>`<tr><td><b>${esc(p.title)}</b><br><span class="mut">/${p.slug} · kw: ${esc(p.kw)}</span></td><td>${esc(p.cat)}</td><td><span class="tag">${p.status}</span></td><td>${p.date||''}</td><td><button class="btn grey" onclick="edit('${p.id}')">Edit</button> <button class="btn grey" onclick="dup('${p.id}')">Duplicate</button> <button class="btn red" onclick="del('${p.id}')">Delete</button></td></tr>`).join('')}</table>`}
 function renderMedia(){const imgs=POSTS.filter(p=>p.feat);$('mlib').innerHTML=imgs.length?imgs.map(p=>`<div style="display:inline-block;margin:8px;text-align:center"><img src="${p.feat}" style="width:200px;height:120px;object-fit:cover;border:1px solid #ddd"><br><span class="mut">${esc(p.title.slice(0,40))}</span></div>`).join(''):'<p>No featured images yet. Add one in the post editor.</p>'}
-function newPost(){EDIT=null;FEAT='';['t','slug','seo','meta','kw','canon','exc','tags','alt','cap','featUrl'].forEach(i=>$(i).value='');$('composer').innerHTML='';$('htmlview').value='';$('status').value='draft';$('featImg').style.display='none';$('edTitle').textContent='Add New Post';seoCheck()}
+function newPost(){EDIT=null;FEAT='';['t','slug','seo','meta','kw','canon','exc','tags','alt','cap','featUrl'].forEach(i=>$(i).value='');$('composer').innerHTML='';$('htmlview').value='';$('featImg').style.display='none';$('edTitle').textContent='Add New Post';seoCheck()}
 function edit(id){const p=POSTS.find(x=>x.id===id);if(!p)return;EDIT=id;show('editor',document.querySelectorAll('.side button')[2]);$('edTitle').textContent='Edit Post: '+p.title;
-$('t').value=p.title;$('slug').value=p.slug;$('seo').value=p.seo||p.title;$('meta').value=p.meta||'';$('kw').value=p.kw||'';$('canon').value=p.canon||'';$('exc').value=p.exc||'';$('cat').value=p.cat;$('status').value=p.status;$('tool').value=p.tool||'';$('tags').value=(p.tags||[]).join(', ');$('composer').innerHTML=p.body||'';$('htmlview').value=p.body||'';FEAT=p.feat||'';$('alt').value=p.alt||'';$('cap').value=p.cap||'';$('featUrl').value=FEAT.startsWith('data:')?'':FEAT;if(FEAT){$('featImg').src=FEAT;$('featImg').style.display='block'}else $('featImg').style.display='none';seoCheck()}
+$('t').value=p.title;$('slug').value=p.slug;$('seo').value=p.seo||p.title;$('meta').value=p.meta||'';$('kw').value=p.kw||'';$('canon').value=p.canon||'';$('exc').value=p.exc||'';$('cat').value=p.cat;$('tool').value=p.tool||'';$('tags').value=(p.tags||[]).join(', ');$('composer').innerHTML=p.body||'';$('htmlview').value=p.body||'';FEAT=p.feat||'';$('alt').value=p.alt||'';$('cap').value=p.cap||'';$('featUrl').value=FEAT.startsWith('data:')?'':FEAT;if(FEAT){$('featImg').src=FEAT;$('featImg').style.display='block'}else $('featImg').style.display='none';seoCheck()}
 function dup(id){const p=POSTS.find(x=>x.id===id);if(!p)return;const c=JSON.parse(JSON.stringify(p));c.id='p'+Date.now();c.slug=c.slug+'-copy';c.title=c.title+' (Copy)';c.status='draft';POSTS.unshift(c);save();renderPosts();alert('Duplicated as draft.')}
 function del(id){if(confirm('Delete this post from this device?')){POSTS=POSTS.filter(x=>x.id!==id);save();renderPosts();renderDash()}}
 function quickDraft(){const t=$('qd').value.trim();if(!t)return;POSTS.unshift({id:'p'+Date.now(),title:t,slug:slugify(t),cat:'General',kw:'',seo:t,meta:'',status:'draft',date:new Date().toISOString().slice(0,10),tool:'',feat:'',body:''});save();$('qd').value='';renderDash();alert('Draft saved.')}
@@ -165,15 +161,14 @@ function featClear(){FEAT='';$('featImg').style.display='none';$('featUrl').valu
 function bodyHtml(){return $('composer').style.display==='none'?$('htmlview').value:$('composer').innerHTML}
 function savePost(silent){const title=$('t').value.trim();if(!title)return alert('Title zaroori hai.');const body=bodyHtml().trim();
 const id=EDIT||('p'+Date.now());const old=POSTS.find(x=>x.id===id);
-const p={id,title,slug:$('slug').value.trim()||slugify(title),cat:$('cat').value,kw:$('kw').value.trim(),seo:$('seo').value.trim()||title,meta:$('meta').value.trim(),canon:$('canon').value.trim(),exc:$('exc').value.trim(),status:$('status').value,date:old?old.date:new Date().toISOString().slice(0,10),tool:$('tool').value,tags:$('tags').value.split(',').map(s=>s.trim()).filter(Boolean),feat:FEAT,alt:$('alt').value.trim(),cap:$('cap').value.trim(),body:(body||(old?old.body:''))};
-const i=POSTS.findIndex(x=>x.id===id);if(i>=0)POSTS[i]=p;else POSTS.unshift(p);save();if(!silent)alert('Saved on this device ('+p.status+'). Website par lane ke liye Status = Published rakho aur Publish Live button dabao — Save button sirf is device par save karta hai.');renderDash()}
+const p={id,title,slug:$('slug').value.trim()||slugify(title),cat:$('cat').value,kw:$('kw').value.trim(),seo:$('seo').value.trim()||title,meta:$('meta').value.trim(),canon:$('canon').value.trim(),exc:$('exc').value.trim(),status:'published',date:old?old.date:new Date().toISOString().slice(0,10),tool:$('tool').value,tags:$('tags').value.split(',').map(s=>s.trim()).filter(Boolean),feat:FEAT,alt:$('alt').value.trim(),cap:$('cap').value.trim(),body:(body||(old?old.body:''))};
+const i=POSTS.findIndex(x=>x.id===id);if(i>=0)POSTS[i]=p;else POSTS.unshift(p);save();if(!silent)alert('Saved on this device. Website par lane ke liye Publish button dabao.');renderDash()}
 async function publishLive(){
 const pass=$('livepass').value;if(!pass)return alert('Admin password enter karo (ye sirf is publish ke liye bheja jayega, save nahi hoga).');
 const title=$('t').value.trim();if(!title)return alert('Title zaroori hai.');
-if($('status').value!=='published')return alert('Status abhi Draft hai — pehle Status ko Published karo, warna post website par live nahi jayegi.');
 const body=bodyHtml().trim();const slug=$('slug').value.trim()||slugify(title);
 if(FEAT&&FEAT.startsWith('data:'))return alert('Live publish ke liye featured image URL use karo — uploaded data image yahan nahi jayegi.');
-const post={id:EDIT||('p'+Date.now()),title,slug,cat:$('cat').value,kw:$('kw').value.trim(),seo:$('seo').value.trim()||title,meta:$('meta').value.trim(),canon:$('canon').value.trim(),exc:$('exc').value.trim(),status:$('status').value,date:new Date().toISOString().slice(0,10),tool:$('tool').value,tags:$('tags').value.split(',').map(s=>s.trim()).filter(Boolean),feat:FEAT,alt:$('alt').value.trim(),cap:$('cap').value.trim(),body};
+const post={id:EDIT||('p'+Date.now()),title,slug,cat:$('cat').value,kw:$('kw').value.trim(),seo:$('seo').value.trim()||title,meta:$('meta').value.trim(),canon:$('canon').value.trim(),exc:$('exc').value.trim(),status:'published',date:new Date().toISOString().slice(0,10),tool:$('tool').value,tags:$('tags').value.split(',').map(s=>s.trim()).filter(Boolean),feat:FEAT,alt:$('alt').value.trim(),cap:$('cap').value.trim(),body};
 $('liveMsg').textContent='Publishing… Website ko refresh karo, post dynamic aa jayegi (GitHub ko file serve karne me 1 minute tak lag sakta hai).';
 try{const r=await fetch('/api/publish',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({password:pass,post})});const d=await r.json();$('liveMsg').textContent=d.ok?('✅ '+d.message):('❌ '+(d.error||'Publish failed.'));if(d.ok){savePost(true);$('livepass').value=''}}catch(e){$('liveMsg').textContent='❌ Network error — check ke Pages Function deploy hua hai aur variables set hain.'}}
 function preview(){const b=bodyHtml()||'<p><i>Full article body is in index.html (seed post) — preview shows title, featured image and excerpt here.</i></p>';$('preview').style.display='block';$('preview').innerHTML=`<hr><h1>${esc($('t').value)}</h1>${FEAT?`<img src="${FEAT}" class="feat"><p class="mut">${esc($('cap').value)}</p>`:''}${b}`}
