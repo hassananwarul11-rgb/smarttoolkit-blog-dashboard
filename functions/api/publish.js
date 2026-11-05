@@ -56,6 +56,14 @@ async function ghFile(headers, path) {
   throw new Error("read:" + path);
 }
 
+async function ghReadText(headers, path) {
+  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`, { headers });
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error("read:" + path);
+  const cur = await res.json();
+  return { text: b64decode(cur.content || ""), sha: cur.sha || null };
+}
+
 async function ghPutFile(headers, path, text, message) {
   const cur = await ghFile(headers, path);
   const body = { message, content: b64encode(text), branch: BRANCH };
@@ -66,6 +74,35 @@ async function ghPutFile(headers, path, text, message) {
     body: JSON.stringify(body),
   });
   if (!res.ok) throw new Error("write:" + path);
+}
+
+// AdSense header block in index.html <head>, kept STATIC in the served HTML
+// (Google recommends static ad tags over script-injected ones). The admin
+// controls it with an Add/Remove toggle: this function removes any existing
+// block (marked, or the old unmarked tag line) and, when enabled with a valid
+// code, inserts the block right after the ld-dynamic line. Pure function —
+// returns the new HTML (unchanged string when nothing needs to change).
+const ADS_START = "<!-- ADSENSE-HEADER-START -->";
+const ADS_END = "<!-- ADSENSE-HEADER-END -->";
+function syncAdsenseHeader(html, code, enabled) {
+  let out = html;
+  for (;;) {
+    const a = out.indexOf(ADS_START);
+    const b = out.indexOf(ADS_END);
+    if (a < 0 || b < 0 || b < a) break;
+    let end = b + ADS_END.length;
+    if (out[end] === "\n") end++;
+    out = out.slice(0, a) + out.slice(end);
+  }
+  out = out.replace(/^[ \t]*<script[^>]*adsbygoogle\.js[^>]*>\s*<\/script>[ \t]*\r?\n?/gm, "");
+  const want = !!enabled && typeof code === "string" && code.trim().length > 0;
+  if (want) {
+    const block = ADS_START + "\n" + code.trim() + "\n" + ADS_END;
+    const anchor = '<script id="ld-dynamic" type="application/ld+json">{}</script>';
+    if (out.includes(anchor)) out = out.replace(anchor, anchor + "\n" + block);
+    else out = out.replace("<head>", "<head>\n" + block);
+  }
+  return out;
 }
 
 export async function onRequestGet() {
@@ -113,6 +150,7 @@ export async function onRequestPost(context) {
         };
         const clean = {
           adsEnabled: !!s.adsEnabled,
+          adsenseEnabled: s.adsenseEnabled !== false,
           adsenseCode: pick(s.adsenseCode),
           gaCode: pick(s.gaCode),
           placements: {
@@ -121,6 +159,26 @@ export async function onRequestPost(context) {
             sidebar: pickPl(s.placements && s.placements.sidebar),
           },
         };
+        // AdSense header Add/Remove: the code lives STATIC in index.html <head>.
+        // When enabled with a valid full <script> tag, make sure the block is
+        // there; when disabled (or no code), remove it. Idempotent, so a
+        // retry after a partial failure converges to the same state.
+        const wantAdsense = clean.adsenseEnabled && clean.adsenseCode.trim().length > 0;
+        if (clean.adsenseEnabled && clean.adsenseCode.trim().length > 0) {
+          const c = clean.adsenseCode.trim();
+          if (!c.startsWith("<script") || !c.includes("adsbygoogle.js") || !c.includes("ca-pub-") || !c.includes("</script>")) {
+            return json({ ok: false, error: "AdSense code must be the full <script> tag from AdSense (with adsbygoogle.js and ca-pub-)." }, 400);
+          }
+        }
+        const curIndex = await ghReadText(headers, "index.html");
+        if (!curIndex) {
+          return json({ ok: false, error: "Could not read index.html." }, 502);
+        }
+        const newIndex = syncAdsenseHeader(curIndex.text, clean.adsenseCode, wantAdsense);
+        if (newIndex !== curIndex.text) {
+          await ghPutFile(headers, "index.html", newIndex, "Update AdSense header in index.html via admin");
+          updated.push("index.html");
+        }
         await ghPutFile(headers, "site-settings.json", JSON.stringify(clean, null, 2), "Update ads settings via admin");
         updated.push("site-settings.json");
       }
@@ -145,7 +203,8 @@ export async function onRequestPost(context) {
       ok: true,
       updated,
       message:
-        "Saved (" + updated.join(", ") + "). The site reads site-settings.json on every load, so refresh the website to see the change (GitHub may take under a minute to serve the new file).",
+        "Saved (" + updated.join(", ") + "). The site reads site-settings.json on every load, so refresh the website to see the change (GitHub may take under a minute to serve the new file)." +
+        (updated.includes("index.html") ? " index.html bhi update hua hai — Pages deploy mein 1-2 minute lag sakte hain." : ""),
     });
   }
 
