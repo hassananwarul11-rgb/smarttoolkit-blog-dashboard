@@ -50,7 +50,13 @@ const SEED_SLUGS = [
   'how-to-count-words-in-an-essay-or-article',
   'character-counter-why-character-limits-matter-on-forms',
   'how-to-calculate-due-date-from-last-period',
-  'how-to-calculate-time-duration-between-two-times'
+  'how-to-calculate-time-duration-between-two-times',
+  'compress-heic-image-to-50kb','compress-image-to-200kb-without-losing-quality',
+  'what-internet-speed-do-you-need-for-gaming','what-internet-speed-do-you-need-for-4k-streaming',
+  'what-internet-speed-do-you-need-to-work-from-home','what-is-good-upload-speed-ping-latency-explained',
+  'how-many-solar-panels-do-you-need-by-house-size','how-many-solar-panels-to-charge-an-ev-run-ac-off-grid',
+  'how-to-calculate-exact-age-in-excel','retirement-calculator-in-excel-how-much-you-need',
+  'how-to-read-a-digital-water-meter','signature-resize-to-20kb-ssc-ibps-gds-exams',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
