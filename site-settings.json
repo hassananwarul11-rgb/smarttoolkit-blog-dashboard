@@ -1,1 +1,19 @@
-{"adsEnabled":true,"adsenseCode":"<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7122016223651390\" crossorigin=\"anonymous\"></script>","gaCode":"","placements":{"article":{"code":"","enabled":false},"header":{"code":"","enabled":false},"sidebar":{"code":"","enabled":false}}}
+{
+  "adsEnabled": false,
+  "adsenseCode": "<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7122016223651390\"\n     crossorigin=\"anonymous\"></script>",
+  "gaCode": "",
+  "placements": {
+    "header": {
+      "enabled": false,
+      "code": ""
+    },
+    "article": {
+      "enabled": false,
+      "code": ""
+    },
+    "sidebar": {
+      "enabled": false,
+      "code": ""
+    }
+  }
+}
