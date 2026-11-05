@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SmartToolkit Admin — WordPress-style Dashboard</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f0f0f1;color:#1d2327}
+a{color:#2271b1;text-decoration:none}.topbar{background:#1d2327;color:#fff;display:flex;gap:16px;align-items:center;padding:10px 16px;position:sticky;top:0;z-index:50}
+.topbar b{font-size:18px}.topbar a{color:#fff}.topbar .sp{flex:1}
+.wrap{display:flex;min-height:calc(100vh - 48px)}
+.side{width:230px;background:#1d2327;color:#c3c4c7;padding:12px 0;flex-shrink:0}
+.side button{display:block;width:100%;text-align:left;background:none;border:none;color:#c3c4c7;padding:10px 16px;font-size:15px;cursor:pointer}
+.side button:hover,.side button.on{background:#2271b1;color:#fff}
+.side .h{padding:14px 16px 6px;color:#787c82;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+.main{flex:1;padding:22px;max-width:1180px}
+.card{background:#fff;border:1px solid #c3c4c7;border-radius:4px;padding:18px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.stat{font-size:32px;font-weight:800}.mut{color:#646970;font-size:13px}
+input,select,textarea{width:100%;padding:9px 10px;border:1px solid #8c8f94;border-radius:4px;font-size:15px;margin:4px 0 10px}
+label{font-weight:600;font-size:14px}
+.btn{background:#2271b1;color:#fff;border:1px solid #2271b1;border-radius:4px;padding:9px 16px;cursor:pointer;font-size:14px}
+.btn.grey{background:#f6f7f7;color:#2c3338;border-color:#c3c4c7}.btn.green{background:#00a32a;border-color:#00a32a}.btn.red{background:#d63638;border-color:#d63638}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px;border-bottom:1px solid #e5e5e5;font-size:14px;vertical-align:top}
+.tag{display:inline-block;background:#dcdcde;border-radius:3px;padding:2px 7px;font-size:12px}
+.ed{display:flex;gap:18px;align-items:flex-start}.ed .left{flex:1}.ed .right{width:320px;flex-shrink:0}
+.toolbar{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.toolbar button{background:#f6f7f7;border:1px solid #c3c4c7;border-radius:3px;padding:6px 10px;cursor:pointer}
+#composer{border:1px solid #8c8f94;border-radius:4px;padding:14px;min-height:320px;background:#fff;line-height:1.7;outline:none}
+#composer:empty:before{content:"Start writing your article here…";color:#999}
+.bar{height:12px;background:#e5e5e5;border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:#00a32a}
+.serp{border:1px solid #ddd;padding:12px;border-radius:4px}.serp .t{color:#1a0dab;font-size:18px}.serp .u{color:#006621;font-size:13px}.serp .d{color:#545454;font-size:14px}
+.feat{width:100%;max-height:220px;object-fit:cover;border-radius:4px;border:1px solid #ddd}
+.view{display:none}.view.on{display:block}
+.login{max-width:420px;margin:60px auto;background:#fff;border:1px solid #c3c4c7;padding:24px;border-radius:6px}
+.note{background:#fff8e5;border:1px solid #dba617;padding:12px;border-radius:4px;margin-bottom:16px;font-size:14px}
+@media(max-width:900px){.wrap{flex-direction:column}.side{width:100%}.ed{flex-direction:column}.ed .right{width:100%}}
+</style></head><body>
+<div id="gate"></div>
+<div id="app" style="display:none">
+<div class="topbar"><b>🛠 SmartToolkit Admin</b><a href="index.html">← View Site</a><a href="https://smarttoolkit-blog-dashboard.pages.dev/" target="_blank" rel="noopener">Live pages.dev ↗</a><span class="sp"></span><span id="who">Admin</span> <button class="btn grey" onclick="logout()">Log out</button></div>
+<div class="wrap"><div class="side">
+<div class="h">Content</div>
+<button class="on" onclick="show('dash',this)">📊 Dashboard</button>
+<button onclick="show('posts',this)">📝 Posts</button>
+<button onclick="show('editor',this)">✍️ Add New Post</button>
+<button onclick="show('media',this)">🖼 Media</button>
+<div class="h">Tools</div>
+<button onclick="show('seo',this)">🎯 SEO Checker</button>
+<button onclick="show('settings',this)">⚙️ Settings &amp; Export</button>
+</div><div class="main">
+
+<div id="v-dash" class="view on">
+<h1>Dashboard</h1>
+<div class="note"><b>Important — ye WordPress jaisa interface hai, lekin backend WordPress jaisa nahi:</b> ye static site hai, is liye is me koi server database nahi. Yahan banaya hua post pehle <b>is device</b> par save hota hai. Live site par lane ke liye <b>Export JSON</b> kar ke wo file mujhe (Muse) bhej do, main use repo me push kar dunga — phir Cloudflare Pages se wo live ho jayega. Asli server-side password protection ke liye Cloudflare Worker me <b>ADMIN_PASSWORD</b> variable chahiye, wo alag step hai.</div>
+<div class="grid" id="stats"></div>
+<div class="card"><h2>Recent Posts</h2><div id="recent"></div></div>
+<div class="card"><h2>Quick Draft</h2><input id="qd" placeholder="Post idea / title…"><button class="btn" onclick="quickDraft()">Save as Draft</button><p class="mut">Quick Draft sirf title save karta hai — poora article Add New Post se likho.</p></div>
+<div class="card"><h2>Posting Queue — agle keywords</h2><ol><li>Passport Size Photo Maker for NADRA Online</li><li>Tola to Gram Gold Converter + Zakat on Gold</li><li>Hijri to Gregorian Date Converter</li><li>Photo Resize for NADRA Online</li><li>PF Calculator India / Gratuity Calculator Pakistan</li></ol></div>
+</div>
+
+<div id="v-posts" class="view"><h1>All Posts</h1>
+<div class="card"><input id="search" placeholder="Search posts…" oninput="renderPosts()"><select id="fstatus" onchange="renderPosts()"><option value="">All statuses</option><option>published</option><option>draft</option></select><div id="plist"></div></div></div>
+
+<div id="v-editor" class="view"><h1 id="edTitle">Add New Post</h1>
+<div class="ed"><div class="left">
+<div class="card"><label>Post Title</label><input id="t" placeholder="e.g. How to Resize Photo for NADRA Online" oninput="autoSlug();seoCheck()">
+<label>Permalink</label><div class="mut" id="plink">https://smarttoolkit-blog-dashboard.pages.dev/posts/</div>
+<label>Article Composer</label>
+<div class="toolbar">
+<button onclick="fmt('bold')"><b>B</b></button><button onclick="fmt('italic')"><i>I</i></button><button onclick="fmt('underline')"><u>U</u></button>
+<button onclick="fmt('formatBlock','h2')">H2</button><button onclick="fmt('formatBlock','h3')">H3</button><button onclick="fmt('formatBlock','p')">¶</button>
+<button onclick="fmt('insertUnorderedList')">• List</button><button onclick="fmt('insertOrderedList')">1. List</button>
+<button onclick="link()">🔗 Link</button><button onclick="fmt('formatBlock','blockquote')">❝ Quote</button><button onclick="fmt('removeFormat')">Clear</button>
+<button onclick="toggleHtml()">HTML View</button>
+</div>
+<div id="composer" contenteditable="true" oninput="seoCheck()"></div>
+<textarea id="htmlview" style="display:none;min-height:320px" oninput="syncHtmlBack()"></textarea>
+<p class="mut"><span id="wc">0 words</span> · <span id="rt">0 min read</span> · <span id="hc">0 headings</span></p>
+<button class="btn grey" onclick="preview()">👁 Preview</button> <button class="btn grey" onclick="exportOne()">⬇ Export This Post (HTML)</button>
+<div id="preview" style="display:none"></div>
+</div>
+<div class="card"><h2>🎯 SEO — live score</h2><div class="bar"><i id="scorebar" style="width:0%"></i></div><p><b id="score">0 / 100</b></p><ul id="checks"></ul>
+<label>SEO Title (0–60)</label><input id="seo" maxlength="70" oninput="seoCheck()"><span class="mut" id="cseo">0 / 60</span>
+<label>Meta Description (0–160)</label><textarea id="meta" rows="3" maxlength="180" oninput="seoCheck()"></textarea><span class="mut" id="cmeta">0 / 160</span>
+<label>Focus Keyword</label><input id="kw" placeholder="e.g. resize photo nadra online" oninput="seoCheck()">
+<label>Slug (URL)</label><input id="slug" oninput="seoCheck()">
+<label>Canonical URL</label><input id="canon" placeholder="https://smarttoolkit-blog-dashboard.pages.dev/posts/your-slug">
+<label>Excerpt</label><textarea id="exc" rows="3"></textarea>
+<h3>Google Preview</h3><div class="serp"><div class="t" id="ptitle"></div><div class="u" id="purl"></div><div class="d" id="pdesc"></div></div>
+<h3>JSON-LD Preview (Article schema)</h3><pre id="ld" style="white-space:pre-wrap;font-size:12px;background:#f6f7f7;padding:10px"></pre>
+</div>
+</div><div class="right">
+<div class="card"><h2>Publish</h2><label>Status</label><select id="status"><option>draft</option><option>published</option></select>
+<label>Category</label><select id="cat"><option>India Tools</option><option>Pakistan Tools</option><option>Finance</option><option>Guides</option><option>General</option></select>
+<label>Tags (comma separated)</label><input id="tags" placeholder="ssc, photo, nadra">
+<label>Linked Tool</label><select id="tool"><option value="">— None —</option><option value="image-kb">Image Compressor to Exact KB</option><option value="marla">Marla–Kanal Converter</option><option value="bijli">Bijli Bill Estimator</option><option value="tax-pk">Pakistan Salary Tax</option><option value="tax-in">India New Regime Tax</option><option value="gst">GST Calculator</option><option value="zakat">Zakat Calculator</option><option value="emi">EMI Calculator</option><option value="sip">SIP Calculator</option><option value="cgpa">CGPA Converter</option><option value="age">Age Calculator</option></select>
+<button class="btn green" onclick="savePost()">💾 Save Post</button> <button class="btn" onclick="exportAll()">⬇ Export All (JSON)</button>
+<p class="mut">Save sirf is device par hota hai. Live publish ke liye Export JSON mujhe bhej do.</p></div>
+<div class="card"><h2>Featured Image</h2>
+<img id="featImg" class="feat" style="display:none"><input type="file" id="featFile" accept="image/*" onchange="featUpload(this)">
+<label>…or Image URL</label><input id="featUrl" placeholder="https://…/image.jpg" oninput="featUrlSet()">
+<label>Alt Text (SEO)</label><input id="alt" placeholder="Describe the image, include keyword if natural" oninput="seoCheck()">
+<label>Caption</label><input id="cap">
+<p class="mut">Tip: 200KB se chhoti image use karo, warna file bhaari ho jayegi. Pehle site ke Image Compressor se compress kar lo.</p>
+<button class="btn grey" onclick="featClear()">Remove Image</button></div>
+<div class="card"><h2>Seed Post Note</h2><p class="mut">Purani 11 posts ke poore article <b>index.html</b> me hain. Admin me un ka title/SEO edit kar sakte ho; agar body khaali chhoro to purana article replace nahi hoga. Nayi post ke liye body likhna zaroori hai.</p></div>
+</div></div></div>
+
+<div id="v-media" class="view"><h1>Media Library</h1><div class="card"><p class="mut">Ye library sirf is device par hai — featured images jo posts me lagi hain, wahi yahan dikhengi.</p><div id="mlib"></div></div></div>
+
+<div id="v-seo" class="view"><h1>SEO Checker (standalone)</h1><div class="card"><label>Title</label><input id="s_t"><label>Meta Description</label><textarea id="s_m" rows="3"></textarea><label>Focus Keyword</label><input id="s_k"><label>Content (paste article text)</label><textarea id="s_c" rows="8"></textarea><button class="btn" onclick="seoStandalone()">Check Score</button><div id="s_out"></div></div></div>
+
+<div id="v-settings" class="view"><h1>Settings &amp; Export</h1>
+<div class="card"><label>Site Name</label><input id="setName" value="SmartToolkit"><label>Site URL</label><input id="setUrl" value="https://smarttoolkit-blog-dashboard.pages.dev/">
+<button class="btn" onclick="exportAll()">⬇ Export All Posts (JSON)</button> <button class="btn grey" onclick="document.getElementById('imp').click()">⬆ Import JSON</button><input type="file" id="imp" accept="application/json" style="display:none" onchange="importJson(this)">
+<button class="btn red" onclick="wipe()">🗑 Delete All Local Admin Data</button>
+<p class="mut">Import/Export se data is device aur Muse ke darmiyan transfer hota hai. Live site par kuch bhi tab hi jayega jab Muse use repo me push kare.</p></div>
+<div class="card"><h2>Change Admin Password (local)</h2><input type="password" id="np" placeholder="New password"><button class="btn" onclick="changePass()">Set New Password</button><p class="mut">Ye password sirf is browser me hash ki shakal me save hota hai. Asli server protection ke liye Cloudflare Worker + ADMIN_PASSWORD variable zaroori hai.</p></div>
+</div>
+
+</div></div></div>
+<script>
+const SEED=[
+{id:'p11',title:'How to Resize Signature to 20KB for SSC, Bank & Govt Forms (Without Blurring It)',slug:'resize-signature-to-20kb-ssc-bank-forms',cat:'India Tools',kw:'resize signature to 20kb',seo:'Resize Signature to 20KB for SSC & Bank Forms — Free Tool',meta:'Resize your signature to 20KB for SSC, bank and government forms online free. Scan, crop and JPEG tips with exact-KB compression, without losing legibility.',status:'published',date:'2026-11-05',tool:'image-kb',feat:'',body:''},
+{id:'p1',title:'How to Compress an Image to 50KB for SSC, UPSC & IBPS Forms (Without Losing Quality)',slug:'compress-image-to-50kb-ssc-upsc-forms',cat:'India Tools',kw:'compress image to 50kb',seo:'Compress Image to 50KB for SSC Forms — Free Tool',meta:'Compress image to 50KB for SSC, UPSC and IBPS forms free, without losing quality.',status:'published',date:'2026-11-05',tool:'image-kb',feat:'',body:''},
+{id:'p2',title:'Marla to Kanal Converter: Pakistan Plot Sizes Explained (225 vs 272.25 Sq Ft)',slug:'marla-to-kanal-converter-pakistan-plot-sizes',cat:'Pakistan Tools',kw:'marla to kanal converter',seo:'Marla to Kanal Converter Pakistan — Plot Sizes Explained',meta:'Marla, kanal and square feet converter for Pakistan plot sizes, with 225 vs 272.25 sq ft explained.',status:'published',date:'2026-11-05',tool:'marla',feat:'',body:''},
+{id:'p3',title:'Bijli Bill Calculator Pakistan: How Your Electricity Bill Is Actually Calculated',slug:'bijli-bill-calculator-pakistan-how-bill-calculated',cat:'Pakistan Tools',kw:'bijli bill calculator pakistan',seo:'Bijli Bill Calculator Pakistan — Units & Slabs Explained',meta:'How Pakistan electricity bills are calculated: slabs, protected vs non-protected, FCA and GST, with a free estimator.',status:'published',date:'2026-11-05',tool:'bijli',feat:'',body:''},
+{id:'p4',title:'Pakistan Salary Tax Slabs 2025–26 (Tax Year 2026): Complete Salaried Guide with Examples',slug:'pakistan-salary-tax-slabs-2025-26-salaried-guide',cat:'Pakistan Tools',kw:'pakistan salary tax calculator 2025-26',seo:'Pakistan Salary Tax 2025-26 — Slabs & Calculator',meta:'Pakistan salary tax slabs 2025-26 explained with worked examples and a free calculator.',status:'published',date:'2026-11-05',tool:'tax-pk',feat:'',body:''},
+{id:'p5',title:'India Income Tax New Regime FY 2025–26: How the ₹12 Lakh Rebate Actually Works',slug:'india-income-tax-new-regime-fy-2025-26-rebate-explained',cat:'India Tools',kw:'income tax new regime fy 2025-26',seo:'India New Regime Tax FY 2025-26 — ₹12 Lakh Rebate',meta:'India new regime income tax FY 2025-26, ₹12 lakh rebate, slabs and a free calculator.',status:'published',date:'2026-11-05',tool:'tax-in',feat:'',body:''},
+{id:'p6',title:'How to Calculate Zakat on Gold, Silver and Cash: A Practical Step-by-Step Guide',slug:'how-to-calculate-zakat-gold-silver-cash',cat:'Finance',kw:'zakat calculator gold cash',seo:'Zakat Calculator — Gold, Silver & Cash Guide',meta:'Calculate Zakat on gold, silver and cash step by step, with nisab explained.',status:'published',date:'2026-11-05',tool:'zakat',feat:'',body:''},
+{id:'p7',title:'GST Calculator Guide: How to Add GST and How to Remove GST From a Total Price',slug:'gst-calculator-add-remove-gst-guide',cat:'India Tools',kw:'gst calculator add remove',seo:'GST Calculator — Add & Remove GST Guide',meta:'Add GST and remove GST from a total price, with formulas and a free GST calculator.',status:'published',date:'2026-11-05',tool:'gst',feat:'',body:''},
+{id:'p8',title:'CGPA to Percentage: How Indian Students Should Convert (and When ×9.5 Is Wrong)',slug:'cgpa-to-percentage-converter-india-guide',cat:'India Tools',kw:'cgpa to percentage',seo:'CGPA to Percentage Converter India — Correct Method',meta:'Convert CGPA to percentage correctly for India, and when the ×9.5 formula is wrong.',status:'published',date:'2026-11-05',tool:'cgpa',feat:'',body:''},
+{id:'p9',title:'Loan EMI With Extra Payments: How Paying a Little Extra Saves You Lakhs',slug:'emi-calculator-extra-principal-payments-guide',cat:'Finance',kw:'emi calculator extra payment',seo:'EMI Calculator With Extra Payments — Save Lakhs',meta:'How extra principal payments on a loan EMI save interest and years, with a free calculator.',status:'published',date:'2026-11-05',tool:'emi',feat:'',body:''},
+{id:'p10',title:'SIP Calculator Guide: What a ₹5,000 Monthly SIP Can Really Grow Into',slug:'sip-calculator-monthly-investment-guide-india',cat:'Finance',kw:'sip calculator inflation india',seo:'SIP Calculator India — Growth With Inflation',meta:'What a ₹5,000 monthly SIP can grow into, with inflation-adjusted returns explained.',status:'published',date:'2026-11-05',tool:'sip',feat:'',body:''}];
+let POSTS;try{POSTS=JSON.parse(localStorage.getItem('stk_admin_posts')||'null')||SEED.slice()}catch(e){POSTS=SEED.slice()}
+let EDIT=null,FEAT='';
+const $=id=>document.getElementById(id);
+function save(){localStorage.setItem('stk_admin_posts',JSON.stringify(POSTS))}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function show(v,btn){document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));$('v-'+v).classList.add('on');document.querySelectorAll('.side button').forEach(b=>b.classList.remove('on'));if(btn)btn.classList.add('on');if(v==='posts')renderPosts();if(v==='dash')renderDash();if(v==='media')renderMedia()}
+function renderDash(){const pub=POSTS.filter(p=>p.status==='published').length;const words=POSTS.reduce((a,p)=>a+(p.body||'').replace(/<[^>]+>/g,' ').split(/\s+/).filter(Boolean).length,0);
+$('stats').innerHTML=`<div class="card"><div class="stat">${POSTS.length}</div><div class="mut">Total Posts</div></div><div class="card"><div class="stat">${pub}</div><div class="mut">Published</div></div><div class="card"><div class="stat">${POSTS.length-pub}</div><div class="mut">Drafts</div></div><div class="card"><div class="stat">12</div><div class="mut">Live Tools</div></div>`;
+$('recent').innerHTML=POSTS.slice(0,5).map(p=>`<p><b>${esc(p.title)}</b> <span class="tag">${p.status}</span> <span class="mut">/${p.slug}</span> <button class="btn grey" onclick="edit('${p.id}')">Edit</button></p>`).join('')}
+function renderPosts(){const q=($('search').value||'').toLowerCase(),fs=$('fstatus').value;const list=POSTS.filter(p=>(!q||p.title.toLowerCase().includes(q))&&(!fs||p.status===fs));
+$('plist').innerHTML=`<table><tr><th>Title</th><th>Category</th><th>Status</th><th>Date</th><th></th></tr>${list.map(p=>`<tr><td><b>${esc(p.title)}</b><br><span class="mut">/${p.slug} · kw: ${esc(p.kw)}</span></td><td>${esc(p.cat)}</td><td><span class="tag">${p.status}</span></td><td>${p.date||''}</td><td><button class="btn grey" onclick="edit('${p.id}')">Edit</button> <button class="btn grey" onclick="dup('${p.id}')">Duplicate</button> <button class="btn red" onclick="del('${p.id}')">Delete</button></td></tr>`).join('')}</table>`}
+function renderMedia(){const imgs=POSTS.filter(p=>p.feat);$('mlib').innerHTML=imgs.length?imgs.map(p=>`<div style="display:inline-block;margin:8px;text-align:center"><img src="${p.feat}" style="width:200px;height:120px;object-fit:cover;border:1px solid #ddd"><br><span class="mut">${esc(p.title.slice(0,40))}</span></div>`).join(''):'<p>No featured images yet. Add one in the post editor.</p>'}
+function newPost(){EDIT=null;FEAT='';['t','slug','seo','meta','kw','canon','exc','tags','alt','cap','featUrl'].forEach(i=>$(i).value='');$('composer').innerHTML='';$('htmlview').value='';$('status').value='draft';$('featImg').style.display='none';$('edTitle').textContent='Add New Post';seoCheck()}
+function edit(id){const p=POSTS.find(x=>x.id===id);if(!p)return;EDIT=id;show('editor',document.querySelectorAll('.side button')[2]);$('edTitle').textContent='Edit Post: '+p.title;
+$('t').value=p.title;$('slug').value=p.slug;$('seo').value=p.seo||p.title;$('meta').value=p.meta||'';$('kw').value=p.kw||'';$('canon').value=p.canon||'';$('exc').value=p.exc||'';$('cat').value=p.cat;$('status').value=p.status;$('tool').value=p.tool||'';$('tags').value=(p.tags||[]).join(', ');$('composer').innerHTML=p.body||'';$('htmlview').value=p.body||'';FEAT=p.feat||'';$('alt').value=p.alt||'';$('cap').value=p.cap||'';$('featUrl').value=FEAT.startsWith('data:')?'':FEAT;if(FEAT){$('featImg').src=FEAT;$('featImg').style.display='block'}else $('featImg').style.display='none';seoCheck()}
+function dup(id){const p=POSTS.find(x=>x.id===id);if(!p)return;const c=JSON.parse(JSON.stringify(p));c.id='p'+Date.now();c.slug=c.slug+'-copy';c.title=c.title+' (Copy)';c.status='draft';POSTS.unshift(c);save();renderPosts();alert('Duplicated as draft.')}
+function del(id){if(confirm('Delete this post from this device?')){POSTS=POSTS.filter(x=>x.id!==id);save();renderPosts();renderDash()}}
+function quickDraft(){const t=$('qd').value.trim();if(!t)return;POSTS.unshift({id:'p'+Date.now(),title:t,slug:slugify(t),cat:'General',kw:'',seo:t,meta:'',status:'draft',date:new Date().toISOString().slice(0,10),tool:'',feat:'',body:''});save();$('qd').value='';renderDash();alert('Draft saved.')}
+function slugify(s){return s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,80)}
+function autoSlug(){if(!EDIT)$('slug').value=slugify($('t').value)}
+function fmt(c,v){document.execCommand(c,false,v||null);$('composer').focus();seoCheck()}
+function link(){const u=prompt('Link URL:');if(u)document.execCommand('createLink',false,u)}
+function toggleHtml(){const h=$('htmlview');if(h.style.display==='none'){h.value=$('composer').innerHTML;h.style.display='block';$('composer').style.display='none'}else{$('composer').innerHTML=h.value;h.style.display='none';$('composer').style.display='block'}seoCheck()}
+function syncHtmlBack(){$('composer').innerHTML=$('htmlview').value;seoCheck()}
+function featUpload(el){const f=el.files[0];if(!f)return;if(f.size>300000)alert('Warning: image is over 300KB — compress it first, otherwise the export file gets heavy.');const r=new FileReader();r.onload=e=>{FEAT=e.target.result;$('featImg').src=FEAT;$('featImg').style.display='block';seoCheck()};r.readAsDataURL(f)}
+function featUrlSet(){FEAT=$('featUrl').value.trim();if(FEAT){$('featImg').src=FEAT;$('featImg').style.display='block'}seoCheck()}
+function featClear(){FEAT='';$('featImg').style.display='none';$('featUrl').value='';$('featFile').value=''}
+function bodyHtml(){return $('composer').style.display==='none'?$('htmlview').value:$('composer').innerHTML}
+function savePost(){const title=$('t').value.trim();if(!title)return alert('Title zaroori hai.');const body=bodyHtml().trim();
+const id=EDIT||('p'+Date.now());const old=POSTS.find(x=>x.id===id);
+const p={id,title,slug:$('slug').value.trim()||slugify(title),cat:$('cat').value,kw:$('kw').value.trim(),seo:$('seo').value.trim()||title,meta:$('meta').value.trim(),canon:$('canon').value.trim(),exc:$('exc').value.trim(),status:$('status').value,date:old?old.date:new Date().toISOString().slice(0,10),tool:$('tool').value,tags:$('tags').value.split(',').map(s=>s.trim()).filter(Boolean),feat:FEAT,alt:$('alt').value.trim(),cap:$('cap').value.trim(),body:(body||(old?old.body:''))};
+const i=POSTS.findIndex(x=>x.id===id);if(i>=0)POSTS[i]=p;else POSTS.unshift(p);save();alert('Saved on this device ('+p.status+'). Live publish ke liye Export JSON mujhe bhej do.');renderDash()}
+function preview(){const b=bodyHtml()||'<p><i>Full article body is in index.html (seed post) — preview shows title, featured image and excerpt here.</i></p>';$('preview').style.display='block';$('preview').innerHTML=`<hr><h1>${esc($('t').value)}</h1>${FEAT?`<img src="${FEAT}" class="feat"><p class="mut">${esc($('cap').value)}</p>`:''}${b}`}
+function dl(name,txt,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type}));a.download=name;a.click()}
+function exportOne(){const p=POSTS.find(x=>x.id===EDIT)||POSTS[0];if(!p)return;const html=`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>${esc(p.seo)}</title><meta name="description" content="${esc(p.meta)}"><link rel="canonical" href="${p.canon||('https://smarttoolkit-blog-dashboard.pages.dev/posts/'+p.slug)}"><meta property="og:title" content="${esc(p.seo)}"><meta property="og:description" content="${esc(p.meta)}">${p.feat&&!p.feat.startsWith('data:')?`<meta property="og:image" content="${esc(p.feat)}">`:''}<script type="application/ld+json">${JSON.stringify({"@context":"https://schema.org","@type":"Article",headline:p.title,description:p.meta,image:p.feat&&!p.feat.startsWith('data:')?p.feat:undefined,datePublished:p.date})}<\/script></head><body>${p.feat?`<img src="${p.feat}" alt="${esc(p.alt)}">`:''}<h1>${esc(p.title)}</h1>${p.body}</body></html>`;dl(p.slug+'.html',html,'text/html')}
+function exportAll(){dl('smarttoolkit-posts.json',JSON.stringify(POSTS,null,2),'application/json')}
+function importJson(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{try{const d=JSON.parse(e.target.result);if(Array.isArray(d)){POSTS=d;save();renderPosts();renderDash();alert('Imported '+d.length+' posts.')}else alert('JSON me posts ki list nahi mili.')}catch(err){alert('Invalid JSON.')}};r.readAsText(f)}
+function wipe(){if(confirm('Delete ALL local admin data on this device? Seed posts wapas aa jayenge.')){localStorage.removeItem('stk_admin_posts');POSTS=SEED.slice();save();renderPosts();renderDash()}}
+function seoCheck(){const title=$('t').value,seo=$('seo').value||title,meta=$('meta').value,kw=$('kw').value.trim().toLowerCase(),slug=$('slug').value,body=bodyHtml().replace(/<[^>]+>/g,' ');const words=body.split(/\s+/).filter(Boolean).length;const heads=(bodyHtml().match(/<h[23]/g)||[]).length;
+$('wc').textContent=words+' words';$('rt').textContent=Math.max(1,Math.round(words/200))+' min read';$('hc').textContent=heads+' headings';$('cseo').textContent=seo.length+' / 60';$('cmeta').textContent=meta.length+' / 160';
+$('ptitle').textContent=seo||title;$('purl').textContent='smarttoolkit-blog-dashboard.pages.dev/posts/'+(slug||'your-slug');$('pdesc').textContent=meta;
+$('ld').textContent=JSON.stringify({"@context":"https://schema.org","@type":"Article",headline:title,description:meta,image:FEAT&&!FEAT.startsWith('data:')?FEAT:undefined,datePublished:new Date().toISOString().slice(0,10)},null,2);
+let s=0,ck=[];function add(ok,txt,pts){if(ok)s+=pts;ck.push((ok?'✅ ':'❌ ')+txt)}
+add(seo.length>=30&&seo.length<=60,'SEO title 30–60 chars',15);add(meta.length>=120&&meta.length<=160,'Meta description 120–160 chars',15);add(!!kw&&seo.toLowerCase().includes(kw),'Focus keyword in SEO title',15);add(!!kw&&meta.toLowerCase().includes(kw),'Focus keyword in meta',10);add(!!kw&&slug.includes(kw.replace(/\s+/g,'-')),'Focus keyword in slug',10);add(words>=600,'Article 600+ words ('+words+')',15);add(heads>=3,'3+ headings (H2/H3)',10);add(!!FEAT&&!!$('alt').value.trim(),'Featured image + alt text',10);
+$('score').textContent=s+' / 100';$('scorebar').style.width=s+'%';$('checks').innerHTML=ck.map(c=>`<li>${c}</li>`).join('')}
+function seoStandalone(){const t=$('s_t').value,m=$('s_m').value,k=$('s_k').value.trim().toLowerCase(),c=$('s_c').value;const w=c.split(/\s+/).filter(Boolean).length;let s=0;if(t.length>=30&&t.length<=60)s+=25;if(m.length>=120&&m.length<=160)s+=25;if(k&&t.toLowerCase().includes(k))s+=20;if(k&&m.toLowerCase().includes(k))s+=15;if(w>=600)s+=15;$('s_out').innerHTML=`<p><b>Score: ${s} / 100</b> · ${w} words</p><p class="mut">${s>=80?'Good — publish-ready SEO.':s>=50?'Average — title/meta ya keyword fix karo.':'Weak — title, meta aur keyword dobara likho.'}</p>`}
+async function hash(p){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(p));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+async function changePass(){const p=$('np').value;if(p.length<4)return alert('Password kam az kam 4 characters ho.');localStorage.setItem('stk_admin_hash',await hash(p));alert('Password set.')}
+function logout(){localStorage.removeItem('stk_admin_session');location.reload()}
+async function gate(){const h=localStorage.getItem('stk_admin_hash');const s=localStorage.getItem('stk_admin_session');
+if(s==='1'&&h){$('app').style.display='block';renderDash();return}
+$('gate').innerHTML=`<div class="login"><h2>SmartToolkit Admin</h2>${h?'<p>Password enter karo:</p>':'<p>Pehli dafa: apna admin password set karo (sirf is browser me save hoga).</p>'}<input type="password" id="pw" placeholder="Admin password"><button class="btn" onclick="doGate()">${h?'Log in':'Set Password'}</button><p class="mut">Ye gate sirf is device par kaam karta hai. Asli server protection ke liye Cloudflare Worker + ADMIN_PASSWORD variable chahiye — password kabhi site ke code me mat likho.</p></div>`;
+window.doGate=async()=>{const p=$('pw').value;if(!h){if(p.length<4)return alert('Kam az kam 4 characters.');localStorage.setItem('stk_admin_hash',await hash(p));localStorage.setItem('stk_admin_session','1');location.reload()}else if(await hash(p)===h){localStorage.setItem('stk_admin_session','1');location.reload()}else alert('Wrong password.')}};
+gate();renderPosts();
+</script></body></html>
