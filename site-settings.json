@@ -1,6 +1,7 @@
 {
   "adsEnabled": false,
-  "adsenseCode": "<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7122016223651390\"\n     crossorigin=\"anonymous\"></script>",
+  "adsenseEnabled": true,
+  "adsenseCode": "",
   "gaCode": "",
   "placements": {
     "header": {
