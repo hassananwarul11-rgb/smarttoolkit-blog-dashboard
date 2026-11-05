@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
 Sitemap: https://smarttoolkit.space/sitemap.xml
+Agentmap: https://smarttoolkit.space/.well-known/ard.json

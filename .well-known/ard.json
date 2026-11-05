@@ -1,0 +1,367 @@
+{
+  "specVersion": "0.91",
+  "host": {
+    "displayName": "SmartToolkit",
+    "identifier": "smarttoolkit.space",
+    "documentationUrl": "https://smarttoolkit.space/about-us",
+    "logoUrl": "https://smarttoolkit.space/favicon.png"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:smarttoolkit.space:site:smarttoolkit",
+      "displayName": "SmartToolkit",
+      "description": "Free in-browser tools and original step-by-step guides. Every tool runs 100% in your browser — nothing is uploaded, no sign-up, no fees.",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/",
+      "representativeQueries": [
+        "free online tools",
+        "compress image to 50kb",
+        "free calculators online"
+      ],
+      "tags": [
+        "tools",
+        "calculators",
+        "guides"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:image-kb",
+      "displayName": "Image Compressor to Exact KB",
+      "description": "image-kb",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/image-kb",
+      "representativeQueries": [
+        "compress image to 50kb",
+        "image compressor",
+        "image compressor to exact kb"
+      ],
+      "tags": [
+        "documents"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:marla",
+      "displayName": "Marla to Kanal Converter",
+      "description": "marla",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/marla",
+      "representativeQueries": [
+        "marla to kanal converter",
+        "kanal to marla"
+      ],
+      "tags": [
+        "property"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:bijli",
+      "displayName": "Bijli Bill Calculator",
+      "description": "bijli",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/bijli",
+      "representativeQueries": [
+        "electricity bill calculator",
+        "bijli bill calculator"
+      ],
+      "tags": [
+        "utilities"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:paktax",
+      "displayName": "Salary Tax Calculator 2025–26",
+      "description": "paktax",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/paktax",
+      "representativeQueries": [
+        "salary tax calculator",
+        "income tax calculator",
+        "salary tax calculator 2025–26"
+      ],
+      "tags": [
+        "finance"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:indiatax",
+      "displayName": "Income Tax Calculator — New Regime FY 2025–26",
+      "description": "indiatax",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/indiatax",
+      "representativeQueries": [
+        "income tax calculator new regime",
+        "section 87a rebate",
+        "income tax calculator — new regime fy 2025–26"
+      ],
+      "tags": [
+        "finance"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:gst",
+      "displayName": "GST Calculator (Add / Remove GST)",
+      "description": "gst",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/gst",
+      "representativeQueries": [
+        "gst calculator",
+        "add gst",
+        "gst calculator (add / remove gst)"
+      ],
+      "tags": [
+        "finance"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:zakat",
+      "displayName": "Zakat Calculator — Gold, Silver & Cash",
+      "description": "zakat",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/zakat",
+      "representativeQueries": [
+        "zakat calculator",
+        "zakat on gold",
+        "zakat calculator — gold, silver & cash"
+      ],
+      "tags": [
+        "finance"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:emi",
+      "displayName": "EMI Calculator with Extra Payments",
+      "description": "emi",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/emi",
+      "representativeQueries": [
+        "emi calculator",
+        "loan emi calculator",
+        "emi calculator with extra payments"
+      ],
+      "tags": [
+        "finance"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:sip",
+      "displayName": "SIP Calculator",
+      "description": "sip",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/sip",
+      "representativeQueries": [
+        "sip calculator",
+        "mutual fund sip calculator"
+      ],
+      "tags": [
+        "finance"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:cgpa",
+      "displayName": "CGPA to Percentage Converter",
+      "description": "cgpa",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/cgpa",
+      "representativeQueries": [
+        "cgpa to percentage",
+        "cgpa converter",
+        "cgpa to percentage converter"
+      ],
+      "tags": [
+        "education"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:age",
+      "displayName": "Age Calculator",
+      "description": "age",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/age",
+      "representativeQueries": [
+        "age calculator",
+        "date of birth calculator"
+      ],
+      "tags": [
+        "everyday"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:word",
+      "displayName": "Word & Character Counter",
+      "description": "word",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/word",
+      "representativeQueries": [
+        "word counter",
+        "character counter",
+        "word & character counter"
+      ],
+      "tags": [
+        "writing"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:percent",
+      "displayName": "Percentage Calculator",
+      "description": "percent",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/percent",
+      "representativeQueries": [
+        "percentage calculator",
+        "what is x percent of y"
+      ],
+      "tags": [
+        "everyday"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:bmi",
+      "displayName": "BMI Calculator",
+      "description": "bmi",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/bmi",
+      "representativeQueries": [
+        "bmi calculator",
+        "body mass index calculator"
+      ],
+      "tags": [
+        "everyday"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:ci",
+      "displayName": "Compound Interest Calculator",
+      "description": "ci",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/ci",
+      "representativeQueries": [
+        "compound interest calculator",
+        "compound interest formula"
+      ],
+      "tags": [
+        "finance"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:fd",
+      "displayName": "Fixed Deposit Calculator",
+      "description": "fd",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/fd",
+      "representativeQueries": [
+        "fixed deposit calculator",
+        "fd maturity calculator"
+      ],
+      "tags": [
+        "finance"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:si",
+      "displayName": "Simple Interest Calculator",
+      "description": "si",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/si",
+      "representativeQueries": [
+        "simple interest calculator",
+        "simple interest formula"
+      ],
+      "tags": [
+        "finance"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:discount",
+      "displayName": "Discount Calculator",
+      "description": "discount",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/discount",
+      "representativeQueries": [
+        "discount calculator",
+        "calculate discount percentage"
+      ],
+      "tags": [
+        "everyday"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:tip",
+      "displayName": "Tip Calculator",
+      "description": "tip",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/tip",
+      "representativeQueries": [
+        "tip calculator",
+        "how much to tip"
+      ],
+      "tags": [
+        "everyday"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:unit",
+      "displayName": "Unit Converter",
+      "description": "unit",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/unit",
+      "representativeQueries": [
+        "unit converter",
+        "length converter"
+      ],
+      "tags": [
+        "everyday"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:datediff",
+      "displayName": "Days Between Two Dates Calculator",
+      "description": "datediff",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/datediff",
+      "representativeQueries": [
+        "days between two dates calculator",
+        "how many days between dates"
+      ],
+      "tags": [
+        "everyday"
+      ]
+    },
+    {
+      "identifier": "urn:air:smarttoolkit.space:tool:gpa",
+      "displayName": "GPA Calculator",
+      "description": "gpa",
+      "type": "text/html",
+      "mediaType": "text/html",
+      "url": "https://smarttoolkit.space/tools/gpa",
+      "representativeQueries": [
+        "gpa calculator",
+        "marks to gpa calculator"
+      ],
+      "tags": [
+        "education"
+      ]
+    }
+  ]
+}

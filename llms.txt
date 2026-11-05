@@ -1,0 +1,116 @@
+# SmartToolkit
+
+> Free in-browser tools and original step-by-step guides. Every tool runs 100% in your browser — nothing is uploaded, no sign-up, no fees.
+
+## Tools
+
+- [Image Compressor to Exact KB](https://smarttoolkit.space/tools/image-kb): image-kb
+- [Marla to Kanal Converter](https://smarttoolkit.space/tools/marla): marla
+- [Bijli Bill Calculator](https://smarttoolkit.space/tools/bijli): bijli
+- [Salary Tax Calculator 2025–26](https://smarttoolkit.space/tools/paktax): paktax
+- [Income Tax Calculator — New Regime FY 2025–26](https://smarttoolkit.space/tools/indiatax): indiatax
+- [GST Calculator (Add / Remove GST)](https://smarttoolkit.space/tools/gst): gst
+- [Zakat Calculator — Gold, Silver & Cash](https://smarttoolkit.space/tools/zakat): zakat
+- [EMI Calculator with Extra Payments](https://smarttoolkit.space/tools/emi): emi
+- [SIP Calculator](https://smarttoolkit.space/tools/sip): sip
+- [CGPA to Percentage Converter](https://smarttoolkit.space/tools/cgpa): cgpa
+- [Age Calculator](https://smarttoolkit.space/tools/age): age
+- [Word & Character Counter](https://smarttoolkit.space/tools/word): word
+- [Percentage Calculator](https://smarttoolkit.space/tools/percent): percent
+- [BMI Calculator](https://smarttoolkit.space/tools/bmi): bmi
+- [Compound Interest Calculator](https://smarttoolkit.space/tools/ci): ci
+- [Fixed Deposit Calculator](https://smarttoolkit.space/tools/fd): fd
+- [Simple Interest Calculator](https://smarttoolkit.space/tools/si): si
+- [Discount Calculator](https://smarttoolkit.space/tools/discount): discount
+- [Tip Calculator](https://smarttoolkit.space/tools/tip): tip
+- [Unit Converter](https://smarttoolkit.space/tools/unit): unit
+- [Days Between Two Dates Calculator](https://smarttoolkit.space/tools/datediff): datediff
+- [GPA Calculator](https://smarttoolkit.space/tools/gpa): gpa
+
+## Guides
+
+- [How to Resize Signature to 20KB for SSC, Bank & Govt Forms (Without Blurring It)](https://smarttoolkit.space/resize-signature-to-20kb-ssc-bank-forms): Resize signature to 20kb for SSC, bank and government forms online free. Scan, crop and JPEG tips with exact-KB compression.
+- [How to Compress an Image to 50KB for SSC, UPSC & IBPS Forms (Without Losing Quality)](https://smarttoolkit.space/compress-image-to-50kb-ssc-upsc-forms): Compress image to 50kb for SSC, UPSC, IBPS forms online free. No upload, works on mobile, step-by-step guide with portal size limits.
+- [Marla to Kanal Converter: Plot Sizes Explained (225 vs 272.25 Sq Ft)](https://smarttoolkit.space/marla-to-kanal-converter-plot-sizes): Marla to kanal converter: 1 Kanal = 20 Marla, but is 1 Marla 225 or 272.25 sq ft? Complete plot size guide with tables and examples.
+- [Bijli Bill Calculator: How Your Electricity Bill Is Actually Calculated](https://smarttoolkit.space/bijli-bill-calculator-how-bill-calculated): Bijli bill calculator: how is your electricity bill calculated? Protected vs non-protected slabs, FCA, GST and fixed charges explained.
+- [How to Compress a HEIC Image to 50KB on iPhone and Android](https://smarttoolkit.space/compress-heic-image-to-50kb): Compress HEIC image to 50KB without losing quality. Convert HEIC to JPG, shrink it on iPhone and Android, and fix form uploads that reject HEIC files.
+- [How to Compress an Image to 200KB Without Losing Quality](https://smarttoolkit.space/compress-image-to-200kb-without-losing-quality): Compress image to 200KB without losing quality. Exact target-size steps for JPG and PNG, on mobile and desktop, with quality checks before you upload.
+- [What Internet Speed Do You Need for Gaming? PS5, Xbox and PC](https://smarttoolkit.space/what-internet-speed-do-you-need-for-gaming): What internet speed do you need for gaming on PS5, Xbox and PC? Download, upload and ping targets for Valorant, League of Legends and cloud gaming.
+- [What Internet Speed Do You Need for 4K Streaming and Netflix?](https://smarttoolkit.space/what-internet-speed-do-you-need-for-4k-streaming): What internet speed do you need for 4K streaming and Netflix? Speed targets for 4K, HD and multiple screens, plus what to do when video keeps buffering.
+- [What Internet Speed Do You Need to Work From Home?](https://smarttoolkit.space/what-internet-speed-do-you-need-to-work-from-home): What internet speed do you need to work from home? Zoom and Teams video-call targets, upload speed, and how much speed one person really needs.
+- [What Is a Good Upload Speed? Download, Upload, Ping and Latency Explained](https://smarttoolkit.space/what-is-good-upload-speed-ping-latency-explained): What is a good upload speed, and what do ping and latency mean? Upload vs download explained, with good targets for gaming, calls and streaming.
+- [How Many Solar Panels Do You Need? By House Size and Monthly Units](https://smarttoolkit.space/how-many-solar-panels-do-you-need-by-house-size): How many solar panels do you need for a house? Work it out by house size, from 1000 to 3000 sq ft, and by monthly use, from 500 to 4000 kWh.
+- [How Many Solar Panels to Charge an EV, Run an AC or Go Off-Grid?](https://smarttoolkit.space/how-many-solar-panels-to-charge-an-ev-run-ac-off-grid): How many solar panels to charge an EV, run an air conditioner or go off-grid? Panel counts for an EV, a fridge and a whole house, explained simply.
+- [How to Calculate Exact Age in Excel (Years, Months and Days)](https://smarttoolkit.space/how-to-calculate-exact-age-in-excel): How to calculate exact age in Excel from a date of birth. DATEDIF formula, years months and days, age on a specific date, and the mistakes to avoid.
+- [Retirement Calculator in Excel: How Much Do You Really Need?](https://smarttoolkit.space/retirement-calculator-in-excel-how-much-you-need): Build a retirement calculator in Excel and find how much you really need. Formula, inflation adjustment, monthly saving target and a free template.
+- [How to Read a Digital Water Meter (and Check for a Leak)](https://smarttoolkit.space/how-to-read-a-digital-water-meter): How to read a digital water meter step by step. Find the reading, work out litres and cubic metres, and use the leak indicator to check for a leak.
+- [Signature Resize to 20KB for SSC, IBPS and GDS Exams (Exact Sizes)](https://smarttoolkit.space/signature-resize-to-20kb-ssc-ibps-gds-exams): Signature resize to 20KB for SSC, IBPS and GDS exams. Exact sizes in cm and pixels, 300 DPI, and the 10 to 20KB limits for CGL, CHSL and GD.
+- [Income Tax New Regime vs Old Regime: Which One Saves You More Tax?](https://smarttoolkit.space/income-tax-new-regime-vs-old-regime-which-is-better): Income tax new regime vs old regime compared side by side: slabs, deductions, break-even salary and worked examples so you can pick the regime that saves more.
+- [How to Calculate Zakat on Business, Stocks and Property (With Examples)](https://smarttoolkit.space/how-to-calculate-zakat-on-business-stocks-property): Learn how to calculate zakat on business stock, shares, rental property and fixed deposits, with the 2.5% rate, worked examples and what to exclude.
+- [SIP vs Lump Sum: Which Investment Grows Your Money More?](https://smarttoolkit.space/sip-calculator-vs-lumpsum-which-grows-more): A sip calculator vs lumpsum comparison: monthly investing vs a one-time investment, with examples at the same return to show which grows more.
+- [Passport Photo Size for Visa: US, Schengen, UAE and Other Countries](https://smarttoolkit.space/passport-size-photo-maker-visa-sizes): A passport size photo maker visa guide: the exact photo sizes for US, Schengen, UAE and other visas, and how to resize your photo to match.
+- [How to Resize an Image for WhatsApp DP Without Cropping It](https://smarttoolkit.space/resize-image-for-whatsapp-dp-without-cropping): Resize image for WhatsApp DP without cropping: fit the full photo with a blurred background or padding, keep it sharp at 640x640, and set it in seconds.
+- [How to File a Late Income Tax Return (Belated and Revised Returns)](https://smarttoolkit.space/how-to-file-late-income-tax-return-belated-revised): A late income tax return can still be filed as a belated return, and mistakes fixed with a revised return. Learn the deadlines, fees and steps.
+- [Credit Card Interest-Free Period: How the Grace Period Works](https://smarttoolkit.space/credit-card-interest-free-period-explained): The credit card interest free period is the gap between your statement and due date. Learn how the grace period works and when it disappears.
+- [Fixed Deposit Tax and TDS: How Much Tax on FD Interest?](https://smarttoolkit.space/fixed-deposit-tax-tds-rates-explained): Fixed deposit tax applies to your FD interest, and TDS may be cut at source. Learn the rates, when TDS applies, and how to claim it back.
+- [House Construction Cost Breakdown: Material, Labour and Stage-Wise Costs](https://smarttoolkit.space/house-construction-cost-breakdown-material-labour): House construction cost breakdown explained stage by stage: material, labour and finishing costs, with material vs labour-only rates compared.
+- [What Does Internet Speed Mbps Mean? Mbps, Kbps and How Speed Is Measured](https://smarttoolkit.space/what-internet-speed-mbps-means-measured): What internet speed Mbps means, how Mbps and Kbps differ, and how internet speed is measured, so you can tell a fast plan from a slow one.
+- [Days Between Two Dates in Excel: Formula, NETWORKDAYS and Tips](https://smarttoolkit.space/days-between-two-dates-in-excel-formula): Days between two dates in Excel: the simple subtraction formula, DATEDIF and NETWORKDAYS, and how to fix the #VALUE! error fast.
+- [How to Calculate Percentage Increase and Decrease](https://smarttoolkit.space/how-to-calculate-percentage-increase-and-decrease): How to calculate percentage increase and decrease step by step, with the formula, worked examples for prices and salary, and how they differ.
+- [BMI for Kids and Teens: Healthy Ranges by Age](https://smarttoolkit.space/bmi-for-kids-and-teens-healthy-ranges): BMI for kids and teens works differently from adults. Learn the healthy ranges by age, how percentiles work, and when a number needs a doctor.
+- [How Much Should You Tip for Delivery? Uber Eats, DoorDash and Pizza](https://smarttoolkit.space/how-much-tip-for-delivery-uber-eats-doordash): How much tip for delivery is fair? Percentages for Uber Eats, DoorDash, pizza and grocery delivery, plus when bad weather or a big order means more.
+- [Salary Tax Slabs 2025–26 (Tax Year 2026): Complete Salaried Guide with Examples](https://smarttoolkit.space/salary-tax-slabs-2025-26-salaried-guide): Salary tax slabs 2025-26: Tax Year 2026 rates from 0% to 35%, with monthly deduction examples at Rs 80k, 150k and 300k salaries.
+- [Income Tax New Regime FY 2025–26: How the ₹12 Lakh Rebate Actually Works](https://smarttoolkit.space/income-tax-new-regime-fy-2025-26-rebate-explained): Income tax new regime: FY 2025-26 slabs, Rs 75,000 standard deduction and Section 87A rebate up to Rs 12 lakh, with examples.
+- [How to Calculate Zakat on Gold, Silver and Cash: A Practical Step-by-Step Guide](https://smarttoolkit.space/how-to-calculate-zakat-gold-silver-cash): How to calculate zakat on gold, silver and cash — 2.5% Zakat step by step, with nisab explained and worked examples for you.
+- [GST Calculator Guide: How to Add GST and How to Remove GST From a Total Price](https://smarttoolkit.space/gst-calculator-add-remove-gst-guide): GST calculator: add GST and remove GST from a total price, with formulas, CGST/SGST split, input tax credit and worked examples.
+- [CGPA to Percentage: How Students Should Convert (and When ×9.5 Is Wrong)](https://smarttoolkit.space/cgpa-to-percentage-converter-guide): CGPA to percentage converter: convert CGPA to percentage correctly with the ×9.5 method, and learn when that formula is wrong.
+- [Loan EMI With Extra Payments: How Paying a Little Extra Saves You Lakhs](https://smarttoolkit.space/emi-calculator-extra-principal-payments-guide): EMI calculator: how extra monthly principal payments cut your loan tenure and total interest, with a worked Rs 10 lakh example.
+- [SIP Calculator Guide: What a ₹5,000 Monthly SIP Can Really Grow Into](https://smarttoolkit.space/sip-calculator-monthly-investment-guide): SIP calculator: what a ₹5,000 monthly SIP can grow into in 10, 15 and 20 years, with inflation and step-up SIPs explained.
+- [How to Make a Passport Size Photo at Home (35x45mm)](https://smarttoolkit.space/passport-size-photo-maker-35x45mm): Passport size photo maker: take a 35x45mm photo at home with your phone, crop it right, and print it free. No studio visit needed.
+- [How to Convert PDF to JPG Without Losing Quality](https://smarttoolkit.space/convert-pdf-to-jpg-without-losing-quality): Convert PDF to JPG online free in your browser: high-resolution settings, multi-page tips, and how to keep text sharp and clear.
+- [How to Convert Images to PDF Free (Step-by-Step)](https://smarttoolkit.space/convert-images-to-pdf-free): Convert images to PDF free: turn one or many photos into a single PDF in your browser. Order, quality, and file size tips included.
+- [How to Make Your Signature a Transparent PNG](https://smarttoolkit.space/make-signature-transparent-png): Make your signature transparent PNG: remove the white background from your signature in minutes, free, and reuse it on any document.
+- [How to Compress a PDF to 100KB for Online Forms](https://smarttoolkit.space/compress-pdf-to-100kb): Compress PDF to 100KB free in your browser: step-by-step compression, quality checks, and fixes when a file will not shrink.
+- [How to Crop a Photo for Online Forms (Exact Sizes)](https://smarttoolkit.space/crop-photo-for-online-forms): Crop photo for online forms: pick the right ratio, centre the face, and match the pixel and KB limits. Free, in your browser.
+- [How to Resize an Image for WhatsApp Profile Photo](https://smarttoolkit.space/resize-image-for-whatsapp-profile-photo): Resize image for WhatsApp DP to a sharp 640x640 square: crop, resize, and avoid the blur that ruins most profile photos.
+- [How to Reduce PDF File Size Without Losing Quality](https://smarttoolkit.space/reduce-pdf-file-size-without-losing-quality): Reduce PDF file size free in your browser: shrink oversized images, remove extra pages, and keep text sharp and readable.
+- [Compound Interest: How Your Money Grows Over Time](https://smarttoolkit.space/compound-interest-how-your-money-grows): Use a compound interest calculator to see how your money grows over time. Learn the formula, worked examples and the habits that make compounding work for you.
+- [Fixed Deposit Calculator Guide: How to Compare FD Returns](https://smarttoolkit.space/fixed-deposit-calculator-guide-compare-fd-returns): A fixed deposit calculator helps you compare FD returns before you lock your money away. Learn how tenure, rates and payout options change what you earn.
+- [Retirement Calculator: How Much Should You Save Every Month?](https://smarttoolkit.space/retirement-calculator-how-much-save-every-month): A retirement calculator turns a big goal into a monthly savings target. Work out your goal, your timeline and the monthly amount that gets you there.
+- [Home Loan EMI: How Much House Can You Afford?](https://smarttoolkit.space/home-loan-emi-how-much-house-can-you-afford): A home loan emi calculator shows what a house really costs every month. Learn the 30% rule, the hidden costs, and how to check affordability honestly.
+- [How to File Your Income Tax Return Online, Step by Step](https://smarttoolkit.space/how-to-file-income-tax-return-online-step-by-step): Learn how to file income tax return online in a few clear steps: gather documents, choose the right form, verify and track your refund.
+- [How Credit Card Interest Is Calculated (and How to Avoid It)](https://smarttoolkit.space/how-credit-card-interest-is-calculated-avoid-it): A credit card interest calculator shows what a balance really costs. Learn how interest is calculated, why minimum payments are a trap, and how to avoid it.
+- [Simple Interest vs Compound Interest, Explained With Examples](https://smarttoolkit.space/simple-interest-vs-compound-interest-explained): A simple interest calculator gives you the flat answer, but most savings compound. Compare both methods with worked examples and see the difference.
+- [Loan Eligibility: How Banks Decide How Much You Can Borrow](https://smarttoolkit.space/loan-eligibility-how-banks-decide-how-much-you-can-borrow): A loan eligibility calculator estimates how much you can borrow. Learn the income, credit and debt rules banks use, and how to improve your chances.
+- [Square Feet to Marla Converter: Plot Sizes Explained](https://smarttoolkit.space/square-feet-to-marla-converter-plot-sizes): Square feet to marla converter: convert any plot size in square feet to Marla and Kanal, with the two Marla standards and worked examples.
+- [Kanal to Acre Converter: Land Sizes Explained](https://smarttoolkit.space/kanal-to-acre-converter-land-sizes): Kanal to acre converter: convert Kanal to acres, Marla and square feet, with farm and plot examples and a simple conversion table.
+- [How to Calculate Plot Price Per Marla Before You Buy](https://smarttoolkit.space/how-to-calculate-plot-price-per-marla): Plot price per marla: learn how to calculate the fair price of a plot from the total price, compare nearby plots and avoid overpaying.
+- [How to Estimate House Construction Cost Per Square Foot](https://smarttoolkit.space/house-construction-cost-per-square-foot-guide): House construction cost calculator: estimate cost per square foot, break down structure, finishing and labour, and plan your budget.
+- [How Many Units Does Your Air Conditioner Use?](https://smarttoolkit.space/how-many-units-does-air-conditioner-use): How many units does air conditioner use? Estimate your AC units per hour, per night and per month, and learn how to cut the bill.
+- [How Many Solar Panels Do You Need for Your Home?](https://smarttoolkit.space/how-many-solar-panels-do-you-need-home): How many solar panels do you need for your home? Work it out from your monthly units, sunlight hours, roof space and panel wattage.
+- [What Internet Speed Do You Actually Need?](https://smarttoolkit.space/what-internet-speed-do-you-actually-need): What internet speed do I need? Find the download and upload speed for streaming, video calls, gaming and working from home.
+- [How to Read Your Water Meter and Check for Leaks](https://smarttoolkit.space/how-to-read-water-meter-check-for-leaks): How to read water meter: find your meter, read the dial, track usage and spot a hidden leak with a simple overnight test.
+- [How to Calculate Your Exact Age in Years, Months and Days](https://smarttoolkit.space/how-to-calculate-exact-age-years-months-days): How to calculate exact age in years, months and days, plus your total days lived. Free, instant, and explained step by step.
+- [How to Calculate Days Between Two Dates](https://smarttoolkit.space/how-to-calculate-days-between-two-dates): Days between two dates calculator: count the exact days, weeks and months between any two dates, with leap years handled for you.
+- [Percentage Calculator Guide: How to Work Out Any Percentage](https://smarttoolkit.space/percentage-calculator-guide-work-out-any-percentage): Percentage calculator guide: find a percent of a number, work out a percentage increase or decrease, and convert marks to percent easily.
+- [How to Calculate Your Grade From Marks](https://smarttoolkit.space/how-to-calculate-grade-from-marks): How to calculate grade from marks: turn marks into a letter grade or percentage, understand boundaries, and check weighted scores.
+- [GPA Calculator: How to Convert Marks to GPA](https://smarttoolkit.space/gpa-calculator-convert-marks-to-gpa): GPA calculator: convert marks to GPA on a 4.0 scale, work out weighted GPA, and understand what your GPA actually means.
+- [BMI Calculator: What Your BMI Really Means](https://smarttoolkit.space/bmi-calculator-what-your-bmi-means): BMI calculator: work out your body mass index from height and weight, understand the ranges, and learn what BMI cannot tell you.
+- [How Many Calories Do You Need Per Day?](https://smarttoolkit.space/how-many-calories-do-you-need-per-day): How many calories do you need per day? Estimate it from your age, weight, height and activity, and learn how to use the number.
+- [How Much Water Should You Drink Per Day?](https://smarttoolkit.space/how-much-water-should-you-drink-per-day): How much water should you drink per day? Work it out from your weight and activity, and watch for the signs you need more.
+- [How Much Tip Should You Leave? A Simple Guide](https://smarttoolkit.space/how-much-tip-should-you-leave): How much tip should you leave on any bill? Learn standard tip rates, how to split tips fairly, and when tipping is optional.
+- [How to Calculate Discount Percentage on Any Price](https://smarttoolkit.space/how-to-calculate-discount-percentage): How to calculate discount percentage on any price: learn the formula, check a deal quickly, and spot common discount tricks.
+- [How to Convert Currency Without Losing Money on Fees](https://smarttoolkit.space/how-to-convert-currency-without-losing-money-on-fees): How to convert currency without losing money on fees: compare mid-market rates, spot hidden charges and keep more of what you exchange.
+- [Unit Converter Guide: Length, Weight and Volume Explained](https://smarttoolkit.space/unit-converter-guide-length-weight-volume): A unit converter turns metres into feet, kilos into pounds and litres into gallons. Learn the key conversions and how to check your answers.
+- [How to Count Words in an Essay or Article](https://smarttoolkit.space/how-to-count-words-in-an-essay-or-article): How to count words in an essay or article: learn what counts, how word limits work, and how to hit your target exactly every time.
+- [Character Counter: Why Character Limits Matter on Forms](https://smarttoolkit.space/character-counter-why-character-limits-matter-on-forms): A character counter shows how many characters your text uses. Learn why forms limit characters and how to trim text without losing meaning.
+- [How to Calculate Your Due Date From Your Last Period](https://smarttoolkit.space/how-to-calculate-due-date-from-last-period): How to calculate due date from your last period: learn how the 40-week rule works and why your due date can shift by days.
+- [How to Calculate Time Duration Between Two Times](https://smarttoolkit.space/how-to-calculate-time-duration-between-two-times): How to calculate time duration between two times: learn the manual method, overnight shifts, and common mistakes to avoid.
+
+## About
+
+- [About Us](https://smarttoolkit.space/about-us): What SmartToolkit is and how it works.
+- [Contact](https://smarttoolkit.space/contact): Get in touch with SmartToolkit.
+- [Privacy Policy](https://smarttoolkit.space/privacy-policy): How SmartToolkit handles your data.
+- [Disclaimer](https://smarttoolkit.space/disclaimer): Accuracy and liability notes for tools and guides.
+- [Terms of Use](https://smarttoolkit.space/terms-of-use): Terms for using SmartToolkit.
