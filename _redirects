@@ -1,0 +1,10 @@
+# Clean URLs for the single-page site: Cloudflare Pages serves index.html
+# for these paths (200 rewrite, URL stays clean), so /tools/image-kb and
+# /posts/<slug> work on refresh and share. /api/*, /admin.html, /posts.json
+# and other real files are NOT rewritten by these rules.
+/tools /index.html 200
+/tools/* /index.html 200
+/posts/* /index.html 200
+/blog /index.html 200
+/blog/* /index.html 200
+/page-* /index.html 200
