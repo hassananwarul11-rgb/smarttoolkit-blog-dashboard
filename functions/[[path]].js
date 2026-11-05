@@ -57,10 +57,14 @@ export async function onRequest(context) {
   const url = new URL(context.request.url);
   const path = url.pathname;
   if (
-    path === '/' || path === '/index.html' || path === '/admin.html' ||
+    path === '/' || path === '/index.html' ||
+    path === '/admin.html' || path === '/admin' || path === '/admin/' ||
     path === '/posts.json' || path === '/_redirects' ||
     path.startsWith('/api/') || path.includes('.')
   ) {
+    // NOTE: Cloudflare Pages redirects /admin.html to the clean URL /admin,
+    // so /admin must pass through too — otherwise this catch-all treats
+    // "admin" as a post slug and answers the site's 404 page.
     return context.next();
   }
   const parts = path.replace(/^\/+/, '').split('/').filter(Boolean);
