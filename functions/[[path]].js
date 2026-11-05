@@ -1,6 +1,6 @@
 // SPA fallback for clean URLs (direct post slugs, /tools/*, /blog, /page-*).
 // Known slugs are served index.html (200). Anything else that looks like a
-// post slug is checked against the live posts.json on GitHub: if it is not a
+// post slug is checked against the live posts.json: if it is not a
 // real post, tool, page or category, the Function answers 404 (with the site
 // shell) instead of a soft-404 homepage, so Google never indexes typo URLs.
 // Real files, /admin.html, /posts.json and /api/* pass through untouched.
@@ -62,7 +62,7 @@ export async function onRequest(context) {
     path === '/posts.json' || path === '/_redirects' ||
     path.startsWith('/api/') || path.includes('.')
   ) {
-    // NOTE: Cloudflare Pages redirects /admin.html to the clean URL /admin,
+    // NOTE: /admin.html redirects to the clean URL /admin,
     // so /admin must pass through too — otherwise this catch-all treats
     // "admin" as a post slug and answers the site's 404 page.
     return context.next();

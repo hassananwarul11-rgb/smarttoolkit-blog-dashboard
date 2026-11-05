@@ -1,23 +1,23 @@
-// Cloudflare Pages Function: /api/publish
-// Purpose: let the WordPress-style admin (admin.html) publish a post as a
+// Publish API: /api/publish
+// Purpose: let the admin (admin.html) publish a post as a
 // STATIC update to the website, without any password or token in the code.
-// Secrets live ONLY in Cloudflare Pages environment variables, set by the
-// site owner in the Cloudflare dashboard:
+// Secrets live ONLY in environment variables, set by the
+// site owner in the hosting dashboard:
 //   ADMIN_PASSWORD - admin password, set as an encrypted (secret) variable
 //   GITHUB_TOKEN   - fine-grained GitHub token, set as an encrypted variable,
 //                    scoped ONLY to repo hassananwarul11-rgb/smarttoolkit-blog-dashboard,
 //                    Contents: Read and write. No other repo, no other permission.
 // Flow: admin sends {password, post} -> this Function checks the password
-// against env.ADMIN_PASSWORD -> it updates posts.json in the GitHub repo
+// against env.ADMIN_PASSWORD -> it updates posts.json in the repo
 // The admin can ALSO send {password, settings, adsTxt} (no post needed):
 // settings -> site-settings.json (ads on/off, AdSense + Analytics header
 // code, ad placement boxes), adsTxt -> ads.txt at the repo root.
 // The website fetches site-settings.json on every load, so ad changes
-// appear on refresh without a Pages redeploy.
+// appear on refresh without a redeploy.
 // via the GitHub Contents API using env.GITHUB_TOKEN -> the website fetches
-// that posts.json DYNAMICALLY from GitHub on every load, so the post appears
+// that posts.json DYNAMICALLY from the repo on every load, so the post appears
 // in Blog, Latest Guides and the sidebar on the next page refresh, WITHOUT
-// waiting for a Pages redeploy.
+// waiting for a redeploy.
 // No password or token is ever logged, returned, or stored in the repo.
 
 const OWNER = "hassananwarul11-rgb";
@@ -81,12 +81,12 @@ export async function onRequestPost(context) {
     return json({ ok: false, error: "Invalid JSON body." }, 400);
   }
 
-  // 1. Admin password check — server-side, against the Cloudflare variable.
+  // 1. Admin password check — server-side, against the server variable.
   if (!env.ADMIN_PASSWORD || body.password !== env.ADMIN_PASSWORD) {
     return json({ ok: false, error: "Wrong admin password." }, 401);
   }
   if (!env.GITHUB_TOKEN) {
-    return json({ ok: false, error: "GITHUB_TOKEN variable is not set in Cloudflare." }, 500);
+    return json({ ok: false, error: "GITHUB_TOKEN variable is not set." }, 500);
   }
 
   const headers = {
@@ -139,13 +139,13 @@ export async function onRequestPost(context) {
         updated.push("ads.txt");
       }
     } catch (e) {
-      return json({ ok: false, error: "GitHub commit failed. Check that GITHUB_TOKEN has Contents write access to this repo only." }, 502);
+      return json({ ok: false, error: "Save failed. Check that GITHUB_TOKEN has Contents write access to this repo only." }, 502);
     }
     return json({
       ok: true,
       updated,
       message:
-        "Saved to GitHub (" + updated.join(", ") + "). The site reads site-settings.json on every load, so refresh the website to see the change (GitHub may take under a minute to serve the new file).",
+        "Saved (" + updated.join(", ") + "). The site reads site-settings.json on every load, so refresh the website to see the change (GitHub may take under a minute to serve the new file).",
     });
   }
 
@@ -175,7 +175,7 @@ export async function onRequestPost(context) {
       return json({ ok: false, error: "posts.json in the repo is not valid JSON." }, 500);
     }
   } else if (getRes.status !== 404) {
-    return json({ ok: false, error: "Could not read posts.json from GitHub." }, 502);
+    return json({ ok: false, error: "Could not read posts.json." }, 502);
   }
 
   // 3. Merge: update by slug, keep the old body if the new body is empty
@@ -201,8 +201,8 @@ export async function onRequestPost(context) {
     list.unshift({ ...clean, date: clean.date || new Date().toISOString().slice(0, 10) });
   }
 
-  // 4. Commit posts.json back to GitHub. The site reads it dynamically, so
-  // no Pages redeploy wait is needed for the content to appear.
+  // 4. Commit posts.json back. The site reads it dynamically, so
+  // no redeploy wait is needed for the content to appear.
   const putBody = {
     message: `Publish post: ${p.slug} via admin`,
     content: b64encode(JSON.stringify(list, null, 2)),
@@ -215,7 +215,7 @@ export async function onRequestPost(context) {
     body: JSON.stringify(putBody),
   });
   if (!putRes.ok) {
-    return json({ ok: false, error: "GitHub commit failed. Check that GITHUB_TOKEN has Contents write access to this repo only." }, 502);
+    return json({ ok: false, error: "Save failed. Check that GITHUB_TOKEN has Contents write access to this repo only." }, 502);
   }
 
   return json({
@@ -223,7 +223,7 @@ export async function onRequestPost(context) {
     slug: p.slug,
     published: isPublished,
     message: isPublished
-      ? "Saved to GitHub. The site loads posts.json dynamically, so refresh the website and the post appears in Blog and sidebar (GitHub may take under a minute to serve the new file)."
+      ? "Saved. The site loads posts.json dynamically, so refresh the website and the post appears in Blog and sidebar (GitHub may take under a minute to serve the new file)."
       : "Draft removed from live posts.json (not published).",
   });
 }

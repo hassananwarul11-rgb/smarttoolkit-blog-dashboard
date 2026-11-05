@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SmartToolkit Admin — WordPress-style Dashboard</title>
+<title>SmartToolkit Admin</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
 :root{--blue:#2563eb;--blue2:#1d4ed8;--ink:#0f172a;--mut:#64748b;--line:#e2e8f0;--bg:#f1f5f9;--green:#16a34a;--amber:#d97706;--red:#dc2626}
@@ -83,7 +83,7 @@ table{width:100%;border-collapse:collapse}th{font-size:11px;text-transform:upper
 </style></head><body>
 <div id="gate"></div>
 <div id="app" style="display:none">
-<div class="topbar"><b>SmartToolkit Admin</b><a href="index.html">← View Site</a><a href="https://smarttoolkit-blog-dashboard.pages.dev/" target="_blank" rel="noopener">Live pages.dev ↗</a><span class="sp"></span><span id="who">Admin</span> <button class="btn grey" onclick="logout()">Log out</button></div>
+<div class="topbar"><b>SmartToolkit Admin</b><a href="index.html">← View Site</a><a href="https://smarttoolkit-blog-dashboard.pages.dev/" target="_blank" rel="noopener">View Live Site ↗</a><span class="sp"></span><span id="who">Admin</span> <button class="btn grey" onclick="logout()">Log out</button></div>
 <div class="wrap"><div class="side">
 <div class="h">Content</div>
 <button class="on" onclick="show('dash',this)">📊 Dashboard</button>
@@ -98,7 +98,7 @@ table{width:100%;border-collapse:collapse}th{font-size:11px;text-transform:upper
 
 <div id="v-dash" class="view on">
 <h1>Dashboard</h1>
-<div class="note"><b>Important — ye WordPress jaisa interface hai, lekin backend WordPress jaisa nahi:</b> ye static site hai, is liye is me koi server database nahi. Yahan banaya hua post pehle <b>is device</b> par save hota hai. Live site par lane ke liye <b>Export JSON</b> kar ke wo file mujhe (Muse) bhej do, main use repo me push kar dunga — phir Cloudflare Pages se wo live ho jayegi. Asli server-side password protection ke liye Cloudflare Worker me <b>ADMIN_PASSWORD</b> variable chahiye, wo alag step hai.</div>
+<div class="note"><b>Important:</b> ye static site hai, is me koi server database nahi. Yahan banaya hua post pehle <b>is device</b> par save hota hai. Live site par lane ke liye editor me <b>Publish</b> button dabao (admin password chahiye) — post foran live ho jayegi.</div>
 <div class="grid" id="stats"></div>
 <div class="card"><h2>Recent Posts</h2><div id="recent"></div></div>
 <div class="card"><h2>Quick Draft</h2><input id="qd" placeholder="Post idea / title…"><button class="btn" onclick="quickDraft()">Save as Draft</button><p class="mut">Quick Draft sirf title save karta hai — poora article Add New Post se likho.</p></div>
@@ -111,7 +111,7 @@ table{width:100%;border-collapse:collapse}th{font-size:11px;text-transform:upper
 <div id="v-editor" class="view"><h1 id="edTitle">Add New Post</h1>
 <div class="ed"><div class="left">
 <div class="card"><label>Post Title</label><input id="t" placeholder="e.g. How to Resize Photo for NADRA Online" oninput="autoSlug();seoCheck()">
-<label>Permalink</label><div class="mut" id="plink">https://smarttoolkit-blog-dashboard.pages.dev/posts/</div>
+<label>Permalink</label><div class="mut" id="plink">https://smarttoolkit.space/</div>
 <label>Article Composer</label>
 <div class="toolbar">
 <button onclick="fmt('bold')"><b>B</b></button><button onclick="fmt('italic')"><i>I</i></button><button onclick="fmt('underline')"><u>U</u></button>
@@ -131,7 +131,7 @@ table{width:100%;border-collapse:collapse}th{font-size:11px;text-transform:upper
 <label>Meta Description (0–160)</label><textarea id="meta" rows="3" maxlength="180" oninput="seoCheck()"></textarea><span class="mut" id="cmeta">0 / 160</span>
 <label>Focus Keyword</label><input id="kw" placeholder="e.g. resize photo nadra online" oninput="seoCheck()">
 <label>Slug (URL)</label><input id="slug" oninput="seoCheck()">
-<label>Canonical URL</label><input id="canon" placeholder="https://smarttoolkit-blog-dashboard.pages.dev/posts/your-slug">
+<label>Canonical URL</label><input id="canon" placeholder="https://smarttoolkit.space/your-slug">
 <label>Excerpt</label><textarea id="exc" rows="3"></textarea>
 <h3>Google Preview</h3><div class="serp"><div class="t" id="ptitle"></div><div class="u" id="purl"></div><div class="d" id="pdesc"></div></div>
 <h3>JSON-LD Preview (Article schema)</h3><pre id="ld" style="white-space:pre-wrap;font-size:12px;background:#f6f7f7;padding:10px"></pre>
@@ -188,17 +188,17 @@ table{width:100%;border-collapse:collapse}th{font-size:11px;text-transform:upper
 <button class="btn" onclick="saveAdsLocal()">💾 Save on This Device</button>
 <button class="btn green" onclick="publishAds()">🚀 Publish Live</button>
 <p class="mut" id="adsMsg"></p>
-<p class="mut">Publish karte hi settings GitHub me save ho jayengi (site-settings.json aur ads.txt). Website har load par nayi settings parh leti hai — redeploy ka wait nahi.</p></div>
+<p class="mut">Publish karte hi settings live save ho jayengi. Website har load par nayi settings parh leti hai — redeploy ka wait nahi.</p></div>
 </div>
 
 <div id="v-seo" class="view"><h1>SEO Checker (standalone)</h1><div class="card"><label>Title</label><input id="s_t"><label>Meta Description</label><textarea id="s_m" rows="3"></textarea><label>Focus Keyword</label><input id="s_k"><label>Content (paste article text)</label><textarea id="s_c" rows="8"></textarea><button class="btn" onclick="seoStandalone()">Check Score</button><div id="s_out"></div></div></div>
 
 <div id="v-settings" class="view"><h1>Settings &amp; Export</h1>
-<div class="card"><label>Site Name</label><input id="setName" value="SmartToolkit"><label>Site URL</label><input id="setUrl" value="https://smarttoolkit-blog-dashboard.pages.dev/">
+<div class="card"><label>Site Name</label><input id="setName" value="SmartToolkit"><label>Site URL</label><input id="setUrl" value="https://smarttoolkit.space/">
 <button class="btn" onclick="exportAll()">⬇ Export All Posts (JSON)</button> <button class="btn grey" onclick="document.getElementById('imp').click()">⬆ Import JSON</button><input type="file" id="imp" accept="application/json" style="display:none" onchange="importJson(this)">
 <button class="btn red" onclick="wipe()">🗑 Delete All Local Admin Data</button>
-<p class="mut">Import/Export se data is device aur Muse ke darmiyan transfer hota hai. Live site par kuch bhi tab hi jayega jab Muse use repo me push kare.</p></div>
-<div class="card"><h2>Change Admin Password (local)</h2><input type="password" id="np" placeholder="New password"><button class="btn" onclick="changePass()">Set New Password</button><p class="mut">Ye password sirf is browser me hash ki shakal me save hota hai. Asli server protection ke liye Cloudflare Worker + ADMIN_PASSWORD variable zaroori hai.</p></div>
+<p class="mut">Import/Export se data is device par save ya load hota hai.</p></div>
+<div class="card"><h2>Change Admin Password (local)</h2><input type="password" id="np" placeholder="New password"><button class="btn" onclick="changePass()">Set New Password</button><p class="mut">Ye password sirf is browser me hash ki shakal me save hota hai.</p></div>
 </div>
 
 </div></div></div>
@@ -399,17 +399,17 @@ const title=$('t').value.trim();if(!title)return alert('Title zaroori hai.');
 const body=bodyHtml().trim();const slug=$('slug').value.trim()||slugify(title);
 if(FEAT&&FEAT.startsWith('data:'))return alert('Live publish ke liye featured image URL use karo — uploaded data image yahan nahi jayegi.');
 const post={id:EDIT||('p'+Date.now()),title,slug,cat:$('cat').value,kw:$('kw').value.trim(),seo:$('seo').value.trim()||title,meta:$('meta').value.trim(),canon:$('canon').value.trim(),exc:$('exc').value.trim(),status:'published',date:new Date().toISOString().slice(0,10),tool:$('tool').value,tags:$('tags').value.split(',').map(s=>s.trim()).filter(Boolean),feat:FEAT,alt:$('alt').value.trim(),cap:$('cap').value.trim(),body};
-$('liveMsg').textContent='Publishing… Website ko refresh karo, post dynamic aa jayegi (GitHub ko file serve karne me 1 minute tak lag sakta hai).';
+$('liveMsg').textContent='Publishing… Website ko refresh karo, post dynamic aa jayegi (file serve hone me 1 minute tak lag sakta hai).';
 try{const r=await fetch('/api/publish',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({password:pass,post})});const d=await r.json();$('liveMsg').textContent=d.ok?('✅ '+d.message):('❌ '+(d.error||'Publish failed.'));if(d.ok){savePost(true);$('livepass').value=''}}catch(e){$('liveMsg').textContent='❌ Network error — check ke Pages Function deploy hua hai aur variables set hain.'}}
 function preview(){const b=bodyHtml()||'<p><i>Full article body is in index.html (seed post) — preview shows title, featured image and excerpt here.</i></p>';$('preview').style.display='block';$('preview').innerHTML=`<hr><h1>${esc($('t').value)}</h1>${FEAT?`<img src="${FEAT}" class="feat"><p class="mut">${esc($('cap').value)}</p>`:''}${b}`}
 function dl(name,txt,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type}));a.download=name;a.click()}
-function exportOne(){const p=POSTS.find(x=>x.id===EDIT)||POSTS[0];if(!p)return;const html=`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>${esc(p.seo)}</title><meta name="description" content="${esc(p.meta)}"><link rel="canonical" href="${p.canon||('https://smarttoolkit-blog-dashboard.pages.dev/'+p.slug)}"><meta property="og:title" content="${esc(p.seo)}"><meta property="og:description" content="${esc(p.meta)}">${p.feat&&!p.feat.startsWith('data:')?`<meta property="og:image" content="${esc(p.feat)}">`:''}<script type="application/ld+json">${JSON.stringify({"@context":"https://schema.org","@type":"Article",headline:p.title,description:p.meta,image:p.feat&&!p.feat.startsWith('data:')?p.feat:undefined,datePublished:p.date})}<\/script></head><body>${p.feat?`<img src="${p.feat}" alt="${esc(p.alt)}">`:''}<h1>${esc(p.title)}</h1>${p.body}</body></html>`;dl(p.slug+'.html',html,'text/html')}
+function exportOne(){const p=POSTS.find(x=>x.id===EDIT)||POSTS[0];if(!p)return;const html=`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>${esc(p.seo)}</title><meta name="description" content="${esc(p.meta)}"><link rel="canonical" href="${p.canon||('https://smarttoolkit.space/'+p.slug)}"><meta property="og:title" content="${esc(p.seo)}"><meta property="og:description" content="${esc(p.meta)}">${p.feat&&!p.feat.startsWith('data:')?`<meta property="og:image" content="${esc(p.feat)}">`:''}<script type="application/ld+json">${JSON.stringify({"@context":"https://schema.org","@type":"Article",headline:p.title,description:p.meta,image:p.feat&&!p.feat.startsWith('data:')?p.feat:undefined,datePublished:p.date})}<\/script></head><body>${p.feat?`<img src="${p.feat}" alt="${esc(p.alt)}">`:''}<h1>${esc(p.title)}</h1>${p.body}</body></html>`;dl(p.slug+'.html',html,'text/html')}
 function exportAll(){dl('smarttoolkit-posts.json',JSON.stringify(POSTS,null,2),'application/json')}
 function importJson(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{try{const d=JSON.parse(e.target.result);if(Array.isArray(d)){POSTS=d;save();renderPosts();renderDash();alert('Imported '+d.length+' posts.')}else alert('JSON me posts ki list nahi mili.')}catch(err){alert('Invalid JSON.')}};r.readAsText(f)}
 function wipe(){if(confirm('Delete ALL local admin data on this device? Seed posts wapas aa jayenge.')){localStorage.removeItem('stk_admin_posts');POSTS=SEED.slice();save();renderPosts();renderDash()}}
 function seoCheck(){const title=$('t').value,seo=$('seo').value||title,meta=$('meta').value,kw=$('kw').value.trim().toLowerCase(),slug=$('slug').value,body=bodyHtml().replace(/<[^>]+>/g,' ');const words=body.split(/\s+/).filter(Boolean).length;const heads=(bodyHtml().match(/<h[23]/g)||[]).length;
 $('wc').textContent=words+' words';$('rt').textContent=Math.max(1,Math.round(words/200))+' min read';$('hc').textContent=heads+' headings';$('cseo').textContent=seo.length+' / 60';$('cmeta').textContent=meta.length+' / 160';
-$('ptitle').textContent=seo||title;$('purl').textContent='smarttoolkit-blog-dashboard.pages.dev/posts/'+(slug||'your-slug');$('pdesc').textContent=meta;
+$('ptitle').textContent=seo||title;$('purl').textContent='smarttoolkit.space/'+(slug||'your-slug');$('pdesc').textContent=meta;
 $('ld').textContent=JSON.stringify({"@context":"https://schema.org","@type":"Article",headline:title,description:meta,image:FEAT&&!FEAT.startsWith('data:')?FEAT:undefined,datePublished:new Date().toISOString().slice(0,10)},null,2);
 let s=0,ck=[];function add(ok,txt,pts){if(ok)s+=pts;ck.push((ok?'✅ ':'❌ ')+txt)}
 add(seo.length>=30&&seo.length<=60,'SEO title 30–60 chars',15);add(meta.length>=120&&meta.length<=160,'Meta description 120–160 chars',15);add(!!kw&&seo.toLowerCase().includes(kw),'Focus keyword in SEO title',15);add(!!kw&&meta.toLowerCase().includes(kw),'Focus keyword in meta',10);add(!!kw&&slug.includes(kw.replace(/\s+/g,'-')),'Focus keyword in slug',10);add(words>=600,'Article 600+ words ('+words+')',15);add(heads>=3,'3+ headings (H2/H3)',10);add(!!FEAT&&!!$('alt').value.trim(),'Featured image + alt text',10);
@@ -431,7 +431,7 @@ async function changePass(){const p=$('np').value;if(p.length<4)return alert('Pa
 function logout(){localStorage.removeItem('stk_admin_session');location.reload()}
 async function gate(){const h=localStorage.getItem('stk_admin_hash');const s=localStorage.getItem('stk_admin_session');
 if(s==='1'&&h){$('app').style.display='block';renderDash();return}
-$('gate').innerHTML=`<div class="gate-wrap"><div class="gate-card"><div class="gate-logo">🛠</div><h1>SmartToolkit</h1><p class="gate-sub">Admin Panel</p><h2>${h?'Welcome back 👋':'Set your admin password'}</h2><p class="gate-hint">${h?'Apna password enter karo to continue.':'Pehli dafa: apna admin password set karo — ye sirf is browser me save hoga.'}</p><div class="pw-wrap"><span class="pw-ico">🔒</span><input type="password" id="pw" placeholder="Admin password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doGate()"><button type="button" class="pw-eye" onclick="togglePw()" title="Show / hide password">👁</button></div><p class="gate-err" id="gateErr" style="display:none"></p><button class="btn gate-btn" onclick="doGate()">${h?'Log in →':'Set Password →'}</button><p class="gate-note">🔒 Password sirf is device par save hota hai. Asli server protection ke liye Cloudflare Worker + ADMIN_PASSWORD variable chahiye — password kabhi site ke code me mat likho.</p><a class="gate-back" href="index.html">← Back to site</a></div></div>`;
+$('gate').innerHTML=`<div class="gate-wrap"><div class="gate-card"><div class="gate-logo">🛠</div><h1>SmartToolkit</h1><p class="gate-sub">Admin Panel</p><h2>${h?'Welcome back 👋':'Set your admin password'}</h2><p class="gate-hint">${h?'Apna password enter karo to continue.':'Pehli dafa: apna admin password set karo — ye sirf is browser me save hoga.'}</p><div class="pw-wrap"><span class="pw-ico">🔒</span><input type="password" id="pw" placeholder="Admin password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doGate()"><button type="button" class="pw-eye" onclick="togglePw()" title="Show / hide password">👁</button></div><p class="gate-err" id="gateErr" style="display:none"></p><button class="btn gate-btn" onclick="doGate()">${h?'Log in →':'Set Password →'}</button><p class="gate-note">🔒 Password sirf is device par save hota hai — password kabhi site ke code me mat likho.</p><a class="gate-back" href="index.html">← Back to site</a></div></div>`;
 window.togglePw=function(){const i=$('pw');if(i)i.type=i.type==='password'?'text':'password'}
 window.doGate=async()=>{const p=$('pw').value;const err=$('gateErr');const fail=m=>{if(err){err.style.display='block';err.textContent=m}const c=document.querySelector('.gate-card');if(c){c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake')}};if(!h){if(p.length<4)return fail('Password kam az kam 4 characters ka ho.');localStorage.setItem('stk_admin_hash',await hash(p));localStorage.setItem('stk_admin_session','1');location.reload()}else if(await hash(p)===h){localStorage.setItem('stk_admin_session','1');location.reload()}else fail('❌ Wrong password — dobara try karo.')};};
 gate();renderPosts();
