@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://smarttoolkit-blog-dashboard.pages.dev/sitemap.xml
