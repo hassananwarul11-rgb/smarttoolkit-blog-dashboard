@@ -3,42 +3,87 @@
 <title>SmartToolkit Admin — WordPress-style Dashboard</title>
 <meta name="robots" content="noindex,nofollow">
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f0f0f1;color:#1d2327}
-a{color:#2271b1;text-decoration:none}.topbar{background:#1d2327;color:#fff;display:flex;gap:16px;align-items:center;padding:10px 16px;position:sticky;top:0;z-index:50}
-.topbar b{font-size:18px}.topbar a{color:#fff}.topbar .sp{flex:1}
-.wrap{display:flex;min-height:calc(100vh - 48px)}
-.side{width:230px;background:#1d2327;color:#c3c4c7;padding:12px 0;flex-shrink:0}
-.side button{display:block;width:100%;text-align:left;background:none;border:none;color:#c3c4c7;padding:10px 16px;font-size:15px;cursor:pointer}
-.side button:hover,.side button.on{background:#2271b1;color:#fff}
-.side .h{padding:14px 16px 6px;color:#787c82;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
-.main{flex:1;padding:22px;max-width:1180px}
-.card{background:#fff;border:1px solid #c3c4c7;border-radius:4px;padding:18px;margin-bottom:16px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
-.stat{font-size:32px;font-weight:800}.mut{color:#646970;font-size:13px}
-input,select,textarea{width:100%;padding:9px 10px;border:1px solid #8c8f94;border-radius:4px;font-size:15px;margin:4px 0 10px}
+:root{--blue:#2563eb;--blue2:#1d4ed8;--ink:#0f172a;--mut:#64748b;--line:#e2e8f0;--bg:#f1f5f9;--green:#16a34a;--amber:#d97706;--red:#dc2626}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+a{color:var(--blue);text-decoration:none}
+h1{font-size:26px;font-weight:800;margin:4px 0 18px;letter-spacing:-.02em}
+h2{font-size:17px;margin:0 0 12px}
+h3{font-size:15px;margin:16px 0 8px}
+.topbar{background:linear-gradient(90deg,#0f172a,#1e3a8a);color:#fff;display:flex;gap:14px;align-items:center;padding:12px 20px;position:sticky;top:0;z-index:50;box-shadow:0 2px 14px rgba(15,23,42,.3)}
+.topbar b{font-size:18px;display:flex;align-items:center;gap:10px}
+.topbar b::before{content:'🛠';display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#3b82f6,#2563eb);font-size:17px;box-shadow:0 4px 10px rgba(37,99,235,.5)}
+.topbar a{color:#dbeafe;background:rgba(255,255,255,.12);padding:7px 13px;border-radius:999px;font-size:13px;font-weight:600;white-space:nowrap}
+.topbar a:hover{background:rgba(255,255,255,.24)}
+.topbar .sp{flex:1}
+#who{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;white-space:nowrap}
+#who::before{content:'';width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#22c55e,#16a34a);box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
+.wrap{display:flex;min-height:calc(100vh - 58px)}
+.side{width:240px;background:#0f172a;color:#94a3b8;padding:14px 10px;flex-shrink:0}
+.side button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:none;color:#cbd5e1;padding:11px 14px;font-size:15px;cursor:pointer;border-radius:9px;margin-bottom:2px;transition:.15s}
+.side button:hover{background:#1e293b;color:#fff}
+.side button.on{background:linear-gradient(90deg,#2563eb,#3b82f6);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.45)}
+.side .h{padding:16px 14px 7px;color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:700}
+.main{flex:1;padding:26px;max-width:1180px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(15,23,42,.05)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+.stat{font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.stat-card{position:relative;overflow:hidden;transition:.15s}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(15,23,42,.1)}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--sc,#2563eb)}
+.stat-card .ico{font-size:22px;margin-bottom:6px}
+.stat-card .mut{font-weight:600}
+.mut{color:var(--mut);font-size:13px}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid #cbd5e1;border-radius:9px;font-size:15px;margin:4px 0 12px;background:#fff;transition:.15s;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.15)}
 label{font-weight:600;font-size:14px}
-.btn{background:#2271b1;color:#fff;border:1px solid #2271b1;border-radius:4px;padding:9px 16px;cursor:pointer;font-size:14px}
-.btn.grey{background:#f6f7f7;color:#2c3338;border-color:#c3c4c7}.btn.green{background:#00a32a;border-color:#00a32a}.btn.red{background:#d63638;border-color:#d63638}
-table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px;border-bottom:1px solid #e5e5e5;font-size:14px;vertical-align:top}
-.tag{display:inline-block;background:#dcdcde;border-radius:3px;padding:2px 7px;font-size:12px}
+.btn{background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;border:none;border-radius:9px;padding:10px 18px;cursor:pointer;font-size:14px;font-weight:600;box-shadow:0 2px 8px rgba(37,99,235,.3);transition:.15s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(37,99,235,.4)}
+.btn:active{transform:translateY(0)}
+.btn.grey{background:#f1f5f9;color:#334155;border:1px solid var(--line);box-shadow:none}
+.btn.green{background:linear-gradient(135deg,#22c55e,#16a34a);box-shadow:0 2px 8px rgba(22,163,74,.3)}
+.btn.red{background:linear-gradient(135deg,#f87171,#dc2626);box-shadow:0 2px 8px rgba(220,38,38,.3)}
+table{width:100%;border-collapse:collapse}th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut);text-align:left;padding:10px;border-bottom:2px solid var(--line)}td{text-align:left;padding:12px 10px;border-bottom:1px solid #f1f5f9;font-size:14px;vertical-align:top}tr:hover td{background:#f8fafc}
+.tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;background:#e2e8f0;color:#334155}
+.tag.pub{background:#dcfce7;color:#166534}
+.tag.drf{background:#fef3c7;color:#92400e}
 .ed{display:flex;gap:18px;align-items:flex-start}.ed .left{flex:1}.ed .right{width:320px;flex-shrink:0}
-.toolbar{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.toolbar button{background:#f6f7f7;border:1px solid #c3c4c7;border-radius:3px;padding:6px 10px;cursor:pointer}
-#composer{border:1px solid #8c8f94;border-radius:4px;padding:14px;min-height:320px;background:#fff;line-height:1.7;outline:none}
-#composer:empty:before{content:"Start writing your article here…";color:#999}
-.bar{height:12px;background:#e5e5e5;border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:#00a32a}
-.serp{border:1px solid #ddd;padding:12px;border-radius:4px}.serp .t{color:#1a0dab;font-size:18px}.serp .u{color:#006621;font-size:13px}.serp .d{color:#545454;font-size:14px}
-.feat{width:100%;max-height:220px;object-fit:cover;border-radius:4px;border:1px solid #ddd}
-.view{display:none}.view.on{display:block}
-.login{max-width:420px;margin:60px auto;background:#fff;border:1px solid #c3c4c7;padding:24px;border-radius:6px}
-.note{background:#fff8e5;border:1px solid #dba617;padding:12px;border-radius:4px;margin-bottom:16px;font-size:14px}
-@media(max-width:900px){.wrap{flex-direction:column}.side{width:100%}.ed{flex-direction:column}.ed .right{width:100%}}
+.toolbar{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.toolbar button{background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;padding:7px 11px;cursor:pointer;font-size:13px;transition:.15s}.toolbar button:hover{background:#e0e7ff;border-color:#93c5fd}
+#composer{border:1px solid #cbd5e1;border-radius:10px;padding:16px;min-height:320px;background:#fff;line-height:1.7;outline:none}
+#composer:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+#composer:empty:before{content:"Start writing your article here…";color:#94a3b8}
+.bar{height:12px;background:#e2e8f0;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#22c55e,#16a34a);border-radius:999px;transition:width .3s}
+.serp{border:1px solid #e2e8f0;padding:14px;border-radius:10px;background:#f8fafc}.serp .t{color:#1a0dab;font-size:18px}.serp .u{color:#006621;font-size:13px}.serp .d{color:#545454;font-size:14px}
+.feat{width:100%;max-height:220px;object-fit:cover;border-radius:10px;border:1px solid #e2e8f0}
+.view{display:none}.view.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.note{background:#fffbeb;border:1px solid #fcd34d;border-left:4px solid #f59e0b;padding:14px 16px;border-radius:10px;margin-bottom:18px;font-size:14px;line-height:1.6}
 .switch{position:relative;display:inline-block;width:52px;height:28px;vertical-align:middle;flex-shrink:0}.switch input{opacity:0;width:0;height:0}.switch i{position:absolute;inset:0;background:#c3c4c7;border-radius:28px;transition:.2s;cursor:pointer}.switch i:before{content:'';position:absolute;width:22px;height:22px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}.switch input:checked+i{background:#00a32a}.switch input:checked+i:before{transform:translateX(24px)}
 .codebox{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;min-height:110px}
 .tog-row{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
+/* ---- Professional login gate ---- */
+.gate-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(600px 400px at 15% 10%,rgba(59,130,246,.35),transparent),radial-gradient(500px 400px at 85% 90%,rgba(34,197,94,.28),transparent),linear-gradient(135deg,#0f172a,#1e3a8a 55%,#1d4ed8)}
+.gate-card{width:100%;max-width:400px;background:#fff;border-radius:20px;padding:36px 32px 28px;box-shadow:0 24px 60px rgba(2,6,23,.45);text-align:center;animation:pop .3s ease}
+@keyframes pop{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+.gate-card.shake{animation:shake .35s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.gate-logo{width:64px;height:64px;margin:0 auto 14px;border-radius:18px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 8px 20px rgba(37,99,235,.4)}
+.gate-card h1{font-size:24px;margin:0}
+.gate-sub{color:var(--blue);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin:5px 0 18px}
+.gate-card h2{font-size:19px;margin:0 0 6px}
+.gate-hint{color:var(--mut);font-size:14px;margin:0 0 18px;line-height:1.5}
+.pw-wrap{position:relative;margin-bottom:12px}
+.pw-wrap input{margin:0;padding-left:40px;padding-right:42px}
+.pw-ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:16px;opacity:.55}
+.pw-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:16px;padding:6px}
+.gate-err{display:block;background:#fef2f2;color:#b91c1c;border:1px solid #fecaca;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:600;margin:0 0 12px;text-align:left}
+.gate-btn{width:100%;padding:13px;font-size:16px;margin:2px 0 16px}
+.gate-note{font-size:12px;color:var(--mut);line-height:1.6;margin:0 0 14px;text-align:left;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.gate-back{font-size:13px;font-weight:600}
+@media(max-width:900px){.wrap{flex-direction:column}.side{width:100%;display:flex;flex-wrap:wrap;gap:2px;padding:10px}.side .h{width:100%}.side button{width:auto;flex:1 1 40%}.ed{flex-direction:column}.ed .right{width:100%}.main{padding:18px}.topbar{flex-wrap:wrap}.gate-card{padding:28px 22px}}
 </style></head><body>
 <div id="gate"></div>
 <div id="app" style="display:none">
-<div class="topbar"><b>🛠 SmartToolkit Admin</b><a href="index.html">← View Site</a><a href="https://smarttoolkit-blog-dashboard.pages.dev/" target="_blank" rel="noopener">Live pages.dev ↗</a><span class="sp"></span><span id="who">Admin</span> <button class="btn grey" onclick="logout()">Log out</button></div>
+<div class="topbar"><b>SmartToolkit Admin</b><a href="index.html">← View Site</a><a href="https://smarttoolkit-blog-dashboard.pages.dev/" target="_blank" rel="noopener">Live pages.dev ↗</a><span class="sp"></span><span id="who">Admin</span> <button class="btn grey" onclick="logout()">Log out</button></div>
 <div class="wrap"><div class="side">
 <div class="h">Content</div>
 <button class="on" onclick="show('dash',this)">📊 Dashboard</button>
@@ -53,7 +98,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px;bord
 
 <div id="v-dash" class="view on">
 <h1>Dashboard</h1>
-<div class="note"><b>Important — ye WordPress jaisa interface hai, lekin backend WordPress jaisa nahi:</b> ye static site hai, is liye is me koi server database nahi. Yahan banaya hua post pehle <b>is device</b> par save hota hai. Live site par lane ke liye <b>Export JSON</b> kar ke wo file mujhe (Muse) bhej do, main use repo me push kar dunga — phir Cloudflare Pages se wo live ho jayega. Asli server-side password protection ke liye Cloudflare Worker me <b>ADMIN_PASSWORD</b> variable chahiye, wo alag step hai.</div>
+<div class="note"><b>Important — ye WordPress jaisa interface hai, lekin backend WordPress jaisa nahi:</b> ye static site hai, is liye is me koi server database nahi. Yahan banaya hua post pehle <b>is device</b> par save hota hai. Live site par lane ke liye <b>Export JSON</b> kar ke wo file mujhe (Muse) bhej do, main use repo me push kar dunga — phir Cloudflare Pages se wo live ho jayegi. Asli server-side password protection ke liye Cloudflare Worker me <b>ADMIN_PASSWORD</b> variable chahiye, wo alag step hai.</div>
 <div class="grid" id="stats"></div>
 <div class="card"><h2>Recent Posts</h2><div id="recent"></div></div>
 <div class="card"><h2>Quick Draft</h2><input id="qd" placeholder="Post idea / title…"><button class="btn" onclick="quickDraft()">Save as Draft</button><p class="mut">Quick Draft sirf title save karta hai — poora article Add New Post se likho.</p></div>
@@ -323,10 +368,10 @@ function save(){localStorage.setItem('stk_admin_posts',JSON.stringify(POSTS))}
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}
 function show(v,btn){document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));$('v-'+v).classList.add('on');document.querySelectorAll('.side button').forEach(b=>b.classList.remove('on'));if(btn)btn.classList.add('on');if(v==='posts')renderPosts();if(v==='dash')renderDash();if(v==='media')renderMedia();if(v==='ads')loadAds()}
 function renderDash(){const pub=POSTS.filter(p=>p.status==='published').length;const words=POSTS.reduce((a,p)=>a+(p.body||'').replace(/<[^>]+>/g,' ').split(/\s+/).filter(Boolean).length,0);
-$('stats').innerHTML=`<div class="card"><div class="stat">${POSTS.length}</div><div class="mut">Total Posts</div></div><div class="card"><div class="stat">${pub}</div><div class="mut">Published</div></div><div class="card"><div class="stat">${POSTS.length-pub}</div><div class="mut">Drafts</div></div><div class="card"><div class="stat">22</div><div class="mut">Live Tools</div></div>`;
-$('recent').innerHTML=POSTS.slice(0,5).map(p=>`<p><b>${esc(p.title)}</b> <span class="tag">${p.status}</span> <span class="mut">/${p.slug}</span> <button class="btn grey" onclick="edit('${p.id}')">Edit</button></p>`).join('')}
+$('stats').innerHTML=`<div class="card stat-card" style="--sc:#2563eb"><div class="ico">📝</div><div class="stat">${POSTS.length}</div><div class="mut">Total Posts</div></div><div class="card stat-card" style="--sc:#16a34a"><div class="ico">✅</div><div class="stat">${pub}</div><div class="mut">Published</div></div><div class="card stat-card" style="--sc:#d97706"><div class="ico">✏️</div><div class="stat">${POSTS.length-pub}</div><div class="mut">Drafts</div></div><div class="card stat-card" style="--sc:#7c3aed"><div class="ico">🧰</div><div class="stat">22</div><div class="mut">Live Tools</div></div>`;
+$('recent').innerHTML=POSTS.slice(0,5).map(p=>`<p><b>${esc(p.title)}</b> <span class="tag ${p.status==='published'?'pub':'drf'}">${p.status}</span> <span class="mut">/${p.slug}</span> <button class="btn grey" onclick="edit('${p.id}')">Edit</button></p>`).join('')}
 function renderPosts(){const q=($('search').value||'').toLowerCase(),fs=$('fstatus').value;const list=POSTS.filter(p=>(!q||p.title.toLowerCase().includes(q))&&(!fs||p.status===fs));
-$('plist').innerHTML=`<table><tr><th>Title</th><th>Category</th><th>Status</th><th>Date</th><th></th></tr>${list.map(p=>`<tr><td><b>${esc(p.title)}</b><br><span class="mut">/${p.slug} · kw: ${esc(p.kw)}</span></td><td>${esc(p.cat)}</td><td><span class="tag">${p.status}</span></td><td>${p.date||''}</td><td><button class="btn grey" onclick="edit('${p.id}')">Edit</button> <button class="btn grey" onclick="dup('${p.id}')">Duplicate</button> <button class="btn red" onclick="del('${p.id}')">Delete</button></td></tr>`).join('')}</table>`}
+$('plist').innerHTML=`<table><tr><th>Title</th><th>Category</th><th>Status</th><th>Date</th><th></th></tr>${list.map(p=>`<tr><td><b>${esc(p.title)}</b><br><span class="mut">/${p.slug} · kw: ${esc(p.kw)}</span></td><td>${esc(p.cat)}</td><td><span class="tag ${p.status==='published'?'pub':'drf'}">${p.status}</span></td><td>${p.date||''}</td><td><button class="btn grey" onclick="edit('${p.id}')">Edit</button> <button class="btn grey" onclick="dup('${p.id}')">Duplicate</button> <button class="btn red" onclick="del('${p.id}')">Delete</button></td></tr>`).join('')}</table>`}
 function renderMedia(){const imgs=POSTS.filter(p=>p.feat);$('mlib').innerHTML=imgs.length?imgs.map(p=>`<div style="display:inline-block;margin:8px;text-align:center"><img src="${p.feat}" style="width:200px;height:120px;object-fit:cover;border:1px solid #ddd"><br><span class="mut">${esc(p.title.slice(0,40))}</span></div>`).join(''):'<p>No featured images yet. Add one in the post editor.</p>'}
 function newPost(){EDIT=null;FEAT='';['t','slug','seo','meta','kw','canon','exc','tags','alt','cap','featUrl'].forEach(i=>$(i).value='');$('composer').innerHTML='';$('htmlview').value='';$('featImg').style.display='none';$('edTitle').textContent='Add New Post';seoCheck()}
 function edit(id){const p=POSTS.find(x=>x.id===id);if(!p)return;EDIT=id;show('editor',document.querySelectorAll('.side button')[2]);$('edTitle').textContent='Edit Post: '+p.title;
@@ -386,7 +431,8 @@ async function changePass(){const p=$('np').value;if(p.length<4)return alert('Pa
 function logout(){localStorage.removeItem('stk_admin_session');location.reload()}
 async function gate(){const h=localStorage.getItem('stk_admin_hash');const s=localStorage.getItem('stk_admin_session');
 if(s==='1'&&h){$('app').style.display='block';renderDash();return}
-$('gate').innerHTML=`<div class="login"><h2>SmartToolkit Admin</h2>${h?'<p>Password enter karo:</p>':'<p>Pehli dafa: apna admin password set karo (sirf is browser me save hoga).</p>'}<input type="password" id="pw" placeholder="Admin password"><button class="btn" onclick="doGate()">${h?'Log in':'Set Password'}</button><p class="mut">Ye gate sirf is device par kaam karta hai. Asli server protection ke liye Cloudflare Worker + ADMIN_PASSWORD variable chahiye — password kabhi site ke code me mat likho.</p></div>`;
-window.doGate=async()=>{const p=$('pw').value;if(!h){if(p.length<4)return alert('Kam az kam 4 characters.');localStorage.setItem('stk_admin_hash',await hash(p));localStorage.setItem('stk_admin_session','1');location.reload()}else if(await hash(p)===h){localStorage.setItem('stk_admin_session','1');location.reload()}else alert('Wrong password.')}};
+$('gate').innerHTML=`<div class="gate-wrap"><div class="gate-card"><div class="gate-logo">🛠</div><h1>SmartToolkit</h1><p class="gate-sub">Admin Panel</p><h2>${h?'Welcome back 👋':'Set your admin password'}</h2><p class="gate-hint">${h?'Apna password enter karo to continue.':'Pehli dafa: apna admin password set karo — ye sirf is browser me save hoga.'}</p><div class="pw-wrap"><span class="pw-ico">🔒</span><input type="password" id="pw" placeholder="Admin password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doGate()"><button type="button" class="pw-eye" onclick="togglePw()" title="Show / hide password">👁</button></div><p class="gate-err" id="gateErr" style="display:none"></p><button class="btn gate-btn" onclick="doGate()">${h?'Log in →':'Set Password →'}</button><p class="gate-note">🔒 Password sirf is device par save hota hai. Asli server protection ke liye Cloudflare Worker + ADMIN_PASSWORD variable chahiye — password kabhi site ke code me mat likho.</p><a class="gate-back" href="index.html">← Back to site</a></div></div>`;
+window.togglePw=function(){const i=$('pw');if(i)i.type=i.type==='password'?'text':'password'}
+window.doGate=async()=>{const p=$('pw').value;const err=$('gateErr');const fail=m=>{if(err){err.style.display='block';err.textContent=m}const c=document.querySelector('.gate-card');if(c){c.classList.remove('shake');void c.offsetWidth;c.classList.add('shake')}};if(!h){if(p.length<4)return fail('Password kam az kam 4 characters ka ho.');localStorage.setItem('stk_admin_hash',await hash(p));localStorage.setItem('stk_admin_session','1');location.reload()}else if(await hash(p)===h){localStorage.setItem('stk_admin_session','1');location.reload()}else fail('❌ Wrong password — dobara try karo.')};};
 gate();renderPosts();
 </script></body></html>
