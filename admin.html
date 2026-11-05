@@ -32,6 +32,9 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px;bord
 .login{max-width:420px;margin:60px auto;background:#fff;border:1px solid #c3c4c7;padding:24px;border-radius:6px}
 .note{background:#fff8e5;border:1px solid #dba617;padding:12px;border-radius:4px;margin-bottom:16px;font-size:14px}
 @media(max-width:900px){.wrap{flex-direction:column}.side{width:100%}.ed{flex-direction:column}.ed .right{width:100%}}
+.switch{position:relative;display:inline-block;width:52px;height:28px;vertical-align:middle;flex-shrink:0}.switch input{opacity:0;width:0;height:0}.switch i{position:absolute;inset:0;background:#c3c4c7;border-radius:28px;transition:.2s;cursor:pointer}.switch i:before{content:'';position:absolute;width:22px;height:22px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}.switch input:checked+i{background:#00a32a}.switch input:checked+i:before{transform:translateX(24px)}
+.codebox{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;min-height:110px}
+.tog-row{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
 </style></head><body>
 <div id="gate"></div>
 <div id="app" style="display:none">
@@ -44,6 +47,7 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px;bord
 <button onclick="show('media',this)">🖼 Media</button>
 <div class="h">Tools</div>
 <button onclick="show('seo',this)">🎯 SEO Checker</button>
+<button onclick="show('ads',this)">💰 Ads &amp; Tracking</button>
 <button onclick="show('settings',this)">⚙️ Settings &amp; Export</button>
 </div><div class="main">
 
@@ -106,6 +110,41 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px;bord
 </div></div></div>
 
 <div id="v-media" class="view"><h1>Media Library</h1><div class="card"><p class="mut">Ye library sirf is device par hai — featured images jo posts me lagi hain, wahi yahan dikhengi.</p><div id="mlib"></div></div></div>
+
+<div id="v-ads" class="view"><h1>Ads &amp; Tracking</h1>
+<div class="card"><h2>Ads Placement — Master Switch</h2>
+<div class="tog-row"><label class="switch"><input type="checkbox" id="adsMaster" onchange="document.getElementById('adsMasterLabel').textContent=this.checked?'Ads ON':'Ads OFF'"><i></i></label><b id="adsMasterLabel">Ads OFF</b></div>
+<p class="mut">Master switch OFF ho to site par koi ad nahi dikhega — AdSense header code bhi load nahi hoga. Google Analytics is se alag hai: wo hamesha chalega jab us ka code diya ho.</p></div>
+<div class="card"><h2>Header Code — AdSense</h2>
+<label>AdSense header code (AdSense se milne wala &lt;script&gt; yahan paste karo)</label>
+<textarea id="adsenseCode" class="codebox" rows="4" placeholder='&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossorigin="anonymous"&gt;&lt;/script&gt;'></textarea>
+<p class="mut">Ye code site ke &lt;head&gt; me lag jayega — sirf jab Ads ON ho.</p></div>
+<div class="card"><h2>Header Code — Google Analytics</h2>
+<label>Google Analytics code (poora gtag.js tag paste karo, ya sirf Measurement ID jaise G-XXXXXXXXXX)</label>
+<textarea id="gaCode" class="codebox" rows="4" placeholder="G-XXXXXXXXXX"></textarea>
+<p class="mut">Sirf ID likhne par bhi kaam karega — dashboard khud poora GA4 tag bana dega. Analytics Ads switch se alag chalta hai.</p></div>
+<div class="card"><h2>Ad Placements — boxes + ON/OFF</h2>
+<h3>🔝 Header Ad <span class="mut">— har page ke upar</span></h3>
+<div class="tog-row"><label class="switch"><input type="checkbox" id="plHeaderOn"><i></i></label><span>Header ad dikhao</span></div>
+<textarea id="plHeader" class="codebox" rows="3" placeholder='Ad unit code yahan paste karo — &lt;ins class="adsbygoogle" ...&gt;&lt;/ins&gt;'></textarea>
+<h3>📄 In-Article Ad <span class="mut">— article ke andar, content ke baad</span></h3>
+<div class="tog-row"><label class="switch"><input type="checkbox" id="plArticleOn"><i></i></label><span>In-article ad dikhao</span></div>
+<textarea id="plArticle" class="codebox" rows="3" placeholder='Ad unit code yahan paste karo — &lt;ins class="adsbygoogle" ...&gt;&lt;/ins&gt;'></textarea>
+<h3>📌 Sidebar Ad <span class="mut">— homepage sidebar me</span></h3>
+<div class="tog-row"><label class="switch"><input type="checkbox" id="plSidebarOn"><i></i></label><span>Sidebar ad dikhao</span></div>
+<textarea id="plSidebar" class="codebox" rows="3" placeholder='Ad unit code yahan paste karo — &lt;ins class="adsbygoogle" ...&gt;&lt;/ins&gt;'></textarea>
+<p class="mut">Koi placement tab hi dikhega jab Master Switch ON ho, us placement ka switch ON ho, aur us ka code box khaali na ho.</p></div>
+<div class="card"><h2>ads.txt</h2>
+<label>ads.txt content (AdSense publisher lines)</label>
+<textarea id="adsTxt" class="codebox" rows="5" placeholder="google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0"></textarea>
+<p class="mut">Ye file site ki root par /ads.txt ban jayegi — AdSense isi se verify karta hai. Ghalat line se ads band ho sakte hain, is liye sirf AdSense se mili hui lines likho. <button class="btn grey" onclick="loadLiveAdsTxt()">↻ Live ads.txt load karo</button></p></div>
+<div class="card"><h2>Publish Ads Settings</h2>
+<label>Admin Password</label><input type="password" id="adsPass" placeholder="Admin password">
+<button class="btn" onclick="saveAdsLocal()">💾 Save on This Device</button>
+<button class="btn green" onclick="publishAds()">🚀 Publish Live</button>
+<p class="mut" id="adsMsg"></p>
+<p class="mut">Publish karte hi settings GitHub me save ho jayengi (site-settings.json aur ads.txt). Website har load par nayi settings parh leti hai — redeploy ka wait nahi.</p></div>
+</div>
 
 <div id="v-seo" class="view"><h1>SEO Checker (standalone)</h1><div class="card"><label>Title</label><input id="s_t"><label>Meta Description</label><textarea id="s_m" rows="3"></textarea><label>Focus Keyword</label><input id="s_k"><label>Content (paste article text)</label><textarea id="s_c" rows="8"></textarea><button class="btn" onclick="seoStandalone()">Check Score</button><div id="s_out"></div></div></div>
 
@@ -282,7 +321,7 @@ let EDIT=null,FEAT='';
 const $=id=>document.getElementById(id);
 function save(){localStorage.setItem('stk_admin_posts',JSON.stringify(POSTS))}
 function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}
-function show(v,btn){document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));$('v-'+v).classList.add('on');document.querySelectorAll('.side button').forEach(b=>b.classList.remove('on'));if(btn)btn.classList.add('on');if(v==='posts')renderPosts();if(v==='dash')renderDash();if(v==='media')renderMedia()}
+function show(v,btn){document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));$('v-'+v).classList.add('on');document.querySelectorAll('.side button').forEach(b=>b.classList.remove('on'));if(btn)btn.classList.add('on');if(v==='posts')renderPosts();if(v==='dash')renderDash();if(v==='media')renderMedia();if(v==='ads')loadAds()}
 function renderDash(){const pub=POSTS.filter(p=>p.status==='published').length;const words=POSTS.reduce((a,p)=>a+(p.body||'').replace(/<[^>]+>/g,' ').split(/\s+/).filter(Boolean).length,0);
 $('stats').innerHTML=`<div class="card"><div class="stat">${POSTS.length}</div><div class="mut">Total Posts</div></div><div class="card"><div class="stat">${pub}</div><div class="mut">Published</div></div><div class="card"><div class="stat">${POSTS.length-pub}</div><div class="mut">Drafts</div></div><div class="card"><div class="stat">22</div><div class="mut">Live Tools</div></div>`;
 $('recent').innerHTML=POSTS.slice(0,5).map(p=>`<p><b>${esc(p.title)}</b> <span class="tag">${p.status}</span> <span class="mut">/${p.slug}</span> <button class="btn grey" onclick="edit('${p.id}')">Edit</button></p>`).join('')}
@@ -331,6 +370,17 @@ let s=0,ck=[];function add(ok,txt,pts){if(ok)s+=pts;ck.push((ok?'✅ ':'❌ ')+t
 add(seo.length>=30&&seo.length<=60,'SEO title 30–60 chars',15);add(meta.length>=120&&meta.length<=160,'Meta description 120–160 chars',15);add(!!kw&&seo.toLowerCase().includes(kw),'Focus keyword in SEO title',15);add(!!kw&&meta.toLowerCase().includes(kw),'Focus keyword in meta',10);add(!!kw&&slug.includes(kw.replace(/\s+/g,'-')),'Focus keyword in slug',10);add(words>=600,'Article 600+ words ('+words+')',15);add(heads>=3,'3+ headings (H2/H3)',10);add(!!FEAT&&!!$('alt').value.trim(),'Featured image + alt text',10);
 $('score').textContent=s+' / 100';$('scorebar').style.width=s+'%';$('checks').innerHTML=ck.map(c=>`<li>${c}</li>`).join('')}
 function seoStandalone(){const t=$('s_t').value,m=$('s_m').value,k=$('s_k').value.trim().toLowerCase(),c=$('s_c').value;const w=c.split(/\s+/).filter(Boolean).length;let s=0;if(t.length>=30&&t.length<=60)s+=25;if(m.length>=120&&m.length<=160)s+=25;if(k&&t.toLowerCase().includes(k))s+=20;if(k&&m.toLowerCase().includes(k))s+=15;if(w>=600)s+=15;$('s_out').innerHTML=`<p><b>Score: ${s} / 100</b> · ${w} words</p><p class="mut">${s>=80?'Good — publish-ready SEO.':s>=50?'Average — title/meta ya keyword fix karo.':'Weak — title, meta aur keyword dobara likho.'}</p>`}
+const ADS_DEFAULT={adsEnabled:false,adsenseCode:'',gaCode:'',placements:{header:{enabled:false,code:''},article:{enabled:false,code:''},sidebar:{enabled:false,code:''}}};
+function adsForm(){return{adsEnabled:$('adsMaster').checked,adsenseCode:$('adsenseCode').value.trim(),gaCode:$('gaCode').value.trim(),placements:{header:{enabled:$('plHeaderOn').checked,code:$('plHeader').value.trim()},article:{enabled:$('plArticleOn').checked,code:$('plArticle').value.trim()},sidebar:{enabled:$('plSidebarOn').checked,code:$('plSidebar').value.trim()}}}}
+function adsFill(s){const d=Object.assign({},ADS_DEFAULT,s||{});d.placements=Object.assign({},ADS_DEFAULT.placements,d.placements||{});$('adsMaster').checked=!!d.adsEnabled;$('adsMasterLabel').textContent=d.adsEnabled?'Ads ON':'Ads OFF';$('adsenseCode').value=d.adsenseCode||'';$('gaCode').value=d.gaCode||'';$('plHeaderOn').checked=!!(d.placements.header&&d.placements.header.enabled);$('plHeader').value=(d.placements.header&&d.placements.header.code)||'';$('plArticleOn').checked=!!(d.placements.article&&d.placements.article.enabled);$('plArticle').value=(d.placements.article&&d.placements.article.code)||'';$('plSidebarOn').checked=!!(d.placements.sidebar&&d.placements.sidebar.enabled);$('plSidebar').value=(d.placements.sidebar&&d.placements.sidebar.code)||''}
+function saveAdsLocal(){localStorage.setItem('stk_ads_settings',JSON.stringify(adsForm()));localStorage.setItem('stk_adstxt',$('adsTxt').value);$('adsMsg').textContent='✅ Is device par save ho gaya.'}
+async function loadAds(){let s=null;try{s=JSON.parse(localStorage.getItem('stk_ads_settings')||'null')}catch(e){}const tx=localStorage.getItem('stk_adstxt');if(tx!==null)$('adsTxt').value=tx;
+if(!s){try{const r=await fetch('https://raw.githubusercontent.com/hassananwarul11-rgb/smarttoolkit-blog-dashboard/main/site-settings.json?'+Date.now());if(r.ok)s=await r.json()}catch(e){}}
+if(!s)s=ADS_DEFAULT;adsFill(s);
+if(!$('adsTxt').value){try{const r=await fetch('https://raw.githubusercontent.com/hassananwarul11-rgb/smarttoolkit-blog-dashboard/main/ads.txt?'+Date.now());if(r.ok)$('adsTxt').value=await r.text()}catch(e){}}}
+async function loadLiveAdsTxt(){try{const r=await fetch('https://raw.githubusercontent.com/hassananwarul11-rgb/smarttoolkit-blog-dashboard/main/ads.txt?'+Date.now());if(r.ok){$('adsTxt').value=await r.text();$('adsMsg').textContent='✅ Live ads.txt load ho gaya.'}else $('adsMsg').textContent='Live ads.txt nahi mila (pehli dafa khaali hoga).'}catch(e){$('adsMsg').textContent='❌ Load nahi hua — connection check karo.'}}
+async function publishAds(){const pass=$('adsPass').value;if(!pass)return alert('Admin password enter karo.');$('adsMsg').textContent='Publishing…';
+try{const r=await fetch('/api/publish',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({password:pass,settings:adsForm(),adsTxt:$('adsTxt').value})});const d=await r.json();$('adsMsg').textContent=d.ok?('✅ '+d.message):('❌ '+(d.error||'Publish failed.'));if(d.ok){saveAdsLocal();$('adsPass').value=''}}catch(e){$('adsMsg').textContent='❌ Network error — check ke Pages Function deploy hua hai aur variables set hain.'}}
 async function hash(p){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(p));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 async function changePass(){const p=$('np').value;if(p.length<4)return alert('Password kam az kam 4 characters ho.');localStorage.setItem('stk_admin_hash',await hash(p));alert('Password set.')}
 function logout(){localStorage.removeItem('stk_admin_session');location.reload()}

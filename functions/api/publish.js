@@ -9,6 +9,11 @@
 //                    Contents: Read and write. No other repo, no other permission.
 // Flow: admin sends {password, post} -> this Function checks the password
 // against env.ADMIN_PASSWORD -> it updates posts.json in the GitHub repo
+// The admin can ALSO send {password, settings, adsTxt} (no post needed):
+// settings -> site-settings.json (ads on/off, AdSense + Analytics header
+// code, ad placement boxes), adsTxt -> ads.txt at the repo root.
+// The website fetches site-settings.json on every load, so ad changes
+// appear on refresh without a Pages redeploy.
 // via the GitHub Contents API using env.GITHUB_TOKEN -> the website fetches
 // that posts.json DYNAMICALLY from GitHub on every load, so the post appears
 // in Blog, Latest Guides and the sidebar on the next page refresh, WITHOUT
@@ -41,8 +46,30 @@ function b64decode(b64) {
   return new TextDecoder().decode(bytes);
 }
 
+async function ghFile(headers, path) {
+  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`, { headers });
+  if (res.ok) {
+    const cur = await res.json();
+    return { sha: cur.sha || null };
+  }
+  if (res.status === 404) return { sha: null };
+  throw new Error("read:" + path);
+}
+
+async function ghPutFile(headers, path, text, message) {
+  const cur = await ghFile(headers, path);
+  const body = { message, content: b64encode(text), branch: BRANCH };
+  if (cur.sha) body.sha = cur.sha;
+  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`, {
+    method: "PUT",
+    headers: { ...headers, "content-type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error("write:" + path);
+}
+
 export async function onRequestGet() {
-  return json({ ok: false, message: "Use POST with {password, post}." }, 405);
+  return json({ ok: false, message: "Use POST with {password, post} or {password, settings, adsTxt}." }, 405);
 }
 
 export async function onRequestPost(context) {
@@ -62,6 +89,66 @@ export async function onRequestPost(context) {
     return json({ ok: false, error: "GITHUB_TOKEN variable is not set in Cloudflare." }, 500);
   }
 
+  const headers = {
+    Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+    Accept: "application/vnd.github+json",
+    "User-Agent": "SmartToolkit-Admin",
+    "X-GitHub-Api-Version": "2022-11-28",
+  };
+
+  // Ads & Tracking settings branch: {password, settings?, adsTxt?}
+  // No post is needed here. Writes site-settings.json and/or ads.txt.
+  if (body.settings !== undefined || body.adsTxt !== undefined) {
+    const updated = [];
+    try {
+      if (body.settings !== undefined) {
+        const s = body.settings;
+        if (!s || typeof s !== "object" || Array.isArray(s)) {
+          return json({ ok: false, error: "settings must be an object." }, 400);
+        }
+        const pick = (v) => (typeof v === "string" ? v.slice(0, 20000) : "");
+        const pickPl = (v) => {
+          const o = v && typeof v === "object" ? v : {};
+          return { enabled: !!o.enabled, code: pick(o.code) };
+        };
+        const clean = {
+          adsEnabled: !!s.adsEnabled,
+          adsenseCode: pick(s.adsenseCode),
+          gaCode: pick(s.gaCode),
+          placements: {
+            header: pickPl(s.placements && s.placements.header),
+            article: pickPl(s.placements && s.placements.article),
+            sidebar: pickPl(s.placements && s.placements.sidebar),
+          },
+        };
+        await ghPutFile(headers, "site-settings.json", JSON.stringify(clean, null, 2), "Update ads settings via admin");
+        updated.push("site-settings.json");
+      }
+      if (body.adsTxt !== undefined) {
+        const txt = body.adsTxt;
+        if (typeof txt !== "string") {
+          return json({ ok: false, error: "adsTxt must be text." }, 400);
+        }
+        if (txt.length > 10000) {
+          return json({ ok: false, error: "ads.txt is too long (max 10,000 characters)." }, 400);
+        }
+        if (txt.includes("<")) {
+          return json({ ok: false, error: "ads.txt must be plain text lines, no HTML or script tags." }, 400);
+        }
+        await ghPutFile(headers, "ads.txt", txt.replace(/\r\n/g, "\n"), "Update ads.txt via admin");
+        updated.push("ads.txt");
+      }
+    } catch (e) {
+      return json({ ok: false, error: "GitHub commit failed. Check that GITHUB_TOKEN has Contents write access to this repo only." }, 502);
+    }
+    return json({
+      ok: true,
+      updated,
+      message:
+        "Saved to GitHub (" + updated.join(", ") + "). The site reads site-settings.json on every load, so refresh the website to see the change (GitHub may take under a minute to serve the new file).",
+    });
+  }
+
   const p = body.post || {};
   if (!p.title || !p.slug || !/^[a-z0-9-]+$/.test(p.slug)) {
     return json({ ok: false, error: "Post needs a title and a valid slug (lowercase letters, numbers, hyphens)." }, 400);
@@ -72,12 +159,6 @@ export async function onRequestPost(context) {
   // Drafts are NOT published live; only published posts go into posts.json.
   const isPublished = p.status === "published";
 
-  const headers = {
-    Authorization: `Bearer ${env.GITHUB_TOKEN}`,
-    Accept: "application/vnd.github+json",
-    "User-Agent": "SmartToolkit-Admin",
-    "X-GitHub-Api-Version": "2022-11-28",
-  };
   const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${PATH}?ref=${BRANCH}`;
 
   // 2. Read current posts.json (404 = first publish, start empty).
