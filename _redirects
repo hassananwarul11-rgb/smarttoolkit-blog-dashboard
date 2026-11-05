@@ -20,3 +20,9 @@
 /cgpa-to-percentage-converter-guide /index.html 200
 /emi-calculator-extra-principal-payments-guide /index.html 200
 /sip-calculator-monthly-investment-guide /index.html 200
+# Clean static page URLs (no /page- prefix, no hash)
+/about-us /index.html 200
+/contact /index.html 200
+/privacy-policy /index.html 200
+/disclaimer /index.html 200
+/terms-of-use /index.html 200
