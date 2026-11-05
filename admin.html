@@ -159,15 +159,15 @@ table{width:100%;border-collapse:collapse}th{font-size:11px;text-transform:upper
 <div id="v-ads" class="view"><h1>Ads &amp; Tracking</h1>
 <div class="card"><h2>Ads Placement — Master Switch</h2>
 <div class="tog-row"><label class="switch"><input type="checkbox" id="adsMaster" onchange="document.getElementById('adsMasterLabel').textContent=this.checked?'Ads ON':'Ads OFF'"><i></i></label><b id="adsMasterLabel">Ads OFF</b></div>
-<p class="mut">Master switch OFF ho to site par koi ad nahi dikhega — AdSense header code bhi load nahi hoga. Google Analytics is se alag hai: wo hamesha chalega jab us ka code diya ho.</p></div>
+<p class="mut">Master switch sirf ad placements (Header, In-Article, Sidebar) ko control karta hai — OFF ho to koi ad slot nahi dikhega. AdSense header code aur Google Analytics is se alag hain: jab un ka code diya ho, wo hamesha load honge, chahe Master switch OFF ho.</p></div>
 <div class="card"><h2>Header Code — AdSense</h2>
 <label>AdSense header code (AdSense se milne wala &lt;script&gt; yahan paste karo)</label>
 <textarea id="adsenseCode" class="codebox" rows="4" placeholder='&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossorigin="anonymous"&gt;&lt;/script&gt;'></textarea>
-<p class="mut">Ye code site ke &lt;head&gt; me lag jayega — sirf jab Ads ON ho.</p></div>
+<p class="mut">Ye code site ke &lt;head&gt; me hamesha lag jayega jab bhi yahan code diya ho — Master switch se alag hai, is ka koi switch nahi.</p></div>
 <div class="card"><h2>Header Code — Google Analytics</h2>
 <label>Google Analytics code (poora gtag.js tag paste karo, ya sirf Measurement ID jaise G-XXXXXXXXXX)</label>
 <textarea id="gaCode" class="codebox" rows="4" placeholder="G-XXXXXXXXXX"></textarea>
-<p class="mut">Sirf ID likhne par bhi kaam karega — dashboard khud poora GA4 tag bana dega. Analytics Ads switch se alag chalta hai.</p></div>
+<p class="mut">Sirf ID likhne par bhi kaam karega — dashboard khud poora GA4 tag bana dega. Analytics Ads switch se alag chalta hai: jab code diya ho, hamesha load hoga.</p></div>
 <div class="card"><h2>Ad Placements — boxes + ON/OFF</h2>
 <h3>🔝 Header Ad <span class="mut">— har page ke upar</span></h3>
 <div class="tog-row"><label class="switch"><input type="checkbox" id="plHeaderOn"><i></i></label><span>Header ad dikhao</span></div>
@@ -182,7 +182,7 @@ table{width:100%;border-collapse:collapse}th{font-size:11px;text-transform:upper
 <div class="card"><h2>ads.txt</h2>
 <label>ads.txt content (AdSense publisher lines)</label>
 <textarea id="adsTxt" class="codebox" rows="5" placeholder="google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0"></textarea>
-<p class="mut">Ye file site ki root par /ads.txt ban jayegi — AdSense isi se verify karta hai. Ghalat line se ads band ho sakte hain, is liye sirf AdSense se mili hui lines likho. <button class="btn grey" onclick="loadLiveAdsTxt()">↻ Live ads.txt load karo</button></p></div>
+<p class="mut">Ye file site ki root par /ads.txt ban jayegi — is ka koi switch nahi, publish hote hi hamesha live rehti hai. AdSense isi se verify karta hai. Ghalat line se ads band ho sakte hain, is liye sirf AdSense se mili hui lines likho. <button class="btn grey" onclick="loadLiveAdsTxt()">↻ Live ads.txt load karo</button></p></div>
 <div class="card"><h2>Publish Ads Settings</h2>
 <label>Admin Password</label><input type="password" id="adsPass" placeholder="Admin password">
 <button class="btn" onclick="saveAdsLocal()">💾 Save on This Device</button>
