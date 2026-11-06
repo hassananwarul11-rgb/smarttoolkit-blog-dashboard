@@ -12,6 +12,10 @@
 // The admin can ALSO send {password, settings, adsTxt} (no post needed):
 // settings -> site-settings.json (ads on/off, AdSense + Analytics header
 // code, ad placement boxes), adsTxt -> ads.txt at the repo root.
+// The admin can ALSO send {password, image:{path, content}} to upload a
+// thumbnail: path must be thumbs/<slug>.<svg|png|jpg|jpeg|webp>, content is
+// base64 (or a data: URL). Only thumbs/ is writable this way, so an image
+// upload can never overwrite a post, setting or code file.
 // The website fetches site-settings.json on every load, so ad changes
 // appear on refresh without a redeploy.
 // via the GitHub Contents API using env.GITHUB_TOKEN -> the website fetches
@@ -76,6 +80,19 @@ async function ghPutFile(headers, path, text, message) {
   if (!res.ok) throw new Error("write:" + path);
 }
 
+// Same as ghPutFile, but the content is already base64 (binary image data).
+async function ghPutB64(headers, path, b64, message) {
+  const cur = await ghFile(headers, path);
+  const body = { message, content: b64, branch: BRANCH };
+  if (cur.sha) body.sha = cur.sha;
+  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`, {
+    method: "PUT",
+    headers: { ...headers, "content-type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error("write:" + path);
+}
+
 // AdSense header block in index.html <head>, kept STATIC in the served HTML
 // (Google recommends static ad tags over script-injected ones). The admin
 // controls it with an Add/Remove toggle: this function removes any existing
@@ -106,7 +123,7 @@ function syncAdsenseHeader(html, code, enabled) {
 }
 
 export async function onRequestGet() {
-  return json({ ok: false, message: "Use POST with {password, post} or {password, settings, adsTxt}." }, 405);
+  return json({ ok: false, message: "Use POST with {password, post} or {password, settings, adsTxt} or {password, image}." }, 405);
 }
 
 export async function onRequestPost(context) {
@@ -132,6 +149,63 @@ export async function onRequestPost(context) {
     "User-Agent": "SmartToolkit-Admin",
     "X-GitHub-Api-Version": "2022-11-28",
   };
+
+  // Thumbnail upload branch: {password, image:{path, content}}
+  // Writes ONE file under thumbs/ only. Content is base64, or a data: URL
+  // (the data: prefix is stripped). No post is needed here.
+  if (body.image !== undefined) {
+    const img = body.image || {};
+    const rawPath = typeof img.path === "string" ? img.path.trim() : "";
+    const pm = rawPath.match(/^thumbs\/([a-z0-9][a-z0-9-]*)\.(svg|png|jpg|jpeg|webp)$/);
+    if (!pm) {
+      return json({ ok: false, error: "Image path must be thumbs/<slug>.<svg|png|jpg|jpeg|webp>." }, 400);
+    }
+    const ext = pm[2];
+    let b64 = typeof img.content === "string" ? img.content.trim() : "";
+    if (!b64) return json({ ok: false, error: "Image content is empty." }, 400);
+    const dm = b64.match(/^data:image\/(svg\+xml|png|jpe?g|webp);base64,([A-Za-z0-9+/=\s]+)$/);
+    if (dm) {
+      const mimeFor = { "svg+xml": "svg", png: "png", jpg: "jpg", jpeg: "jpg", webp: "webp" };
+      if (mimeFor[dm[1]] !== ext && !(dm[1] === "jpeg" && ext === "jpeg")) {
+        return json({ ok: false, error: "Image type does not match its file extension." }, 400);
+      }
+      b64 = dm[2];
+    }
+    b64 = b64.replace(/\s/g, "");
+    if (!/^[A-Za-z0-9+/]+={0,2}$/.test(b64)) {
+      return json({ ok: false, error: "Image content must be base64." }, 400);
+    }
+    // ~300KB file max (base64 of 300KB is ~400KB); SVG thumbs are ~1-2KB.
+    if (b64.length > 450000) {
+      return json({ ok: false, error: "Image too large (max ~300KB — compress it first)." }, 400);
+    }
+    if (ext === "svg") {
+      let svgText = "";
+      try {
+        svgText = b64decode(b64);
+      } catch {
+        return json({ ok: false, error: "Image content must be base64." }, 400);
+      }
+      if (svgText.length > 100000 || !svgText.includes("<svg")) {
+        return json({ ok: false, error: "Not a valid SVG image." }, 400);
+      }
+      const low = svgText.toLowerCase();
+      if (low.includes("<script") || low.includes("javascript:") || low.includes("<foreignobject") || low.includes("<iframe") || low.includes("<object") || low.includes("<embed") || /on\w+\s*=/.test(low)) {
+        return json({ ok: false, error: "SVG contains scripts or event handlers — not allowed." }, 400);
+      }
+    }
+    try {
+      await ghPutB64(headers, rawPath, b64, `Upload thumbnail ${rawPath} via admin`);
+    } catch (e) {
+      return json({ ok: false, error: "Image save failed. Check that GITHUB_TOKEN has Contents write access to this repo only." }, 502);
+    }
+    return json({
+      ok: true,
+      updated: [rawPath],
+      url: "/" + rawPath,
+      message: `Thumbnail uploaded (${rawPath}). GitHub may take under a minute to serve the new file.`,
+    });
+  }
 
   // Ads & Tracking settings branch: {password, settings?, adsTxt?}
   // No post is needed here. Writes site-settings.json and/or ads.txt.
