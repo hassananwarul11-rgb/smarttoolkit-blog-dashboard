@@ -60,6 +60,9 @@ const SEED_SLUGS = [
   'income-tax-new-regime-vs-old-regime-which-is-better','how-to-calculate-zakat-on-business-stocks-property','sip-calculator-vs-lumpsum-which-grows-more','passport-size-photo-maker-visa-sizes','resize-image-for-whatsapp-dp-without-cropping','how-to-file-late-income-tax-return-belated-revised','credit-card-interest-free-period-explained','fixed-deposit-tax-tds-rates-explained','house-construction-cost-breakdown-material-labour','what-internet-speed-mbps-means-measured','days-between-two-dates-in-excel-formula','how-to-calculate-percentage-increase-and-decrease','bmi-for-kids-and-teens-healthy-ranges','how-much-tip-for-delivery-uber-eats-doordash',
   'sip-calculator-swp-withdrawal-plan-explained',
   'sip-calculator-with-inflation-adjusted-returns',
+  'generate-uuid-online-guide',
+  'unix-epoch-converter-epoch-time-to-date',
+  'base64-encoding-explained-guide',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
@@ -76,6 +79,13 @@ export async function onRequest(context) {
     // "admin" as a post slug and answers the site's 404 page.
     return context.next();
   }
+const REDIRECTS = {
+  'tools/bmi-calculator': '/tools/bmi',
+  'tools/pakistan-salary-tax-calculator': '/tools/paktax',
+  'blog/base64-encoding-explained-guide': '/base64-encoding-explained-guide',
+};
+  const clean = path.replace(/\/+$/, '').replace(/^\/+/, '');
+  if (REDIRECTS[clean]) return Response.redirect(new URL(REDIRECTS[clean], url), 301);
   const parts = path.replace(/^\/+/, '').split('/').filter(Boolean);
   const known =
     parts[0] === 'tools' || parts[0] === 'blog' ||
