@@ -83,6 +83,8 @@ const REDIRECTS = {
   'tools/bmi-calculator': '/tools/bmi',
   'tools/pakistan-salary-tax-calculator': '/tools/paktax',
   'blog/base64-encoding-explained-guide': '/base64-encoding-explained-guide',
+  'blog/data-breach-what-to-do': '/privacy-policy',
+  'tools/gold-rate-converter.html': '/tools/unit',
 };
   const clean = path.replace(/\/+$/, '').replace(/^\/+/, '');
   if (REDIRECTS[clean]) return Response.redirect(new URL(REDIRECTS[clean], url), 301);
