@@ -1,3 +1,9 @@
+/tools/bmi-calculator /tools/bmi 301
+/tools/bmi-calculator/ /tools/bmi 301
+/tools/pakistan-salary-tax-calculator /tools/paktax 301
+/tools/pakistan-salary-tax-calculator/ /tools/paktax 301
+/blog/base64-encoding-explained-guide /base64-encoding-explained-guide 301
+/blog/base64-encoding-explained-guide/ /base64-encoding-explained-guide 301
 # Clean URLs for the single-page site: Cloudflare Pages serves index.html
 # for these paths (200 rewrite, URL stays clean), so /tools/image-kb and
 # /posts/<slug> work on refresh and share. /api/*, /admin.html, /posts.json
@@ -94,3 +100,6 @@
 /how-much-tip-for-delivery-uber-eats-doordash /index.html 200
 /sip-calculator-swp-withdrawal-plan-explained /index.html 200
 /sip-calculator-with-inflation-adjusted-returns /index.html 200
+/generate-uuid-online-guide /index.html 200
+/unix-epoch-converter-epoch-time-to-date /index.html 200
+/base64-encoding-explained-guide /index.html 200
