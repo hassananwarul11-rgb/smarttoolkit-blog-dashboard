@@ -93,12 +93,14 @@ const REDIRECTS = {
     parts[0] === 'tools' || parts[0] === 'blog' ||
     parts[0].startsWith('page-') || STATIC_PAGES.includes(parts[0]) ||
     SEED_SLUGS.includes(parts[0]);
+  let livePosts = null;
   if (!known && parts.length === 1) {
     // A future admin post slug is not in SEED_SLUGS: check live posts.json.
     try {
       const r = await fetch('https://raw.githubusercontent.com/hassananwarul11-rgb/smarttoolkit-blog-dashboard/main/posts.json', { cf: { cacheTtl: 300 } });
       if (r.ok) {
         const list = await r.json();
+        livePosts = list;
         if (!Array.isArray(list) || !list.some((p) => p.slug === parts[0])) {
           const shell = await context.env.ASSETS.fetch(new URL('/index.html', url));
           return new Response(shell.body, { status: 404, headers: shell.headers });
@@ -106,5 +108,117 @@ const REDIRECTS = {
       }
     } catch (e) { /* fall through to index.html on fetch failure */ }
   }
-  return context.env.ASSETS.fetch(new URL('/index.html', url));
+  return serveWithMeta(context, url, parts, livePosts);
+}
+
+// ---------- server-side meta injection (SEO round 2) ----------
+const POSTS_JSON_URL = 'https://raw.githubusercontent.com/hassananwarul11-rgb/smarttoolkit-blog-dashboard/main/posts.json';
+
+function escAttr(s) {
+  return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function unesc(s) {
+  return String(s ?? '').replace(/\\'/g, "'").replace(/\\\\/g, '\\');
+}
+function fieldAfter(text, start, field, prefix) {
+  const pat = (prefix ? '(?:,|\\{)' : '') + field + ":'((?:[^'\\\\]|\\\\.)*)'";
+  const m = new RegExp(pat).exec(text.slice(start, start + 8000));
+  return m ? unesc(m[1]) : '';
+}
+function articleLd(p) {
+  const g = [
+    { '@type': 'Article', headline: p.title, description: p.meta, image: 'https://smarttoolkit.space/thumbs/' + p.slug + '.svg', mainEntityOfPage: 'https://smarttoolkit.space/' + p.slug, author: { '@type': 'Person', name: 'Ayesha', jobTitle: 'Editor, SmartToolkit' } },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://smarttoolkit.space/' },
+      { '@type': 'ListItem', position: 2, name: 'Blog & Guides', item: 'https://smarttoolkit.space/blog' },
+      { '@type': 'ListItem', position: 3, name: p.title, item: 'https://smarttoolkit.space/' + p.slug },
+    ] },
+  ];
+  if (p.date) g[0].datePublished = p.date;
+  return JSON.stringify({ '@context': 'https://schema.org', '@graph': g });
+}
+function toolLd(x) {
+  return JSON.stringify({ '@context': 'https://schema.org', '@graph': [
+    { '@type': 'WebApplication', name: x.t, applicationCategory: 'UtilitiesApplication', operatingSystem: 'Any', offers: { '@type': 'Offer', price: '0' }, description: x.meta },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://smarttoolkit.space/' },
+      { '@type': 'ListItem', position: 2, name: 'Tools', item: 'https://smarttoolkit.space/tools' },
+      { '@type': 'ListItem', position: 3, name: x.t, item: 'https://smarttoolkit.space/tools/' + x.id },
+    ] },
+  ] });
+}
+function postMetaFromHtml(html, slug) {
+  const i = html.indexOf("slug:'" + slug + "'");
+  if (i < 0) return null;
+  const start = html.lastIndexOf("{id:'p", i);
+  const seg = html.slice(start < 0 ? i : start, i + 8000);
+  const title = fieldAfter(seg, 0, 'title');
+  const seo = fieldAfter(seg, 0, 'seo');
+  const meta = fieldAfter(seg, 0, 'meta');
+  const date = fieldAfter(seg, 0, 'date');
+  if (!seo || !meta) return null;
+  return { title: seo, desc: meta, image: 'https://smarttoolkit.space/thumbs/' + slug + '.svg', canon: 'https://smarttoolkit.space/' + slug, ld: articleLd({ title: title || seo, meta, date, slug }) };
+}
+function toolMetaFromHtml(html, id) {
+  const i = html.indexOf("id:'" + id + "'");
+  if (i < 0) return null;
+  const seg = html.slice(i, i + 3000);
+  const t = fieldAfter(seg, 0, 't', true);
+  const seo = fieldAfter(seg, 0, 'seo');
+  const meta = fieldAfter(seg, 0, 'meta');
+  if (!seo || !meta) return null;
+  return { title: seo, desc: meta, image: 'https://smarttoolkit.space/shots/' + id + '.svg', canon: 'https://smarttoolkit.space/tools/' + id, ld: toolLd({ id, t: t || seo, meta }) };
+}
+function injectMeta(html, m) {
+  const rep1 = (re, build) => { html = html.replace(re, function () { return build(Array.prototype.slice.call(arguments)); }); };
+  rep1(/<title>[^<]*<\/title>/, () => '<title>' + escAttr(m.title) + '</title>');
+  rep1(/(<meta[^>]*name="description"[^>]*content=")[^"]*(")/, (g) => g[1] + escAttr(m.desc) + g[2]);
+  rep1(/(<meta[^>]*property="og:title"[^>]*content=")[^"]*(")/, (g) => g[1] + escAttr(m.title) + g[2]);
+  rep1(/(<meta[^>]*property="og:description"[^>]*content=")[^"]*(")/, (g) => g[1] + escAttr(m.desc) + g[2]);
+  rep1(/(<meta[^>]*property="og:image"[^>]*content=")[^"]*(")/, (g) => g[1] + escAttr(m.image) + g[2]);
+  rep1(/(<meta[^>]*property="og:url"[^>]*content=")[^"]*(")/, (g) => g[1] + escAttr(m.canon) + g[2]);
+  rep1(/(<meta[^>]*name="twitter:title"[^>]*content=")[^"]*(")/, (g) => g[1] + escAttr(m.title) + g[2]);
+  rep1(/(<meta[^>]*name="twitter:description"[^>]*content=")[^"]*(")/, (g) => g[1] + escAttr(m.desc) + g[2]);
+  rep1(/(<meta[^>]*name="twitter:image"[^>]*content=")[^"]*(")/, (g) => g[1] + escAttr(m.image) + g[2]);
+  rep1(/(<link[^>]*rel="canonical"[^>]*href=")[^"]*(")/, (g) => g[1] + escAttr(m.canon) + g[2]);
+  if (m.ld) rep1(/<script id="ld-dynamic" type="application\/ld\+json">.*?<\/script>/, () => '<script id="ld-dynamic" type="application/ld+json">' + m.ld + '</script>');
+  return html;
+}
+async function serveWithMeta(context, url, parts, livePosts) {
+  const res = await context.env.ASSETS.fetch(new URL('/index.html', url));
+  let html;
+  try { html = await res.text(); } catch (e) { return res; }
+  try {
+    let m = null;
+    if (parts[0] === 'tools' && parts[1]) {
+      m = toolMetaFromHtml(html, parts[1]);
+    } else if (parts.length === 1 && !STATIC_PAGES.includes(parts[0])) {
+      m = postMetaFromHtml(html, parts[0]);
+      if (!m) {
+        let list = livePosts;
+        if (!list) {
+          try {
+            const r = await fetch(POSTS_JSON_URL, { cf: { cacheTtl: 300 } });
+            if (r.ok) list = await r.json();
+          } catch (e) { /* ignore: fall through to plain shell */ }
+        }
+        if (Array.isArray(list)) {
+          const p = list.find((x) => x.slug === parts[0]);
+          if (p && p.seo && p.meta) {
+            m = { title: p.seo, desc: p.meta, image: 'https://smarttoolkit.space/thumbs/' + p.slug + '.svg', canon: 'https://smarttoolkit.space/' + p.slug, ld: articleLd({ title: p.title || p.seo, meta: p.meta, date: p.date || '', slug: p.slug }) };
+          }
+        }
+      }
+    }
+    if (m) {
+      const out = injectMeta(html, m);
+      const h = new Headers(res.headers);
+      h.set('content-type', 'text/html;charset=UTF-8');
+      h.delete('content-length');
+      return new Response(out, { status: res.status, headers: h });
+    }
+  } catch (e) { /* fall through: serve the plain shell */ }
+  const h2 = new Headers(res.headers);
+  h2.delete('content-length');
+  return new Response(html, { status: res.status, headers: h2 });
 }
