@@ -63,6 +63,12 @@ const SEED_SLUGS = [
   'generate-uuid-online-guide',
   'unix-epoch-converter-epoch-time-to-date',
   'base64-encoding-explained-guide',
+  'sip-calculator-with-step-up-yearly-increase',
+  'sip-xirr-calculator-real-returns-explained',
+  'passport-size-photo-maker-a4-sheet-print',
+  'passport-size-photo-maker-background-change-white',
+  'passport-size-photo-maker-with-name-and-date',
+  'convert-image-to-pdf-under-200kb',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
