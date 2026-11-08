@@ -69,6 +69,12 @@ const SEED_SLUGS = [
   'passport-size-photo-maker-background-change-white',
   'passport-size-photo-maker-with-name-and-date',
   'convert-image-to-pdf-under-200kb',
+  'compress-multiple-pdf-to-100kb-at-once',
+  'compress-pdf-to-200kb-without-losing-quality',
+  'resize-image-for-whatsapp-status',
+  'compound-interest-excel-formula',
+  'compound-interest-half-yearly-formula-explained',
+  'compound-interest-loan-how-interest-grows',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
