@@ -97,6 +97,7 @@ export async function onRequest(context) {
     return context.next();
   }
 const REDIRECTS = {
+  'home': '/',
   'tools/bmi-calculator': '/tools/bmi',
   'tools/pakistan-salary-tax-calculator': '/tools/paktax',
   'blog/base64-encoding-explained-guide': '/base64-encoding-explained-guide',
