@@ -75,6 +75,11 @@ const SEED_SLUGS = [
   'compound-interest-excel-formula',
   'compound-interest-half-yearly-formula-explained',
   'compound-interest-loan-how-interest-grows',
+  'compound-interest-questions-and-answers-exams',
+  'fixed-deposit-calculator-excel-formula-sheet',
+  'fixed-deposit-monthly-payout-interest-explained',
+  'fixed-deposit-senior-citizen-rates-benefits',
+  'how-long-will-my-money-last-in-retirement',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
