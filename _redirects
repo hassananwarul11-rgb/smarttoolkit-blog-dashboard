@@ -7,6 +7,8 @@
 /tools/pakistan-salary-tax-calculator/ /tools/paktax 301
 /blog/base64-encoding-explained-guide /base64-encoding-explained-guide 301
 /blog/base64-encoding-explained-guide/ /base64-encoding-explained-guide 301
+/home / 301
+/home/ / 301
 # Clean URLs for the single-page site: Cloudflare Pages serves index.html
 # for these paths (200 rewrite, URL stays clean), so /tools/image-kb and
 # /posts/<slug> work on refresh and share. /api/*, /admin.html, /posts.json
@@ -118,3 +120,8 @@
 /compound-interest-excel-formula /index.html 200
 /compound-interest-half-yearly-formula-explained /index.html 200
 /compound-interest-loan-how-interest-grows /index.html 200
+/compound-interest-questions-and-answers-exams /index.html 200
+/fixed-deposit-calculator-excel-formula-sheet /index.html 200
+/fixed-deposit-monthly-payout-interest-explained /index.html 200
+/fixed-deposit-senior-citizen-rates-benefits /index.html 200
+/how-long-will-my-money-last-in-retirement /index.html 200
