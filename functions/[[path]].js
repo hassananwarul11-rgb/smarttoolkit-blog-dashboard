@@ -80,6 +80,7 @@ const SEED_SLUGS = [
   'fixed-deposit-monthly-payout-interest-explained',
   'fixed-deposit-senior-citizen-rates-benefits',
   'how-long-will-my-money-last-in-retirement',
+  'retirement-calculator-for-couples-plan-together',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
