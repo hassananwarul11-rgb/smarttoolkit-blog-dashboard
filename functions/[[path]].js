@@ -81,6 +81,12 @@ const SEED_SLUGS = [
   'fixed-deposit-senior-citizen-rates-benefits',
   'how-long-will-my-money-last-in-retirement',
   'retirement-calculator-for-couples-plan-together',
+  'retirement-calculator-for-government-employees',
+  'retirement-countdown-calculator-days-left',
+  'home-loan-emi-excel-formula-free-sheet',
+  'home-loan-emi-per-lakh-10-20-year-table',
+  'home-loan-emi-tax-benefit-old-new-regime',
+  'missed-home-loan-emi-charges-consequences',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
