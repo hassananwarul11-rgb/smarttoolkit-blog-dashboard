@@ -86,7 +86,9 @@ const SEED_SLUGS = [
   'home-loan-emi-excel-formula-free-sheet',
   'home-loan-emi-per-lakh-10-20-year-table',
   'home-loan-emi-tax-benefit-old-new-regime',
-  'missed-home-loan-emi-charges-consequences',
+  'home-loan-emi-tax-benefit-old-new-regime',
+  'how-to-file-income-tax-return-for-deceased-person',
+  'how-to-file-income-tax-return-for-pensioners',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
@@ -96,8 +98,13 @@ export async function onRequest(context) {
     path === '/' || path === '/index.html' ||
     path === '/admin.html' || path === '/admin' || path === '/admin/' ||
     path === '/posts.json' || path === '/_redirects' ||
-    path.startsWith('/api/') || path.includes('.')
+    path.startsWith('/api/') || (path.includes('.') && !path.startsWith('/tools/'))
   ) {
+    // NOTE: /tools/* is excluded from the dotted-path pass-through, so a
+    // literal /tools/${x.id} URL (Google found these in the JS source) is
+    // decided by the Function (404 for unknown ids) instead of the
+    // /tools/* -> index.html 200 rewrite in _redirects. Real dotted tool
+    // URLs (tools/gold-rate-converter.html) still 301 via REDIRECTS below.
     // NOTE: /admin.html redirects to the clean URL /admin,
     // so /admin must pass through too — otherwise this catch-all treats
     // "admin" as a post slug and answers the site's 404 page.
@@ -217,6 +224,14 @@ async function serveWithMeta(context, url, parts, livePosts) {
     let m = null;
     if (parts[0] === 'tools' && parts[1]) {
       m = toolMetaFromHtml(html, parts[1]);
+      if (!m) {
+        // Unknown tool id (e.g. a literal /tools/${x.id} URL Google found by
+        // scanning the JS source): real 404, not a 200 homepage shell, so
+        // Google drops it instead of listing it as a canonical duplicate.
+        const h0 = new Headers(res.headers);
+        h0.delete('content-length');
+        return new Response(html, { status: 404, headers: h0 });
+      }
     } else if (parts.length === 1 && !STATIC_PAGES.includes(parts[0])) {
       m = postMetaFromHtml(html, parts[0]);
       if (!m) {
