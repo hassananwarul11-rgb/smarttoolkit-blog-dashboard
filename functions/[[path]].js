@@ -89,6 +89,10 @@ const SEED_SLUGS = [
   'home-loan-emi-tax-benefit-old-new-regime',
   'how-to-file-income-tax-return-for-deceased-person',
   'how-to-file-income-tax-return-for-pensioners',
+  'how-to-file-nil-income-tax-return-online',
+  'which-itr-form-should-you-file-itr-1-itr-4',
+  'credit-card-balance-transfer-lower-interest',
+  'credit-card-minimum-payment-trap',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
