@@ -104,6 +104,7 @@ const SEED_SLUGS = [
   'bijli-bill-calculator-by-appliance-watts',
   'bijli-bill-calculator-in-excel-formula',
   'how-to-check-bijli-bill-online-and-pay',
+  'house-construction-cost-by-plot-size-20x30-30x40',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
