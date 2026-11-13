@@ -103,6 +103,7 @@ const SEED_SLUGS = [
   'sq-ft-to-sq-meter-convert-land-area',
   'bijli-bill-calculator-by-appliance-watts',
   'bijli-bill-calculator-in-excel-formula',
+  'how-to-check-bijli-bill-online-and-pay',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
