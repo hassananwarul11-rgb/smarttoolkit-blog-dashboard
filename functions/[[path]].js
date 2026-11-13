@@ -93,6 +93,15 @@ const SEED_SLUGS = [
   'which-itr-form-should-you-file-itr-1-itr-4',
   'credit-card-balance-transfer-lower-interest',
   'credit-card-minimum-payment-trap',
+  'credit-card-interest-on-cash-withdrawal',
+  'credit-card-interest-vs-personal-loan-interest',
+  'simple-interest-on-loans-emi-home-gold',
+  'business-loan-eligibility-documents-msme',
+  'car-loan-eligibility-how-much-you-can-get',
+  'home-loan-eligibility-documents-salary',
+  'personal-loan-eligibility-emi-calculator',
+  'sq-ft-to-sq-meter-convert-land-area',
+  'bijli-bill-calculator-by-appliance-watts',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
