@@ -102,6 +102,7 @@ const SEED_SLUGS = [
   'personal-loan-eligibility-emi-calculator',
   'sq-ft-to-sq-meter-convert-land-area',
   'bijli-bill-calculator-by-appliance-watts',
+  'bijli-bill-calculator-in-excel-formula',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
