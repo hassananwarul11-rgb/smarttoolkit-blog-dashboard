@@ -109,6 +109,7 @@ const SEED_SLUGS = [
   'what-internet-speed-test-is-most-accurate',
   'days-between-two-dates-in-google-sheets',
   'working-days-between-two-dates-excluding-weekends',
+  'how-to-calculate-percentage-in-excel',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
