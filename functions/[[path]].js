@@ -110,6 +110,7 @@ const SEED_SLUGS = [
   'days-between-two-dates-in-google-sheets',
   'working-days-between-two-dates-excluding-weekends',
   'how-to-calculate-percentage-in-excel',
+  'how-to-calculate-percentage-profit-and-margin',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
