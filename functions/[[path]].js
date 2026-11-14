@@ -107,6 +107,7 @@ const SEED_SLUGS = [
   'house-construction-cost-by-plot-size-20x30-30x40',
   'house-construction-cost-calculator-excel-template',
   'what-internet-speed-test-is-most-accurate',
+  'days-between-two-dates-in-google-sheets',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
