@@ -113,6 +113,7 @@ const SEED_SLUGS = [
   'how-to-calculate-percentage-profit-and-margin',
   'how-to-calculate-percentage-yield-in-chemistry',
   'how-to-calculate-salary-hike-percentage',
+  'what-percentage-is-x-of-y',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
