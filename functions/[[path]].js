@@ -115,6 +115,7 @@ const SEED_SLUGS = [
   'how-to-calculate-salary-hike-percentage',
   'what-percentage-is-x-of-y',
   'how-to-calculate-grade-from-marks-in-excel',
+  'income-tax-slabs-2025-26-for-business',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
