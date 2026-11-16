@@ -119,6 +119,7 @@ const SEED_SLUGS = [
   'income-tax-slabs-2025-26-for-senior-citizens',
   'gpa-calculator-in-excel',
   'what-is-weighted-gpa-how-to-calculate',
+  'healthy-weight-for-your-height-bmi-guide',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
