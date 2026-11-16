@@ -116,6 +116,7 @@ const SEED_SLUGS = [
   'what-percentage-is-x-of-y',
   'how-to-calculate-grade-from-marks-in-excel',
   'income-tax-slabs-2025-26-for-business',
+  'income-tax-slabs-2025-26-for-senior-citizens',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
