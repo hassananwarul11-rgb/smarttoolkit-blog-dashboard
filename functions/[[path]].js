@@ -123,6 +123,7 @@ const SEED_SLUGS = [
   'how-many-calories-do-you-burn-in-a-day',
   'how-many-calories-to-gain-weight-per-day',
   'how-many-calories-to-lose-weight-per-day',
+  'how-much-water-per-day-by-weight',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
