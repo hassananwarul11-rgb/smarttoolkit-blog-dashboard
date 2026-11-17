@@ -122,6 +122,7 @@ const SEED_SLUGS = [
   'healthy-weight-for-your-height-bmi-guide',
   'how-many-calories-do-you-burn-in-a-day',
   'how-many-calories-to-gain-weight-per-day',
+  'how-many-calories-to-lose-weight-per-day',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
