@@ -125,6 +125,7 @@ const SEED_SLUGS = [
   'how-many-calories-to-lose-weight-per-day',
   'how-much-water-per-day-by-weight',
   'how-much-water-should-kids-drink-per-day',
+  'how-much-water-to-drink-to-lose-weight',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
