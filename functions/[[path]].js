@@ -121,6 +121,7 @@ const SEED_SLUGS = [
   'what-is-weighted-gpa-how-to-calculate',
   'healthy-weight-for-your-height-bmi-guide',
   'how-many-calories-do-you-burn-in-a-day',
+  'how-many-calories-to-gain-weight-per-day',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
