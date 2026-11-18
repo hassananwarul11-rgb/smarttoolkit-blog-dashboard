@@ -129,6 +129,7 @@ const SEED_SLUGS = [
   'how-much-water-while-pregnant-daily-guide',
   'how-much-tip-should-you-leave-your-hairdresser',
   'how-much-to-tip-at-a-hotel-housekeeping-valet',
+  'grams-to-cups-cooking-converter-guide',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
