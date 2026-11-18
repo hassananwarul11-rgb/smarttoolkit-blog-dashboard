@@ -127,6 +127,7 @@ const SEED_SLUGS = [
   'how-much-water-should-kids-drink-per-day',
   'how-much-water-to-drink-to-lose-weight',
   'how-much-water-while-pregnant-daily-guide',
+  'how-much-tip-should-you-leave-your-hairdresser',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
