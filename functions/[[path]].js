@@ -132,6 +132,7 @@ const SEED_SLUGS = [
   'grams-to-cups-cooking-converter-guide',
   'how-to-calculate-words-per-minute-wpm',
   'how-to-check-word-count-in-google-docs',
+  'how-to-check-word-count-in-microsoft-word',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
