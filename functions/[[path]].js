@@ -130,6 +130,7 @@ const SEED_SLUGS = [
   'how-much-tip-should-you-leave-your-hairdresser',
   'how-much-to-tip-at-a-hotel-housekeeping-valet',
   'grams-to-cups-cooking-converter-guide',
+  'how-to-calculate-words-per-minute-wpm',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
