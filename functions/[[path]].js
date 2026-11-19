@@ -135,6 +135,7 @@ const SEED_SLUGS = [
   'how-to-check-word-count-in-microsoft-word',
   'how-to-count-words-in-a-pdf-file',
   'how-to-count-words-in-excel-countif-formula',
+  'character-count-ucas-personal-statement-guide',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
