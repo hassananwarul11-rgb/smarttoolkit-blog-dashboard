@@ -138,6 +138,7 @@ const SEED_SLUGS = [
   'character-count-ucas-personal-statement-guide',
   'character-limits-on-social-media-x-instagram',
   'how-to-check-character-count-in-word-docs',
+  'how-to-count-characters-in-excel-len-formula',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
