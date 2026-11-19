@@ -136,6 +136,7 @@ const SEED_SLUGS = [
   'how-to-count-words-in-a-pdf-file',
   'how-to-count-words-in-excel-countif-formula',
   'character-count-ucas-personal-statement-guide',
+  'character-limits-on-social-media-x-instagram',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
