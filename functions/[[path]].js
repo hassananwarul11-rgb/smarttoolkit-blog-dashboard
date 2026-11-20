@@ -140,6 +140,7 @@ const SEED_SLUGS = [
   'how-to-check-character-count-in-word-docs',
   'how-to-count-characters-in-excel-len-formula',
   'income-tax-new-regime-calculator-excel-formula',
+  'income-tax-new-regime-deductions-list',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
