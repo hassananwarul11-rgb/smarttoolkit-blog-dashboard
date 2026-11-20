@@ -141,6 +141,7 @@ const SEED_SLUGS = [
   'how-to-count-characters-in-excel-len-formula',
   'income-tax-new-regime-calculator-excel-formula',
   'income-tax-new-regime-deductions-list',
+  'how-to-calculate-zakat-al-fitr-amount',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
