@@ -143,6 +143,7 @@ const SEED_SLUGS = [
   'income-tax-new-regime-deductions-list',
   'how-to-calculate-zakat-al-fitr-amount',
   'how-to-calculate-zakat-on-livestock-and-crops',
+  'how-to-calculate-zakat-with-debt-and-loans',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
