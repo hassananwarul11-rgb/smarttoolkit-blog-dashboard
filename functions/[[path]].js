@@ -146,6 +146,7 @@ const SEED_SLUGS = [
   'how-to-calculate-zakat-with-debt-and-loans',
   'gst-calculator-excel-formula-sheet',
   'gst-calculator-on-gold-jewellery',
+  'gst-calculator-real-estate-home-purchase',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
