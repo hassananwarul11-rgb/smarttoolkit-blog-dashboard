@@ -148,6 +148,7 @@ const SEED_SLUGS = [
   'gst-calculator-on-gold-jewellery',
   'gst-calculator-real-estate-home-purchase',
   'cgpa-to-percentage-conversion-certificate-how-to-get',
+  'emi-calculator-excel-formula-sheet',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
