@@ -155,6 +155,7 @@ const SEED_SLUGS = [
   'how-to-read-credit-card-statement-explained',
   'rent-vs-buy-house-which-is-better',
   'how-to-increase-cibil-score-step-by-step',
+  'how-to-read-salary-slip-explained',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
