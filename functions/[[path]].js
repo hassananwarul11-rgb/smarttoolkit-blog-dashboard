@@ -153,6 +153,7 @@ const SEED_SLUGS = [
   'compare-code-side-by-side-diff-checker',
   'fixed-deposit-vs-sip-vs-ppf-which-is-better',
   'how-to-read-credit-card-statement-explained',
+  'rent-vs-buy-house-which-is-better',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
