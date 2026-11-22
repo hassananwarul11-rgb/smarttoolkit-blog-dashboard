@@ -151,6 +151,7 @@ const SEED_SLUGS = [
   'emi-calculator-excel-formula-sheet',
   'emi-calculator-reducing-vs-flat-rate-explained',
   'compare-code-side-by-side-diff-checker',
+  'fixed-deposit-vs-sip-vs-ppf-which-is-better',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
