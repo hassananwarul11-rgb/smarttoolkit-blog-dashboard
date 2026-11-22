@@ -154,6 +154,7 @@ const SEED_SLUGS = [
   'fixed-deposit-vs-sip-vs-ppf-which-is-better',
   'how-to-read-credit-card-statement-explained',
   'rent-vs-buy-house-which-is-better',
+  'how-to-increase-cibil-score-step-by-step',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
