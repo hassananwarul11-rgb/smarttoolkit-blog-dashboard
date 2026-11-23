@@ -157,6 +157,7 @@ const SEED_SLUGS = [
   'how-to-increase-cibil-score-step-by-step',
   'how-to-read-salary-slip-explained',
   'income-tax-slabs-2026-27-new-regime-guide',
+  'how-to-build-an-emergency-fund-step-by-step',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
