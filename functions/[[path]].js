@@ -156,6 +156,7 @@ const SEED_SLUGS = [
   'rent-vs-buy-house-which-is-better',
   'how-to-increase-cibil-score-step-by-step',
   'how-to-read-salary-slip-explained',
+  'income-tax-slabs-2026-27-new-regime-guide',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
