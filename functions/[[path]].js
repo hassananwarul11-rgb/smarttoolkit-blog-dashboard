@@ -161,6 +161,7 @@ const SEED_SLUGS = [
   'nps-vs-ppf-which-is-better-for-retirement',
   'how-to-calculate-gratuity-formula-explained',
   'how-to-read-mutual-fund-statement-explained',
+  'gold-loan-vs-personal-loan-which-is-cheaper',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
