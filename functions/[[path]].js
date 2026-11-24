@@ -162,6 +162,7 @@ const SEED_SLUGS = [
   'how-to-calculate-gratuity-formula-explained',
   'how-to-read-mutual-fund-statement-explained',
   'gold-loan-vs-personal-loan-which-is-cheaper',
+  'how-to-pay-off-credit-card-debt-fast-plan',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
