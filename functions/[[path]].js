@@ -160,6 +160,7 @@ const SEED_SLUGS = [
   'how-to-build-an-emergency-fund-step-by-step',
   'nps-vs-ppf-which-is-better-for-retirement',
   'how-to-calculate-gratuity-formula-explained',
+  'how-to-read-mutual-fund-statement-explained',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
