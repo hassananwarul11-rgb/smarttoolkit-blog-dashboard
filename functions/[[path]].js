@@ -163,6 +163,7 @@ const SEED_SLUGS = [
   'how-to-read-mutual-fund-statement-explained',
   'gold-loan-vs-personal-loan-which-is-cheaper',
   'how-to-pay-off-credit-card-debt-fast-plan',
+  'how-to-check-cibil-score-free-online',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
