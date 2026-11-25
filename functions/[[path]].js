@@ -167,6 +167,7 @@ const SEED_SLUGS = [
   'how-to-calculate-hra-exemption-formula',
   'term-insurance-vs-life-insurance-which-is-better',
   'senior-citizen-savings-scheme-interest-rate',
+  'how-to-withdraw-epf-online-rules',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
