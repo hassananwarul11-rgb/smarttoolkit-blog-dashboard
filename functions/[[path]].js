@@ -170,6 +170,7 @@ const SEED_SLUGS = [
   'how-to-withdraw-epf-online-rules',
   'how-to-file-itr-for-freelancers',
   'ppf-vs-epf-which-is-better',
+  'sukanya-samriddhi-yojana-interest-rate-guide',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
