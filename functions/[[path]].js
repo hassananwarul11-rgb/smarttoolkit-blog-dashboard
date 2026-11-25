@@ -166,6 +166,7 @@ const SEED_SLUGS = [
   'how-to-check-cibil-score-free-online',
   'how-to-calculate-hra-exemption-formula',
   'term-insurance-vs-life-insurance-which-is-better',
+  'senior-citizen-savings-scheme-interest-rate',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
