@@ -169,6 +169,7 @@ const SEED_SLUGS = [
   'senior-citizen-savings-scheme-interest-rate',
   'how-to-withdraw-epf-online-rules',
   'how-to-file-itr-for-freelancers',
+  'ppf-vs-epf-which-is-better',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
