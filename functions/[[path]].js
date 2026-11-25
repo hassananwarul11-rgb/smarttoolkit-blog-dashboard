@@ -171,6 +171,7 @@ const SEED_SLUGS = [
   'how-to-file-itr-for-freelancers',
   'ppf-vs-epf-which-is-better',
   'sukanya-samriddhi-yojana-interest-rate-guide',
+  'how-to-check-epf-balance-online',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
