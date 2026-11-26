@@ -172,6 +172,7 @@ const SEED_SLUGS = [
   'ppf-vs-epf-which-is-better',
   'sukanya-samriddhi-yojana-interest-rate-guide',
   'how-to-check-epf-balance-online',
+  'how-to-invest-in-mutual-funds-for-beginners',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
