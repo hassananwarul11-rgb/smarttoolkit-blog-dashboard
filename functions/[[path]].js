@@ -175,6 +175,7 @@ const SEED_SLUGS = [
   'how-to-invest-in-mutual-funds-for-beginners',
   'ulip-vs-mutual-fund',
   'how-to-save-money-on-low-salary',
+  'nps-withdrawal-rules',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
