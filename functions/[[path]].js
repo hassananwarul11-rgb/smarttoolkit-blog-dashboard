@@ -176,6 +176,7 @@ const SEED_SLUGS = [
   'ulip-vs-mutual-fund',
   'how-to-save-money-on-low-salary',
   'nps-withdrawal-rules',
+  'home-loan-prepayment-benefits',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
