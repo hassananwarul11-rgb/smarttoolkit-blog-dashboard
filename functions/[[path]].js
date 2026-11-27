@@ -179,6 +179,7 @@ const SEED_SLUGS = [
   'home-loan-prepayment-benefits',
   'rd-vs-fd-which-is-better',
   'elss-vs-ppf-which-is-better',
+  'how-to-claim-health-insurance',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
