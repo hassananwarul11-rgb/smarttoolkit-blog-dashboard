@@ -180,6 +180,7 @@ const SEED_SLUGS = [
   'rd-vs-fd-which-is-better',
   'elss-vs-ppf-which-is-better',
   'how-to-claim-health-insurance',
+  'home-loan-balance-transfer-when-it-saves-money',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
