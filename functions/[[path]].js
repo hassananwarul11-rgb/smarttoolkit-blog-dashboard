@@ -178,6 +178,7 @@ const SEED_SLUGS = [
   'nps-withdrawal-rules',
   'home-loan-prepayment-benefits',
   'rd-vs-fd-which-is-better',
+  'elss-vs-ppf-which-is-better',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
