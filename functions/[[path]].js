@@ -181,6 +181,7 @@ const SEED_SLUGS = [
   'elss-vs-ppf-which-is-better',
   'how-to-claim-health-insurance',
   'home-loan-balance-transfer-when-it-saves-money',
+  'sip-vs-lump-sum-which-is-better-2026',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
