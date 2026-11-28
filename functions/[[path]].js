@@ -182,6 +182,7 @@ const SEED_SLUGS = [
   'how-to-claim-health-insurance',
   'home-loan-balance-transfer-when-it-saves-money',
   'sip-vs-lump-sum-which-is-better-2026',
+  'health-insurance-top-up-vs-super-top-up',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
