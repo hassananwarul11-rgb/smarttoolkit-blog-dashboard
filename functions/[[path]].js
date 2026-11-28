@@ -185,6 +185,7 @@ const SEED_SLUGS = [
   'health-insurance-top-up-vs-super-top-up',
   'how-to-build-credit-score-from-zero',
   'fd-laddering-how-it-works',
+  'how-to-read-mutual-fund-factsheet',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
