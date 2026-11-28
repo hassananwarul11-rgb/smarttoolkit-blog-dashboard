@@ -184,6 +184,7 @@ const SEED_SLUGS = [
   'sip-vs-lump-sum-which-is-better-2026',
   'health-insurance-top-up-vs-super-top-up',
   'how-to-build-credit-score-from-zero',
+  'fd-laddering-how-it-works',
 ];
 const STATIC_PAGES = ['about-us','contact','privacy-policy','disclaimer','terms-of-use'];
 export async function onRequest(context) {
